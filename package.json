@@ -1,0 +1,22 @@
+{
+  "name": "crime-visualization",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "webpack-dev-server --inline --progress",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "d3": "^4.9.1",
+    "proj4": "^2.4.3"
+  },
+  "devDependencies": {
+    "@types/d3": "^4.9.0",
+    "@types/proj4": "^2.3.4",
+    "awesome-typescript-loader": "^3.1.3",
+    "html-webpack-plugin": "^2.28.0",
+    "ts-loader": "^2.1.0",
+    "typescript": "^2.3.3",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
+  }
+}
