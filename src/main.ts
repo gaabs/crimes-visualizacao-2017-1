@@ -13,7 +13,7 @@ const wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
 // console.log(proj4(utm,wgs84,[492890.15, 5457202.22]));
 
 // Load in GeoJSON data
-d3.json("data/vancouver.json", function(json) {
+d3.json("assets/data/vancouver.json", function(json) {
     const projection = d3.geoMercator()
         .translate([width/2, height/2])
         .scale(200000)

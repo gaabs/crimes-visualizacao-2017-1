@@ -3,6 +3,7 @@
  */
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: './src/main.ts',
@@ -26,16 +27,28 @@ module.exports = {
                 options: {
                     silent: true
                 }
-            }
+            },
+            {
+                test: /\.(png|json|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+                loader: 'file-loader?name=assets/[name].[hash].[ext]',
+                exclude: /node_modules/
+            },
         ]
     },
 
-    plugins: [new HtmlWebpackPlugin({
-        template: './src/index.html'
-    })],
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './src/index.html'
+        }),
+        new CopyWebpackPlugin([
+            {
+                from: 'src/assets/',
+                to: 'assets/'
+            }
+        ])
+    ],
 
     devServer: {
-        contentBase: path.join(__dirname, "src", "assets"),
         historyApiFallback: true,
         stats: 'minimal',
         port: 8080
