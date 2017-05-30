@@ -9,7 +9,7 @@ module.exports = {
     entry: './src/main.ts',
 
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'docs'),
         publicPath: 'http://localhost:8080/',
         filename: '[name].js',
         chunkFilename: '[id].chunk.js'

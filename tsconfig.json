@@ -5,7 +5,8 @@
     "sourceMap": true,
     "strict": true,
     "strictNullChecks": false,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "noImplicitAny": false
   },
   "exclude": [
     "node_modules"
