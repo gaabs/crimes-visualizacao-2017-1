@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "http://localhost:8080/";
+/******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 32);
@@ -18866,6 +18866,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var d3 = __webpack_require__(30);
 var proj4x = __webpack_require__(31);
+// import {arc} from "d3-shape";
 var proj4 = proj4x.default;
 var width = 800;
 var height = 800;
@@ -18981,9 +18982,11 @@ function plotData(err, geoData, crimeData) {
         .sort(null)
         .padAngle(0.02)
         .value(function (d) { return d.COUNT; });
+    var radius = 100;
     var arc = d3.arc()
         .padRadius(50);
-    var radius = 100;
+    // .outerRadius(radius)
+    // .innerRadius(radius * 0.6);
     var pies = d3.select("body").selectAll(".pie")
         .data([pieData])
         .enter().append("svg")
@@ -18998,6 +19001,7 @@ function plotData(err, geoData, crimeData) {
         .attr("class", "arc")
         .attr("d", arc.outerRadius(radius).innerRadius(radius * 0.6))
         .style("fill", function (d) { return color(d.data.TYPE); });
+    // const x = arc.outerRadius(radius).innerRadius(radius*0.6);
     // pies.append("text")
     //     .attr("dy", ".35em")
     //     .style("text-anchor", "middle")

@@ -6,7 +6,7 @@
  */
 import * as d3 from "d3";
 import * as proj4x from "proj4";
-import {arc} from "d3-shape";
+// import {arc} from "d3-shape";
 const proj4 = (proj4x as any).default;
 
 const width = 800;
@@ -145,13 +145,15 @@ function plotData(err, geoData, crimeData) {
     var pie = d3.pie()
         .sort(null)
         .padAngle(0.02)
-        .value(d => d.COUNT)
+        .value((d: any) => d.COUNT)
     ;
 
-    var arc = d3.arc()
-        .padRadius(50);
-
     var radius = 100;
+    const arc: any = d3.arc()
+        .padRadius(50);
+        // .outerRadius(radius)
+        // .innerRadius(radius * 0.6);
+
     var pies = d3.select("body").selectAll(".pie")
         .data([pieData])
         .enter().append("svg")
@@ -166,8 +168,9 @@ function plotData(err, geoData, crimeData) {
         .enter().append("path")
         .attr("class", "arc")
         .attr("d", arc.outerRadius(radius).innerRadius(radius * 0.6))
-        .style("fill", d => color(d.data.TYPE)
-        );
+        .style("fill", (d: any) => color(d.data.TYPE));
+
+    // const x = arc.outerRadius(radius).innerRadius(radius*0.6);
 
     // pies.append("text")
     //     .attr("dy", ".35em")

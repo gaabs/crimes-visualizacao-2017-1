@@ -10,7 +10,6 @@ module.exports = {
 
     output: {
         path: path.resolve(__dirname, 'docs'),
-        publicPath: 'http://localhost:8080/',
         filename: '[name].js',
         chunkFilename: '[id].chunk.js'
     },
@@ -51,6 +50,6 @@ module.exports = {
     devServer: {
         historyApiFallback: true,
         stats: 'minimal',
-        port: 8080
+        port: 4200
     }
 };
