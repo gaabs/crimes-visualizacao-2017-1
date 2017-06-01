@@ -10,10 +10,10 @@ import * as proj4x from "proj4";
 // import {arc} from "d3-shape";
 const proj4 = (proj4x as any).default;
 
-import {Crime} from "./crime"
-import * as Map from "./map"
-import * as PieChart from "./pieChart"
-import * as Histogram from "./histogram"
+import {Crime} from "./app/crime"
+import * as Map from "./app/map"
+import * as PieChart from "./app/pieChart"
+import * as Histogram from "./app/histogram"
 
 const width = 800;
 const height = 800;

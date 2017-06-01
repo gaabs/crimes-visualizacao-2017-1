@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 32);
+/******/ 	return __webpack_require__(__webpack_require__.s = 36);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -116,7 +116,7 @@ var SPI = 3.14159265359;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sign__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sign__ = __webpack_require__(6);
 
 
 
@@ -153,8 +153,46 @@ var SPI = 3.14159265359;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Proj__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Point__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_toPoint__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__defs__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__transform__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_mgrs__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__version__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__projs__ = __webpack_require__(89);
+
+
+
+
+
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].defaultDatum = 'WGS84'; //default datum
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].Proj = __WEBPACK_IMPORTED_MODULE_1__Proj__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].WGS84 = new __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].Proj('WGS84');
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].Point = __WEBPACK_IMPORTED_MODULE_2__Point__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].toPoint = __WEBPACK_IMPORTED_MODULE_3__common_toPoint__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].defs = __WEBPACK_IMPORTED_MODULE_4__defs__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].transform = __WEBPACK_IMPORTED_MODULE_5__transform__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].mgrs = __WEBPACK_IMPORTED_MODULE_6_mgrs__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].version = __WEBPACK_IMPORTED_MODULE_7__version__["a" /* default */];
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__projs__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */]);
+/* harmony default export */ __webpack_exports__["default"] = (__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */]);
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sign__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sign__ = __webpack_require__(6);
 
 
 
@@ -164,7 +202,7 @@ var SPI = 3.14159265359;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -173,1776 +211,7 @@ var SPI = 3.14159265359;
 });
 
 /***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(x) {
-  return (1 - 0.25 * x * (1 + x / 16 * (3 + 1.25 * x)));
-});
-
-/***/ }),
 /* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(x) {
-  return (0.375 * x * (1 + 0.25 * x * (1 + 0.46875 * x)));
-});
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(x) {
-  return (0.05859375 * x * x * (1 + 0.75 * x));
-});
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(x) {
-  return (x * x * x * (35 / 3072));
-});
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(e0, e1, e2, e3, phi) {
-  return (e0 * phi - e1 * Math.sin(2 * phi) + e2 * Math.sin(4 * phi) - e3 * Math.sin(6 * phi));
-});
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-
-
-/* harmony default export */ __webpack_exports__["a"] = (function(eccent, ts) {
-  var eccnth = 0.5 * eccent;
-  var con, dphi;
-  var phi = __WEBPACK_IMPORTED_MODULE_0__constants_values__["b" /* HALF_PI */] - 2 * Math.atan(ts);
-  for (var i = 0; i <= 15; i++) {
-    con = eccent * Math.sin(phi);
-    dphi = __WEBPACK_IMPORTED_MODULE_0__constants_values__["b" /* HALF_PI */] - 2 * Math.atan(ts * (Math.pow(((1 - con) / (1 + con)), eccnth))) - phi;
-    phi += dphi;
-    if (Math.abs(dphi) <= 0.0000000001) {
-      return phi;
-    }
-  }
-  //console.log("phi2z has NoConvergence");
-  return -9999;
-});
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-
-
-/* harmony default export */ __webpack_exports__["a"] = (function(eccent, phi, sinphi) {
-  var con = eccent * sinphi;
-  var com = 0.5 * eccent;
-  con = Math.pow(((1 - con) / (1 + con)), com);
-  return (Math.tan(0.5 * (__WEBPACK_IMPORTED_MODULE_0__constants_values__["b" /* HALF_PI */] - phi)) / con);
-});
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__parseCode__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__extend__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__projections__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__deriveConstants__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_Datum__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__datum__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__match__ = __webpack_require__(18);
-
-
-
-
-
-
-
-
-function Projection(srsCode,callback) {
-  if (!(this instanceof Projection)) {
-    return new Projection(srsCode);
-  }
-  callback = callback || function(error){
-    if(error){
-      throw error;
-    }
-  };
-  var json = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__parseCode__["a" /* default */])(srsCode);
-  if(typeof json !== 'object'){
-    callback(srsCode);
-    return;
-  }
-  var ourProj = Projection.projections.get(json.projName);
-  if(!ourProj){
-    callback(srsCode);
-    return;
-  }
-  if (json.datumCode && json.datumCode !== 'none') {
-    var datumDef = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__match__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_4__constants_Datum__["a" /* default */], json.datumCode);
-    if (datumDef) {
-      json.datum_params = datumDef.towgs84 ? datumDef.towgs84.split(',') : null;
-      json.ellps = datumDef.ellipse;
-      json.datumName = datumDef.datumName ? datumDef.datumName : json.datumCode;
-    }
-  }
-  json.k0 = json.k0 || 1.0;
-  json.axis = json.axis || 'enu';
-  json.ellps = json.ellps || 'wgs84';
-  var sphere_ = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__deriveConstants__["a" /* sphere */])(json.a, json.b, json.rf, json.ellps, json.sphere);
-  var ecc = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__deriveConstants__["b" /* eccentricity */])(sphere_.a, sphere_.b, sphere_.rf, json.R_A);
-  var datumObj = json.datum || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__datum__["a" /* default */])(json.datumCode, json.datum_params, sphere_.a, sphere_.b, ecc.es, ecc.ep2);
-
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__extend__["a" /* default */])(this, json); // transfer everything over from the projection because we don't know what we'll need
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__extend__["a" /* default */])(this, ourProj); // transfer all the methods from the projection
-
-  // copy the 4 things over we calulated in deriveConstants.sphere
-  this.a = sphere_.a;
-  this.b = sphere_.b;
-  this.rf = sphere_.rf;
-  this.sphere = sphere_.sphere;
-
-  // copy the 3 things we calculated in deriveConstants.eccentricity
-  this.es = ecc.es;
-  this.e = ecc.e;
-  this.ep2 = ecc.ep2;
-
-  // add in the datum object
-  this.datum = datumObj;
-
-  // init the projection
-  this.init();
-
-  // legecy callback from back in the day when it went to spatialreference.org
-  callback(null, this);
-
-}
-Projection.projections = __WEBPACK_IMPORTED_MODULE_2__projections__["a" /* default */];
-Projection.projections.start();
-/* harmony default export */ __webpack_exports__["a"] = (Projection);
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(a, e, sinphi) {
-  var temp = e * sinphi;
-  return a / Math.sqrt(1 - temp * temp);
-});
-
-/***/ }),
-/* 15 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(ml, e0, e1, e2, e3) {
-  var phi;
-  var dphi;
-
-  phi = ml / e0;
-  for (var i = 0; i < 15; i++) {
-    dphi = (ml - (e0 * phi - e1 * Math.sin(2 * phi) + e2 * Math.sin(4 * phi) - e3 * Math.sin(6 * phi))) / (e0 - 2 * e1 * Math.cos(2 * phi) + 4 * e2 * Math.cos(4 * phi) - 6 * e3 * Math.cos(6 * phi));
-    phi += dphi;
-    if (Math.abs(dphi) <= 0.0000000001) {
-      return phi;
-    }
-  }
-
-  //..reportError("IMLFN-CONV:Latitude failed to converge after 15 iterations");
-  return NaN;
-});
-
-/***/ }),
-/* 16 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(phi, sphi, cphi, en) {
-  cphi *= sphi;
-  sphi *= sphi;
-  return (en[0] * phi - cphi * (en[1] + sphi * (en[2] + sphi * (en[3] + sphi * en[4]))));
-});
-
-/***/ }),
-/* 17 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(eccent, sinphi) {
-  var con;
-  if (eccent > 1.0e-7) {
-    con = eccent * sinphi;
-    return ((1 - eccent * eccent) * (sinphi / (1 - con * con) - (0.5 / eccent) * Math.log((1 - con) / (1 + con))));
-  }
-  else {
-    return (2 * sinphi);
-  }
-});
-
-/***/ }),
-/* 18 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = match;
-var ignoredChar = /[\s_\-\/\(\)]/g;
-function match(obj, key) {
-  if (obj[key]) {
-    return obj[key];
-  }
-  var keys = Object.keys(obj);
-  var lkey = key.toLowerCase().replace(ignoredChar, '');
-  var i = -1;
-  var testkey, processedKey;
-  while (++i < keys.length) {
-    testkey = keys[i];
-    processedKey = testkey.toLowerCase().replace(ignoredChar, '');
-    if (processedKey === lkey) {
-      return obj[testkey];
-    }
-  }
-}
-
-
-/***/ }),
-/* 19 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["c"] = forward;
-/* unused harmony export inverse */
-/* harmony export (immutable) */ __webpack_exports__["b"] = toPoint;
-
-
-
-/**
- * UTM zones are grouped, and assigned to one of a group of 6
- * sets.
- *
- * {int} @private
- */
-var NUM_100K_SETS = 6;
-
-/**
- * The column letters (for easting) of the lower left value, per
- * set.
- *
- * {string} @private
- */
-var SET_ORIGIN_COLUMN_LETTERS = 'AJSAJS';
-
-/**
- * The row letters (for northing) of the lower left value, per
- * set.
- *
- * {string} @private
- */
-var SET_ORIGIN_ROW_LETTERS = 'AFAFAF';
-
-var A = 65; // A
-var I = 73; // I
-var O = 79; // O
-var V = 86; // V
-var Z = 90; // Z
-/* harmony default export */ __webpack_exports__["a"] = ({
-  forward: forward,
-  inverse: inverse,
-  toPoint: toPoint
-});
-/**
- * Conversion of lat/lon to MGRS.
- *
- * @param {object} ll Object literal with lat and lon properties on a
- *     WGS84 ellipsoid.
- * @param {int} accuracy Accuracy in digits (5 for 1 m, 4 for 10 m, 3 for
- *      100 m, 2 for 1000 m or 1 for 10000 m). Optional, default is 5.
- * @return {string} the MGRS string for the given location and accuracy.
- */
-function forward(ll, accuracy) {
-  accuracy = accuracy || 5; // default accuracy 1m
-  return encode(LLtoUTM({
-    lat: ll[1],
-    lon: ll[0]
-  }), accuracy);
-};
-
-/**
- * Conversion of MGRS to lat/lon.
- *
- * @param {string} mgrs MGRS string.
- * @return {array} An array with left (longitude), bottom (latitude), right
- *     (longitude) and top (latitude) values in WGS84, representing the
- *     bounding box for the provided MGRS reference.
- */
-function inverse(mgrs) {
-  var bbox = UTMtoLL(decode(mgrs.toUpperCase()));
-  if (bbox.lat && bbox.lon) {
-    return [bbox.lon, bbox.lat, bbox.lon, bbox.lat];
-  }
-  return [bbox.left, bbox.bottom, bbox.right, bbox.top];
-};
-
-function toPoint(mgrs) {
-  var bbox = UTMtoLL(decode(mgrs.toUpperCase()));
-  if (bbox.lat && bbox.lon) {
-    return [bbox.lon, bbox.lat];
-  }
-  return [(bbox.left + bbox.right) / 2, (bbox.top + bbox.bottom) / 2];
-};
-/**
- * Conversion from degrees to radians.
- *
- * @private
- * @param {number} deg the angle in degrees.
- * @return {number} the angle in radians.
- */
-function degToRad(deg) {
-  return (deg * (Math.PI / 180.0));
-}
-
-/**
- * Conversion from radians to degrees.
- *
- * @private
- * @param {number} rad the angle in radians.
- * @return {number} the angle in degrees.
- */
-function radToDeg(rad) {
-  return (180.0 * (rad / Math.PI));
-}
-
-/**
- * Converts a set of Longitude and Latitude co-ordinates to UTM
- * using the WGS84 ellipsoid.
- *
- * @private
- * @param {object} ll Object literal with lat and lon properties
- *     representing the WGS84 coordinate to be converted.
- * @return {object} Object literal containing the UTM value with easting,
- *     northing, zoneNumber and zoneLetter properties, and an optional
- *     accuracy property in digits. Returns null if the conversion failed.
- */
-function LLtoUTM(ll) {
-  var Lat = ll.lat;
-  var Long = ll.lon;
-  var a = 6378137.0; //ellip.radius;
-  var eccSquared = 0.00669438; //ellip.eccsq;
-  var k0 = 0.9996;
-  var LongOrigin;
-  var eccPrimeSquared;
-  var N, T, C, A, M;
-  var LatRad = degToRad(Lat);
-  var LongRad = degToRad(Long);
-  var LongOriginRad;
-  var ZoneNumber;
-  // (int)
-  ZoneNumber = Math.floor((Long + 180) / 6) + 1;
-
-  //Make sure the longitude 180.00 is in Zone 60
-  if (Long === 180) {
-    ZoneNumber = 60;
-  }
-
-  // Special zone for Norway
-  if (Lat >= 56.0 && Lat < 64.0 && Long >= 3.0 && Long < 12.0) {
-    ZoneNumber = 32;
-  }
-
-  // Special zones for Svalbard
-  if (Lat >= 72.0 && Lat < 84.0) {
-    if (Long >= 0.0 && Long < 9.0) {
-      ZoneNumber = 31;
-    }
-    else if (Long >= 9.0 && Long < 21.0) {
-      ZoneNumber = 33;
-    }
-    else if (Long >= 21.0 && Long < 33.0) {
-      ZoneNumber = 35;
-    }
-    else if (Long >= 33.0 && Long < 42.0) {
-      ZoneNumber = 37;
-    }
-  }
-
-  LongOrigin = (ZoneNumber - 1) * 6 - 180 + 3; //+3 puts origin
-  // in middle of
-  // zone
-  LongOriginRad = degToRad(LongOrigin);
-
-  eccPrimeSquared = (eccSquared) / (1 - eccSquared);
-
-  N = a / Math.sqrt(1 - eccSquared * Math.sin(LatRad) * Math.sin(LatRad));
-  T = Math.tan(LatRad) * Math.tan(LatRad);
-  C = eccPrimeSquared * Math.cos(LatRad) * Math.cos(LatRad);
-  A = Math.cos(LatRad) * (LongRad - LongOriginRad);
-
-  M = a * ((1 - eccSquared / 4 - 3 * eccSquared * eccSquared / 64 - 5 * eccSquared * eccSquared * eccSquared / 256) * LatRad - (3 * eccSquared / 8 + 3 * eccSquared * eccSquared / 32 + 45 * eccSquared * eccSquared * eccSquared / 1024) * Math.sin(2 * LatRad) + (15 * eccSquared * eccSquared / 256 + 45 * eccSquared * eccSquared * eccSquared / 1024) * Math.sin(4 * LatRad) - (35 * eccSquared * eccSquared * eccSquared / 3072) * Math.sin(6 * LatRad));
-
-  var UTMEasting = (k0 * N * (A + (1 - T + C) * A * A * A / 6.0 + (5 - 18 * T + T * T + 72 * C - 58 * eccPrimeSquared) * A * A * A * A * A / 120.0) + 500000.0);
-
-  var UTMNorthing = (k0 * (M + N * Math.tan(LatRad) * (A * A / 2 + (5 - T + 9 * C + 4 * C * C) * A * A * A * A / 24.0 + (61 - 58 * T + T * T + 600 * C - 330 * eccPrimeSquared) * A * A * A * A * A * A / 720.0)));
-  if (Lat < 0.0) {
-    UTMNorthing += 10000000.0; //10000000 meter offset for
-    // southern hemisphere
-  }
-
-  return {
-    northing: Math.round(UTMNorthing),
-    easting: Math.round(UTMEasting),
-    zoneNumber: ZoneNumber,
-    zoneLetter: getLetterDesignator(Lat)
-  };
-}
-
-/**
- * Converts UTM coords to lat/long, using the WGS84 ellipsoid. This is a convenience
- * class where the Zone can be specified as a single string eg."60N" which
- * is then broken down into the ZoneNumber and ZoneLetter.
- *
- * @private
- * @param {object} utm An object literal with northing, easting, zoneNumber
- *     and zoneLetter properties. If an optional accuracy property is
- *     provided (in meters), a bounding box will be returned instead of
- *     latitude and longitude.
- * @return {object} An object literal containing either lat and lon values
- *     (if no accuracy was provided), or top, right, bottom and left values
- *     for the bounding box calculated according to the provided accuracy.
- *     Returns null if the conversion failed.
- */
-function UTMtoLL(utm) {
-
-  var UTMNorthing = utm.northing;
-  var UTMEasting = utm.easting;
-  var zoneLetter = utm.zoneLetter;
-  var zoneNumber = utm.zoneNumber;
-  // check the ZoneNummber is valid
-  if (zoneNumber < 0 || zoneNumber > 60) {
-    return null;
-  }
-
-  var k0 = 0.9996;
-  var a = 6378137.0; //ellip.radius;
-  var eccSquared = 0.00669438; //ellip.eccsq;
-  var eccPrimeSquared;
-  var e1 = (1 - Math.sqrt(1 - eccSquared)) / (1 + Math.sqrt(1 - eccSquared));
-  var N1, T1, C1, R1, D, M;
-  var LongOrigin;
-  var mu, phi1Rad;
-
-  // remove 500,000 meter offset for longitude
-  var x = UTMEasting - 500000.0;
-  var y = UTMNorthing;
-
-  // We must know somehow if we are in the Northern or Southern
-  // hemisphere, this is the only time we use the letter So even
-  // if the Zone letter isn't exactly correct it should indicate
-  // the hemisphere correctly
-  if (zoneLetter < 'N') {
-    y -= 10000000.0; // remove 10,000,000 meter offset used
-    // for southern hemisphere
-  }
-
-  // There are 60 zones with zone 1 being at West -180 to -174
-  LongOrigin = (zoneNumber - 1) * 6 - 180 + 3; // +3 puts origin
-  // in middle of
-  // zone
-
-  eccPrimeSquared = (eccSquared) / (1 - eccSquared);
-
-  M = y / k0;
-  mu = M / (a * (1 - eccSquared / 4 - 3 * eccSquared * eccSquared / 64 - 5 * eccSquared * eccSquared * eccSquared / 256));
-
-  phi1Rad = mu + (3 * e1 / 2 - 27 * e1 * e1 * e1 / 32) * Math.sin(2 * mu) + (21 * e1 * e1 / 16 - 55 * e1 * e1 * e1 * e1 / 32) * Math.sin(4 * mu) + (151 * e1 * e1 * e1 / 96) * Math.sin(6 * mu);
-  // double phi1 = ProjMath.radToDeg(phi1Rad);
-
-  N1 = a / Math.sqrt(1 - eccSquared * Math.sin(phi1Rad) * Math.sin(phi1Rad));
-  T1 = Math.tan(phi1Rad) * Math.tan(phi1Rad);
-  C1 = eccPrimeSquared * Math.cos(phi1Rad) * Math.cos(phi1Rad);
-  R1 = a * (1 - eccSquared) / Math.pow(1 - eccSquared * Math.sin(phi1Rad) * Math.sin(phi1Rad), 1.5);
-  D = x / (N1 * k0);
-
-  var lat = phi1Rad - (N1 * Math.tan(phi1Rad) / R1) * (D * D / 2 - (5 + 3 * T1 + 10 * C1 - 4 * C1 * C1 - 9 * eccPrimeSquared) * D * D * D * D / 24 + (61 + 90 * T1 + 298 * C1 + 45 * T1 * T1 - 252 * eccPrimeSquared - 3 * C1 * C1) * D * D * D * D * D * D / 720);
-  lat = radToDeg(lat);
-
-  var lon = (D - (1 + 2 * T1 + C1) * D * D * D / 6 + (5 - 2 * C1 + 28 * T1 - 3 * C1 * C1 + 8 * eccPrimeSquared + 24 * T1 * T1) * D * D * D * D * D / 120) / Math.cos(phi1Rad);
-  lon = LongOrigin + radToDeg(lon);
-
-  var result;
-  if (utm.accuracy) {
-    var topRight = UTMtoLL({
-      northing: utm.northing + utm.accuracy,
-      easting: utm.easting + utm.accuracy,
-      zoneLetter: utm.zoneLetter,
-      zoneNumber: utm.zoneNumber
-    });
-    result = {
-      top: topRight.lat,
-      right: topRight.lon,
-      bottom: lat,
-      left: lon
-    };
-  }
-  else {
-    result = {
-      lat: lat,
-      lon: lon
-    };
-  }
-  return result;
-}
-
-/**
- * Calculates the MGRS letter designator for the given latitude.
- *
- * @private
- * @param {number} lat The latitude in WGS84 to get the letter designator
- *     for.
- * @return {char} The letter designator.
- */
-function getLetterDesignator(lat) {
-  //This is here as an error flag to show that the Latitude is
-  //outside MGRS limits
-  var LetterDesignator = 'Z';
-
-  if ((84 >= lat) && (lat >= 72)) {
-    LetterDesignator = 'X';
-  }
-  else if ((72 > lat) && (lat >= 64)) {
-    LetterDesignator = 'W';
-  }
-  else if ((64 > lat) && (lat >= 56)) {
-    LetterDesignator = 'V';
-  }
-  else if ((56 > lat) && (lat >= 48)) {
-    LetterDesignator = 'U';
-  }
-  else if ((48 > lat) && (lat >= 40)) {
-    LetterDesignator = 'T';
-  }
-  else if ((40 > lat) && (lat >= 32)) {
-    LetterDesignator = 'S';
-  }
-  else if ((32 > lat) && (lat >= 24)) {
-    LetterDesignator = 'R';
-  }
-  else if ((24 > lat) && (lat >= 16)) {
-    LetterDesignator = 'Q';
-  }
-  else if ((16 > lat) && (lat >= 8)) {
-    LetterDesignator = 'P';
-  }
-  else if ((8 > lat) && (lat >= 0)) {
-    LetterDesignator = 'N';
-  }
-  else if ((0 > lat) && (lat >= -8)) {
-    LetterDesignator = 'M';
-  }
-  else if ((-8 > lat) && (lat >= -16)) {
-    LetterDesignator = 'L';
-  }
-  else if ((-16 > lat) && (lat >= -24)) {
-    LetterDesignator = 'K';
-  }
-  else if ((-24 > lat) && (lat >= -32)) {
-    LetterDesignator = 'J';
-  }
-  else if ((-32 > lat) && (lat >= -40)) {
-    LetterDesignator = 'H';
-  }
-  else if ((-40 > lat) && (lat >= -48)) {
-    LetterDesignator = 'G';
-  }
-  else if ((-48 > lat) && (lat >= -56)) {
-    LetterDesignator = 'F';
-  }
-  else if ((-56 > lat) && (lat >= -64)) {
-    LetterDesignator = 'E';
-  }
-  else if ((-64 > lat) && (lat >= -72)) {
-    LetterDesignator = 'D';
-  }
-  else if ((-72 > lat) && (lat >= -80)) {
-    LetterDesignator = 'C';
-  }
-  return LetterDesignator;
-}
-
-/**
- * Encodes a UTM location as MGRS string.
- *
- * @private
- * @param {object} utm An object literal with easting, northing,
- *     zoneLetter, zoneNumber
- * @param {number} accuracy Accuracy in digits (1-5).
- * @return {string} MGRS string for the given UTM location.
- */
-function encode(utm, accuracy) {
-  // prepend with leading zeroes
-  var seasting = "00000" + utm.easting,
-    snorthing = "00000" + utm.northing;
-
-  return utm.zoneNumber + utm.zoneLetter + get100kID(utm.easting, utm.northing, utm.zoneNumber) + seasting.substr(seasting.length - 5, accuracy) + snorthing.substr(snorthing.length - 5, accuracy);
-}
-
-/**
- * Get the two letter 100k designator for a given UTM easting,
- * northing and zone number value.
- *
- * @private
- * @param {number} easting
- * @param {number} northing
- * @param {number} zoneNumber
- * @return the two letter 100k designator for the given UTM location.
- */
-function get100kID(easting, northing, zoneNumber) {
-  var setParm = get100kSetForZone(zoneNumber);
-  var setColumn = Math.floor(easting / 100000);
-  var setRow = Math.floor(northing / 100000) % 20;
-  return getLetter100kID(setColumn, setRow, setParm);
-}
-
-/**
- * Given a UTM zone number, figure out the MGRS 100K set it is in.
- *
- * @private
- * @param {number} i An UTM zone number.
- * @return {number} the 100k set the UTM zone is in.
- */
-function get100kSetForZone(i) {
-  var setParm = i % NUM_100K_SETS;
-  if (setParm === 0) {
-    setParm = NUM_100K_SETS;
-  }
-
-  return setParm;
-}
-
-/**
- * Get the two-letter MGRS 100k designator given information
- * translated from the UTM northing, easting and zone number.
- *
- * @private
- * @param {number} column the column index as it relates to the MGRS
- *        100k set spreadsheet, created from the UTM easting.
- *        Values are 1-8.
- * @param {number} row the row index as it relates to the MGRS 100k set
- *        spreadsheet, created from the UTM northing value. Values
- *        are from 0-19.
- * @param {number} parm the set block, as it relates to the MGRS 100k set
- *        spreadsheet, created from the UTM zone. Values are from
- *        1-60.
- * @return two letter MGRS 100k code.
- */
-function getLetter100kID(column, row, parm) {
-  // colOrigin and rowOrigin are the letters at the origin of the set
-  var index = parm - 1;
-  var colOrigin = SET_ORIGIN_COLUMN_LETTERS.charCodeAt(index);
-  var rowOrigin = SET_ORIGIN_ROW_LETTERS.charCodeAt(index);
-
-  // colInt and rowInt are the letters to build to return
-  var colInt = colOrigin + column - 1;
-  var rowInt = rowOrigin + row;
-  var rollover = false;
-
-  if (colInt > Z) {
-    colInt = colInt - Z + A - 1;
-    rollover = true;
-  }
-
-  if (colInt === I || (colOrigin < I && colInt > I) || ((colInt > I || colOrigin < I) && rollover)) {
-    colInt++;
-  }
-
-  if (colInt === O || (colOrigin < O && colInt > O) || ((colInt > O || colOrigin < O) && rollover)) {
-    colInt++;
-
-    if (colInt === I) {
-      colInt++;
-    }
-  }
-
-  if (colInt > Z) {
-    colInt = colInt - Z + A - 1;
-  }
-
-  if (rowInt > V) {
-    rowInt = rowInt - V + A - 1;
-    rollover = true;
-  }
-  else {
-    rollover = false;
-  }
-
-  if (((rowInt === I) || ((rowOrigin < I) && (rowInt > I))) || (((rowInt > I) || (rowOrigin < I)) && rollover)) {
-    rowInt++;
-  }
-
-  if (((rowInt === O) || ((rowOrigin < O) && (rowInt > O))) || (((rowInt > O) || (rowOrigin < O)) && rollover)) {
-    rowInt++;
-
-    if (rowInt === I) {
-      rowInt++;
-    }
-  }
-
-  if (rowInt > V) {
-    rowInt = rowInt - V + A - 1;
-  }
-
-  var twoLetter = String.fromCharCode(colInt) + String.fromCharCode(rowInt);
-  return twoLetter;
-}
-
-/**
- * Decode the UTM parameters from a MGRS string.
- *
- * @private
- * @param {string} mgrsString an UPPERCASE coordinate string is expected.
- * @return {object} An object literal with easting, northing, zoneLetter,
- *     zoneNumber and accuracy (in meters) properties.
- */
-function decode(mgrsString) {
-
-  if (mgrsString && mgrsString.length === 0) {
-    throw ("MGRSPoint coverting from nothing");
-  }
-
-  var length = mgrsString.length;
-
-  var hunK = null;
-  var sb = "";
-  var testChar;
-  var i = 0;
-
-  // get Zone number
-  while (!(/[A-Z]/).test(testChar = mgrsString.charAt(i))) {
-    if (i >= 2) {
-      throw ("MGRSPoint bad conversion from: " + mgrsString);
-    }
-    sb += testChar;
-    i++;
-  }
-
-  var zoneNumber = parseInt(sb, 10);
-
-  if (i === 0 || i + 3 > length) {
-    // A good MGRS string has to be 4-5 digits long,
-    // ##AAA/#AAA at least.
-    throw ("MGRSPoint bad conversion from: " + mgrsString);
-  }
-
-  var zoneLetter = mgrsString.charAt(i++);
-
-  // Should we check the zone letter here? Why not.
-  if (zoneLetter <= 'A' || zoneLetter === 'B' || zoneLetter === 'Y' || zoneLetter >= 'Z' || zoneLetter === 'I' || zoneLetter === 'O') {
-    throw ("MGRSPoint zone letter " + zoneLetter + " not handled: " + mgrsString);
-  }
-
-  hunK = mgrsString.substring(i, i += 2);
-
-  var set = get100kSetForZone(zoneNumber);
-
-  var east100k = getEastingFromChar(hunK.charAt(0), set);
-  var north100k = getNorthingFromChar(hunK.charAt(1), set);
-
-  // We have a bug where the northing may be 2000000 too low.
-  // How
-  // do we know when to roll over?
-
-  while (north100k < getMinNorthing(zoneLetter)) {
-    north100k += 2000000;
-  }
-
-  // calculate the char index for easting/northing separator
-  var remainder = length - i;
-
-  if (remainder % 2 !== 0) {
-    throw ("MGRSPoint has to have an even number \nof digits after the zone letter and two 100km letters - front \nhalf for easting meters, second half for \nnorthing meters" + mgrsString);
-  }
-
-  var sep = remainder / 2;
-
-  var sepEasting = 0.0;
-  var sepNorthing = 0.0;
-  var accuracyBonus, sepEastingString, sepNorthingString, easting, northing;
-  if (sep > 0) {
-    accuracyBonus = 100000.0 / Math.pow(10, sep);
-    sepEastingString = mgrsString.substring(i, i + sep);
-    sepEasting = parseFloat(sepEastingString) * accuracyBonus;
-    sepNorthingString = mgrsString.substring(i + sep);
-    sepNorthing = parseFloat(sepNorthingString) * accuracyBonus;
-  }
-
-  easting = sepEasting + east100k;
-  northing = sepNorthing + north100k;
-
-  return {
-    easting: easting,
-    northing: northing,
-    zoneLetter: zoneLetter,
-    zoneNumber: zoneNumber,
-    accuracy: accuracyBonus
-  };
-}
-
-/**
- * Given the first letter from a two-letter MGRS 100k zone, and given the
- * MGRS table set for the zone number, figure out the easting value that
- * should be added to the other, secondary easting value.
- *
- * @private
- * @param {char} e The first letter from a two-letter MGRS 100´k zone.
- * @param {number} set The MGRS table set for the zone number.
- * @return {number} The easting value for the given letter and set.
- */
-function getEastingFromChar(e, set) {
-  // colOrigin is the letter at the origin of the set for the
-  // column
-  var curCol = SET_ORIGIN_COLUMN_LETTERS.charCodeAt(set - 1);
-  var eastingValue = 100000.0;
-  var rewindMarker = false;
-
-  while (curCol !== e.charCodeAt(0)) {
-    curCol++;
-    if (curCol === I) {
-      curCol++;
-    }
-    if (curCol === O) {
-      curCol++;
-    }
-    if (curCol > Z) {
-      if (rewindMarker) {
-        throw ("Bad character: " + e);
-      }
-      curCol = A;
-      rewindMarker = true;
-    }
-    eastingValue += 100000.0;
-  }
-
-  return eastingValue;
-}
-
-/**
- * Given the second letter from a two-letter MGRS 100k zone, and given the
- * MGRS table set for the zone number, figure out the northing value that
- * should be added to the other, secondary northing value. You have to
- * remember that Northings are determined from the equator, and the vertical
- * cycle of letters mean a 2000000 additional northing meters. This happens
- * approx. every 18 degrees of latitude. This method does *NOT* count any
- * additional northings. You have to figure out how many 2000000 meters need
- * to be added for the zone letter of the MGRS coordinate.
- *
- * @private
- * @param {char} n Second letter of the MGRS 100k zone
- * @param {number} set The MGRS table set number, which is dependent on the
- *     UTM zone number.
- * @return {number} The northing value for the given letter and set.
- */
-function getNorthingFromChar(n, set) {
-
-  if (n > 'V') {
-    throw ("MGRSPoint given invalid Northing " + n);
-  }
-
-  // rowOrigin is the letter at the origin of the set for the
-  // column
-  var curRow = SET_ORIGIN_ROW_LETTERS.charCodeAt(set - 1);
-  var northingValue = 0.0;
-  var rewindMarker = false;
-
-  while (curRow !== n.charCodeAt(0)) {
-    curRow++;
-    if (curRow === I) {
-      curRow++;
-    }
-    if (curRow === O) {
-      curRow++;
-    }
-    // fixing a bug making whole application hang in this loop
-    // when 'n' is a wrong character
-    if (curRow > V) {
-      if (rewindMarker) { // making sure that this loop ends
-        throw ("Bad character: " + n);
-      }
-      curRow = A;
-      rewindMarker = true;
-    }
-    northingValue += 100000.0;
-  }
-
-  return northingValue;
-}
-
-/**
- * The function getMinNorthing returns the minimum northing value of a MGRS
- * zone.
- *
- * Ported from Geotrans' c Lattitude_Band_Value structure table.
- *
- * @private
- * @param {char} zoneLetter The MGRS zone to get the min northing for.
- * @return {number}
- */
-function getMinNorthing(zoneLetter) {
-  var northing;
-  switch (zoneLetter) {
-  case 'C':
-    northing = 1100000.0;
-    break;
-  case 'D':
-    northing = 2000000.0;
-    break;
-  case 'E':
-    northing = 2800000.0;
-    break;
-  case 'F':
-    northing = 3700000.0;
-    break;
-  case 'G':
-    northing = 4600000.0;
-    break;
-  case 'H':
-    northing = 5500000.0;
-    break;
-  case 'J':
-    northing = 6400000.0;
-    break;
-  case 'K':
-    northing = 7300000.0;
-    break;
-  case 'L':
-    northing = 8200000.0;
-    break;
-  case 'M':
-    northing = 9100000.0;
-    break;
-  case 'N':
-    northing = 0.0;
-    break;
-  case 'P':
-    northing = 800000.0;
-    break;
-  case 'Q':
-    northing = 1700000.0;
-    break;
-  case 'R':
-    northing = 2600000.0;
-    break;
-  case 'S':
-    northing = 3500000.0;
-    break;
-  case 'T':
-    northing = 4400000.0;
-    break;
-  case 'U':
-    northing = 5300000.0;
-    break;
-  case 'V':
-    northing = 6200000.0;
-    break;
-  case 'W':
-    northing = 7000000.0;
-    break;
-  case 'X':
-    northing = 7900000.0;
-    break;
-  default:
-    northing = -1.0;
-  }
-  if (northing >= 0.0) {
-    return northing;
-  }
-  else {
-    throw ("Invalid zone letter: " + zoneLetter);
-  }
-
-}
-
-
-/***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(x, y) {
-  x = Math.abs(x);
-  y = Math.abs(y);
-  var a = Math.max(x, y);
-  var b = Math.min(x, y) / (a ? a : 1);
-
-  return a * Math.sqrt(1 + Math.pow(b, 2));
-});
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var C00 = 1;
-var C02 = 0.25;
-var C04 = 0.046875;
-var C06 = 0.01953125;
-var C08 = 0.01068115234375;
-var C22 = 0.75;
-var C44 = 0.46875;
-var C46 = 0.01302083333333333333;
-var C48 = 0.00712076822916666666;
-var C66 = 0.36458333333333333333;
-var C68 = 0.00569661458333333333;
-var C88 = 0.3076171875;
-
-/* harmony default export */ __webpack_exports__["a"] = (function(es) {
-  var en = [];
-  en[0] = C00 - es * (C02 + es * (C04 + es * (C06 + es * C08)));
-  en[1] = es * (C22 - es * (C04 + es * (C06 + es * C08)));
-  var t = es * es;
-  en[2] = t * (C44 - es * (C46 + es * C48));
-  t *= es;
-  en[3] = t * (C66 - es * C68);
-  en[4] = t * es * C88;
-  return en;
-});
-
-/***/ }),
-/* 22 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pj_mlfn__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants_values__ = __webpack_require__(0);
-
-
-
-var MAX_ITER = 20;
-
-/* harmony default export */ __webpack_exports__["a"] = (function(arg, es, en) {
-  var k = 1 / (1 - es);
-  var phi = arg;
-  for (var i = MAX_ITER; i; --i) { /* rarely goes over 2 iterations */
-    var s = Math.sin(phi);
-    var t = 1 - es * s * s;
-    //t = this.pj_mlfn(phi, s, Math.cos(phi), en) - arg;
-    //phi -= t * (t * Math.sqrt(t)) * k;
-    t = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__pj_mlfn__["a" /* default */])(phi, s, Math.cos(phi), en) - arg) * (t * Math.sqrt(t)) * k;
-    phi -= t;
-    if (Math.abs(t) < __WEBPACK_IMPORTED_MODULE_1__constants_values__["a" /* EPSLN */]) {
-      return phi;
-    }
-  }
-  //..reportError("cass:pj_inv_mlfn: Convergence error");
-  return phi;
-});
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(x) {
-  var r = Math.exp(x);
-  r = (r - 1 / r) / 2;
-  return r;
-});
-
-/***/ }),
-/* 24 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function (array){
-  var out = {
-    x: array[0],
-    y: array[1]
-  };
-  if (array.length>2) {
-    out.z = array[2];
-  }
-  if (array.length>3) {
-    out.m = array[3];
-  }
-  return out;
-});
-
-/***/ }),
-/* 25 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__projString__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_wkt_parser__ = __webpack_require__(29);
-
-
-
-
-function defs(name) {
-  /*global console*/
-  var that = this;
-  if (arguments.length === 2) {
-    var def = arguments[1];
-    if (typeof def === 'string') {
-      if (def.charAt(0) === '+') {
-        defs[name] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__projString__["a" /* default */])(arguments[1]);
-      }
-      else {
-        defs[name] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_wkt_parser__["a" /* default */])(arguments[1]);
-      }
-    } else {
-      defs[name] = def;
-    }
-  }
-  else if (arguments.length === 1) {
-    if (Array.isArray(name)) {
-      return name.map(function(v) {
-        if (Array.isArray(v)) {
-          defs.apply(that, v);
-        }
-        else {
-          defs(v);
-        }
-      });
-    }
-    else if (typeof name === 'string') {
-      if (name in defs) {
-        return defs[name];
-      }
-    }
-    else if ('EPSG' in name) {
-      defs['EPSG:' + name.EPSG] = name;
-    }
-    else if ('ESRI' in name) {
-      defs['ESRI:' + name.ESRI] = name;
-    }
-    else if ('IAU2000' in name) {
-      defs['IAU2000:' + name.IAU2000] = name;
-    }
-    else {
-      console.log(name);
-    }
-    return;
-  }
-
-
-}
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__global__["a" /* default */])(defs);
-/* harmony default export */ __webpack_exports__["a"] = (defs);
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants_PrimeMeridian__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants_units__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__match__ = __webpack_require__(18);
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["a"] = (function(defData) {
-  var self = {};
-  var paramObj = defData.split('+').map(function(v) {
-    return v.trim();
-  }).filter(function(a) {
-    return a;
-  }).reduce(function(p, a) {
-    var split = a.split('=');
-    split.push(true);
-    p[split[0].toLowerCase()] = split[1];
-    return p;
-  }, {});
-  var paramName, paramVal, paramOutname;
-  var params = {
-    proj: 'projName',
-    datum: 'datumCode',
-    rf: function(v) {
-      self.rf = parseFloat(v);
-    },
-    lat_0: function(v) {
-      self.lat0 = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
-    },
-    lat_1: function(v) {
-      self.lat1 = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
-    },
-    lat_2: function(v) {
-      self.lat2 = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
-    },
-    lat_ts: function(v) {
-      self.lat_ts = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
-    },
-    lon_0: function(v) {
-      self.long0 = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
-    },
-    lon_1: function(v) {
-      self.long1 = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
-    },
-    lon_2: function(v) {
-      self.long2 = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
-    },
-    alpha: function(v) {
-      self.alpha = parseFloat(v) * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
-    },
-    lonc: function(v) {
-      self.longc = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
-    },
-    x_0: function(v) {
-      self.x0 = parseFloat(v);
-    },
-    y_0: function(v) {
-      self.y0 = parseFloat(v);
-    },
-    k_0: function(v) {
-      self.k0 = parseFloat(v);
-    },
-    k: function(v) {
-      self.k0 = parseFloat(v);
-    },
-    a: function(v) {
-      self.a = parseFloat(v);
-    },
-    b: function(v) {
-      self.b = parseFloat(v);
-    },
-    r_a: function() {
-      self.R_A = true;
-    },
-    zone: function(v) {
-      self.zone = parseInt(v, 10);
-    },
-    south: function() {
-      self.utmSouth = true;
-    },
-    towgs84: function(v) {
-      self.datum_params = v.split(",").map(function(a) {
-        return parseFloat(a);
-      });
-    },
-    to_meter: function(v) {
-      self.to_meter = parseFloat(v);
-    },
-    units: function(v) {
-      self.units = v;
-      var unit = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__match__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_2__constants_units__["a" /* default */], v);
-      if (unit) {
-        self.to_meter = unit.to_meter;
-      }
-    },
-    from_greenwich: function(v) {
-      self.from_greenwich = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
-    },
-    pm: function(v) {
-      var pm = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__match__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_1__constants_PrimeMeridian__["a" /* default */], v);
-      self.from_greenwich = (pm ? pm : parseFloat(v)) * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
-    },
-    nadgrids: function(v) {
-      if (v === '@null') {
-        self.datumCode = 'none';
-      }
-      else {
-        self.nadgrids = v;
-      }
-    },
-    axis: function(v) {
-      var legalAxis = "ewnsud";
-      if (v.length === 3 && legalAxis.indexOf(v.substr(0, 1)) !== -1 && legalAxis.indexOf(v.substr(1, 1)) !== -1 && legalAxis.indexOf(v.substr(2, 1)) !== -1) {
-        self.axis = v;
-      }
-    }
-  };
-  for (paramName in paramObj) {
-    paramVal = paramObj[paramName];
-    if (paramName in params) {
-      paramOutname = params[paramName];
-      if (typeof paramOutname === 'function') {
-        paramOutname(paramVal);
-      }
-      else {
-        self[paramOutname] = paramVal;
-      }
-    }
-    else {
-      self[paramName] = paramVal;
-    }
-  }
-  if(typeof self.datumCode === 'string' && self.datumCode !== "WGS84"){
-    self.datumCode = self.datumCode.toLowerCase();
-  }
-  return self;
-});
-
-
-/***/ }),
-/* 27 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export init */
-/* unused harmony export forward */
-/* unused harmony export inverse */
-/* unused harmony export names */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_sinh__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_hypot__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_asinhy__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_gatg__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_clens__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_clens_cmplx__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_adjust_lon__ = __webpack_require__(1);
-// Heavily based on this etmerc projection implementation
-// https://github.com/mbloch/mapshaper-proj/blob/master/src/projections/etmerc.js
-
-
-
-
-
-
-
-
-
-function init() {
-  if (this.es === undefined || this.es <= 0) {
-    throw new Error('incorrect elliptical usage');
-  }
-
-  this.x0 = this.x0 !== undefined ? this.x0 : 0;
-  this.y0 = this.y0 !== undefined ? this.y0 : 0;
-  this.long0 = this.long0 !== undefined ? this.long0 : 0;
-  this.lat0 = this.lat0 !== undefined ? this.lat0 : 0;
-
-  this.cgb = [];
-  this.cbg = [];
-  this.utg = [];
-  this.gtu = [];
-
-  var f = this.es / (1 + Math.sqrt(1 - this.es));
-  var n = f / (2 - f);
-  var np = n;
-
-  this.cgb[0] = n * (2 + n * (-2 / 3 + n * (-2 + n * (116 / 45 + n * (26 / 45 + n * (-2854 / 675 ))))));
-  this.cbg[0] = n * (-2 + n * ( 2 / 3 + n * ( 4 / 3 + n * (-82 / 45 + n * (32 / 45 + n * (4642 / 4725))))));
-
-  np = np * n;
-  this.cgb[1] = np * (7 / 3 + n * (-8 / 5 + n * (-227 / 45 + n * (2704 / 315 + n * (2323 / 945)))));
-  this.cbg[1] = np * (5 / 3 + n * (-16 / 15 + n * ( -13 / 9 + n * (904 / 315 + n * (-1522 / 945)))));
-
-  np = np * n;
-  this.cgb[2] = np * (56 / 15 + n * (-136 / 35 + n * (-1262 / 105 + n * (73814 / 2835))));
-  this.cbg[2] = np * (-26 / 15 + n * (34 / 21 + n * (8 / 5 + n * (-12686 / 2835))));
-
-  np = np * n;
-  this.cgb[3] = np * (4279 / 630 + n * (-332 / 35 + n * (-399572 / 14175)));
-  this.cbg[3] = np * (1237 / 630 + n * (-12 / 5 + n * ( -24832 / 14175)));
-
-  np = np * n;
-  this.cgb[4] = np * (4174 / 315 + n * (-144838 / 6237));
-  this.cbg[4] = np * (-734 / 315 + n * (109598 / 31185));
-
-  np = np * n;
-  this.cgb[5] = np * (601676 / 22275);
-  this.cbg[5] = np * (444337 / 155925);
-
-  np = Math.pow(n, 2);
-  this.Qn = this.k0 / (1 + n) * (1 + np * (1 / 4 + np * (1 / 64 + np / 256)));
-
-  this.utg[0] = n * (-0.5 + n * ( 2 / 3 + n * (-37 / 96 + n * ( 1 / 360 + n * (81 / 512 + n * (-96199 / 604800))))));
-  this.gtu[0] = n * (0.5 + n * (-2 / 3 + n * (5 / 16 + n * (41 / 180 + n * (-127 / 288 + n * (7891 / 37800))))));
-
-  this.utg[1] = np * (-1 / 48 + n * (-1 / 15 + n * (437 / 1440 + n * (-46 / 105 + n * (1118711 / 3870720)))));
-  this.gtu[1] = np * (13 / 48 + n * (-3 / 5 + n * (557 / 1440 + n * (281 / 630 + n * (-1983433 / 1935360)))));
-
-  np = np * n;
-  this.utg[2] = np * (-17 / 480 + n * (37 / 840 + n * (209 / 4480 + n * (-5569 / 90720 ))));
-  this.gtu[2] = np * (61 / 240 + n * (-103 / 140 + n * (15061 / 26880 + n * (167603 / 181440))));
-
-  np = np * n;
-  this.utg[3] = np * (-4397 / 161280 + n * (11 / 504 + n * (830251 / 7257600)));
-  this.gtu[3] = np * (49561 / 161280 + n * (-179 / 168 + n * (6601661 / 7257600)));
-
-  np = np * n;
-  this.utg[4] = np * (-4583 / 161280 + n * (108847 / 3991680));
-  this.gtu[4] = np * (34729 / 80640 + n * (-3418889 / 1995840));
-
-  np = np * n;
-  this.utg[5] = np * (-20648693 / 638668800);
-  this.gtu[5] = np * (212378941 / 319334400);
-
-  var Z = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__common_gatg__["a" /* default */])(this.cbg, this.lat0);
-  this.Zb = -this.Qn * (Z + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__common_clens__["a" /* default */])(this.gtu, 2 * Z));
-}
-
-function forward(p) {
-  var Ce = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__common_adjust_lon__["a" /* default */])(p.x - this.long0);
-  var Cn = p.y;
-
-  Cn = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__common_gatg__["a" /* default */])(this.cbg, Cn);
-  var sin_Cn = Math.sin(Cn);
-  var cos_Cn = Math.cos(Cn);
-  var sin_Ce = Math.sin(Ce);
-  var cos_Ce = Math.cos(Ce);
-
-  Cn = Math.atan2(sin_Cn, cos_Ce * cos_Cn);
-  Ce = Math.atan2(sin_Ce * cos_Cn, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__common_hypot__["a" /* default */])(sin_Cn, cos_Cn * cos_Ce));
-  Ce = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__common_asinhy__["a" /* default */])(Math.tan(Ce));
-
-  var tmp = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__common_clens_cmplx__["a" /* default */])(this.gtu, 2 * Cn, 2 * Ce);
-
-  Cn = Cn + tmp[0];
-  Ce = Ce + tmp[1];
-
-  var x;
-  var y;
-
-  if (Math.abs(Ce) <= 2.623395162778) {
-    x = this.a * (this.Qn * Ce) + this.x0;
-    y = this.a * (this.Qn * Cn + this.Zb) + this.y0;
-  }
-  else {
-    x = Infinity;
-    y = Infinity;
-  }
-
-  p.x = x;
-  p.y = y;
-
-  return p;
-}
-
-function inverse(p) {
-  var Ce = (p.x - this.x0) * (1 / this.a);
-  var Cn = (p.y - this.y0) * (1 / this.a);
-
-  Cn = (Cn - this.Zb) / this.Qn;
-  Ce = Ce / this.Qn;
-
-  var lon;
-  var lat;
-
-  if (Math.abs(Ce) <= 2.623395162778) {
-    var tmp = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__common_clens_cmplx__["a" /* default */])(this.utg, 2 * Cn, 2 * Ce);
-
-    Cn = Cn + tmp[0];
-    Ce = Ce + tmp[1];
-    Ce = Math.atan(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__common_sinh__["a" /* default */])(Ce));
-
-    var sin_Cn = Math.sin(Cn);
-    var cos_Cn = Math.cos(Cn);
-    var sin_Ce = Math.sin(Ce);
-    var cos_Ce = Math.cos(Ce);
-
-    Cn = Math.atan2(sin_Cn * cos_Ce, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__common_hypot__["a" /* default */])(sin_Ce, cos_Ce * cos_Cn));
-    Ce = Math.atan2(sin_Ce, cos_Ce * cos_Cn);
-
-    lon = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__common_adjust_lon__["a" /* default */])(Ce + this.long0);
-    lat = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__common_gatg__["a" /* default */])(this.cgb, Cn);
-  }
-  else {
-    lon = Infinity;
-    lat = Infinity;
-  }
-
-  p.x = lon;
-  p.y = lat;
-
-  return p;
-}
-
-var names = ["Extended_Transverse_Mercator", "Extended Transverse Mercator", "etmerc"];
-/* harmony default export */ __webpack_exports__["a"] = ({
-  init: init,
-  forward: forward,
-  inverse: inverse,
-  names: names
-});
-
-
-/***/ }),
-/* 28 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = transform;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__datum_transform__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__adjust_axis__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Proj__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_toPoint__ = __webpack_require__(24);
-
-
-
-
-
-function checkNotWGS(source, dest) {
-  return ((source.datum.datum_type === __WEBPACK_IMPORTED_MODULE_0__constants_values__["h" /* PJD_3PARAM */] || source.datum.datum_type === __WEBPACK_IMPORTED_MODULE_0__constants_values__["i" /* PJD_7PARAM */]) && dest.datumCode !== 'WGS84') || ((dest.datum.datum_type === __WEBPACK_IMPORTED_MODULE_0__constants_values__["h" /* PJD_3PARAM */] || dest.datum.datum_type === __WEBPACK_IMPORTED_MODULE_0__constants_values__["i" /* PJD_7PARAM */]) && source.datumCode !== 'WGS84');
-}
-
-function transform(source, dest, point) {
-  var wgs84;
-  if (Array.isArray(point)) {
-    point = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__common_toPoint__["a" /* default */])(point);
-  }
-
-  // Workaround for datum shifts towgs84, if either source or destination projection is not wgs84
-  if (source.datum && dest.datum && checkNotWGS(source, dest)) {
-    wgs84 = new __WEBPACK_IMPORTED_MODULE_3__Proj__["a" /* default */]('WGS84');
-    point = transform(source, wgs84, point);
-    source = wgs84;
-  }
-  // DGR, 2010/11/12
-  if (source.axis !== 'enu') {
-    point = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__adjust_axis__["a" /* default */])(source, false, point);
-  }
-  // Transform source points to long/lat, if they aren't already.
-  if (source.projName === 'longlat') {
-    point = {
-      x: point.x * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */],
-      y: point.y * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */]
-    };
-  }
-  else {
-    if (source.to_meter) {
-      point = {
-        x: point.x * source.to_meter,
-        y: point.y * source.to_meter
-      };
-    }
-    point = source.inverse(point); // Convert Cartesian to longlat
-  }
-  // Adjust for the prime meridian if necessary
-  if (source.from_greenwich) {
-    point.x += source.from_greenwich;
-  }
-
-  // Convert datums if needed, and if possible.
-  point = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__datum_transform__["a" /* default */])(source.datum, dest.datum, point);
-
-  // Adjust for the prime meridian if necessary
-  if (dest.from_greenwich) {
-    point = {
-      x: point.x - dest.from_greenwich,
-      y: point.y
-    };
-  }
-
-  if (dest.projName === 'longlat') {
-    // convert radians to decimal degrees
-    point = {
-      x: point.x * __WEBPACK_IMPORTED_MODULE_0__constants_values__["j" /* R2D */],
-      y: point.y * __WEBPACK_IMPORTED_MODULE_0__constants_values__["j" /* R2D */]
-    };
-  } else { // else project
-    point = dest.forward(point);
-    if (dest.to_meter) {
-      point = {
-        x: point.x / dest.to_meter,
-        y: point.y / dest.to_meter
-      };
-    }
-  }
-
-  // DGR, 2010/11/12
-  if (dest.axis !== 'enu') {
-    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__adjust_axis__["a" /* default */])(dest, true, point);
-  }
-
-  return point;
-}
-
-
-/***/ }),
-/* 29 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__parser__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__process__ = __webpack_require__(87);
-var D2R = 0.01745329251994329577;
-
-
-
-
-
-function rename(obj, params) {
-  var outName = params[0];
-  var inName = params[1];
-  if (!(outName in obj) && (inName in obj)) {
-    obj[outName] = obj[inName];
-    if (params.length === 3) {
-      obj[outName] = params[2](obj[outName]);
-    }
-  }
-}
-
-function d2r(input) {
-  return input * D2R;
-}
-
-function cleanWKT(wkt) {
-  if (wkt.type === 'GEOGCS') {
-    wkt.projName = 'longlat';
-  } else if (wkt.type === 'LOCAL_CS') {
-    wkt.projName = 'identity';
-    wkt.local = true;
-  } else {
-    if (typeof wkt.PROJECTION === 'object') {
-      wkt.projName = Object.keys(wkt.PROJECTION)[0];
-    } else {
-      wkt.projName = wkt.PROJECTION;
-    }
-  }
-  if (wkt.UNIT) {
-    wkt.units = wkt.UNIT.name.toLowerCase();
-    if (wkt.units === 'metre') {
-      wkt.units = 'meter';
-    }
-    if (wkt.UNIT.convert) {
-      if (wkt.type === 'GEOGCS') {
-        if (wkt.DATUM && wkt.DATUM.SPHEROID) {
-          wkt.to_meter = wkt.UNIT.convert*wkt.DATUM.SPHEROID.a;
-        }
-      } else {
-        wkt.to_meter = wkt.UNIT.convert, 10;
-      }
-    }
-  }
-  var geogcs = wkt.GEOGCS;
-  if (wkt.type === 'GEOGCS') {
-    geogcs = wkt;
-  }
-  if (geogcs) {
-    //if(wkt.GEOGCS.PRIMEM&&wkt.GEOGCS.PRIMEM.convert){
-    //  wkt.from_greenwich=wkt.GEOGCS.PRIMEM.convert*D2R;
-    //}
-    if (geogcs.DATUM) {
-      wkt.datumCode = geogcs.DATUM.name.toLowerCase();
-    } else {
-      wkt.datumCode = geogcs.name.toLowerCase();
-    }
-    if (wkt.datumCode.slice(0, 2) === 'd_') {
-      wkt.datumCode = wkt.datumCode.slice(2);
-    }
-    if (wkt.datumCode === 'new_zealand_geodetic_datum_1949' || wkt.datumCode === 'new_zealand_1949') {
-      wkt.datumCode = 'nzgd49';
-    }
-    if (wkt.datumCode === 'wgs_1984') {
-      if (wkt.PROJECTION === 'Mercator_Auxiliary_Sphere') {
-        wkt.sphere = true;
-      }
-      wkt.datumCode = 'wgs84';
-    }
-    if (wkt.datumCode.slice(-6) === '_ferro') {
-      wkt.datumCode = wkt.datumCode.slice(0, - 6);
-    }
-    if (wkt.datumCode.slice(-8) === '_jakarta') {
-      wkt.datumCode = wkt.datumCode.slice(0, - 8);
-    }
-    if (~wkt.datumCode.indexOf('belge')) {
-      wkt.datumCode = 'rnb72';
-    }
-    if (geogcs.DATUM && geogcs.DATUM.SPHEROID) {
-      wkt.ellps = geogcs.DATUM.SPHEROID.name.replace('_19', '').replace(/[Cc]larke\_18/, 'clrk');
-      if (wkt.ellps.toLowerCase().slice(0, 13) === 'international') {
-        wkt.ellps = 'intl';
-      }
-
-      wkt.a = geogcs.DATUM.SPHEROID.a;
-      wkt.rf = parseFloat(geogcs.DATUM.SPHEROID.rf, 10);
-    }
-    if (~wkt.datumCode.indexOf('osgb_1936')) {
-      wkt.datumCode = 'osgb36';
-    }
-    if (~wkt.datumCode.indexOf('osni_1952')) {
-      wkt.datumCode = 'osni52';
-    }
-    if (~wkt.datumCode.indexOf('tm65')
-      || ~wkt.datumCode.indexOf('geodetic_datum_of_1965')) {
-      wkt.datumCode = 'ire65';
-    }
-  }
-  if (wkt.b && !isFinite(wkt.b)) {
-    wkt.b = wkt.a;
-  }
-
-  function toMeter(input) {
-    var ratio = wkt.to_meter || 1;
-    return input * ratio;
-  }
-  var renamer = function(a) {
-    return rename(wkt, a);
-  };
-  var list = [
-    ['standard_parallel_1', 'Standard_Parallel_1'],
-    ['standard_parallel_2', 'Standard_Parallel_2'],
-    ['false_easting', 'False_Easting'],
-    ['false_northing', 'False_Northing'],
-    ['central_meridian', 'Central_Meridian'],
-    ['latitude_of_origin', 'Latitude_Of_Origin'],
-    ['latitude_of_origin', 'Central_Parallel'],
-    ['scale_factor', 'Scale_Factor'],
-    ['k0', 'scale_factor'],
-    ['latitude_of_center', 'Latitude_of_center'],
-    ['lat0', 'latitude_of_center', d2r],
-    ['longitude_of_center', 'Longitude_Of_Center'],
-    ['longc', 'longitude_of_center', d2r],
-    ['x0', 'false_easting', toMeter],
-    ['y0', 'false_northing', toMeter],
-    ['long0', 'central_meridian', d2r],
-    ['lat0', 'latitude_of_origin', d2r],
-    ['lat0', 'standard_parallel_1', d2r],
-    ['lat1', 'standard_parallel_1', d2r],
-    ['lat2', 'standard_parallel_2', d2r],
-    ['alpha', 'azimuth', d2r],
-    ['srsCode', 'name']
-  ];
-  list.forEach(renamer);
-  if (!wkt.long0 && wkt.longc && (wkt.projName === 'Albers_Conic_Equal_Area' || wkt.projName === 'Lambert_Azimuthal_Equal_Area')) {
-    wkt.long0 = wkt.longc;
-  }
-  if (!wkt.lat_ts && wkt.lat1 && (wkt.projName === 'Stereographic_South_Pole' || wkt.projName === 'Polar Stereographic (variant B)')) {
-    wkt.lat0 = d2r(wkt.lat1 > 0 ? 90 : -90);
-    wkt.lat_ts = wkt.lat1;
-  }
-}
-/* harmony default export */ __webpack_exports__["a"] = (function(wkt) {
-  var lisp = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__parser__["a" /* default */])(wkt);
-  var type = lisp.shift();
-  var name = lisp.shift();
-  lisp.unshift(['name', name]);
-  lisp.unshift(['type', type]);
-  var obj = {};
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__process__["a" /* sExpr */])(lisp, obj);
-  cleanWKT(obj);
-  return obj;
-});
-
-
-/***/ }),
-/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://d3js.org Version 4.9.1. Copyright 2017 Mike Bostock.
@@ -18814,41 +17083,1772 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 
 /***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(x) {
+  return (1 - 0.25 * x * (1 + x / 16 * (3 + 1.25 * x)));
+});
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(x) {
+  return (0.375 * x * (1 + 0.25 * x * (1 + 0.46875 * x)));
+});
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(x) {
+  return (0.05859375 * x * x * (1 + 0.75 * x));
+});
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(x) {
+  return (x * x * x * (35 / 3072));
+});
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(e0, e1, e2, e3, phi) {
+  return (e0 * phi - e1 * Math.sin(2 * phi) + e2 * Math.sin(4 * phi) - e3 * Math.sin(6 * phi));
+});
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
+
+
+/* harmony default export */ __webpack_exports__["a"] = (function(eccent, ts) {
+  var eccnth = 0.5 * eccent;
+  var con, dphi;
+  var phi = __WEBPACK_IMPORTED_MODULE_0__constants_values__["b" /* HALF_PI */] - 2 * Math.atan(ts);
+  for (var i = 0; i <= 15; i++) {
+    con = eccent * Math.sin(phi);
+    dphi = __WEBPACK_IMPORTED_MODULE_0__constants_values__["b" /* HALF_PI */] - 2 * Math.atan(ts * (Math.pow(((1 - con) / (1 + con)), eccnth))) - phi;
+    phi += dphi;
+    if (Math.abs(dphi) <= 0.0000000001) {
+      return phi;
+    }
+  }
+  //console.log("phi2z has NoConvergence");
+  return -9999;
+});
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
+
+
+/* harmony default export */ __webpack_exports__["a"] = (function(eccent, phi, sinphi) {
+  var con = eccent * sinphi;
+  var com = 0.5 * eccent;
+  con = Math.pow(((1 - con) / (1 + con)), com);
+  return (Math.tan(0.5 * (__WEBPACK_IMPORTED_MODULE_0__constants_values__["b" /* HALF_PI */] - phi)) / con);
+});
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__parseCode__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__extend__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__projections__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__deriveConstants__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_Datum__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__datum__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__match__ = __webpack_require__(20);
+
+
+
+
+
+
+
+
+function Projection(srsCode,callback) {
+  if (!(this instanceof Projection)) {
+    return new Projection(srsCode);
+  }
+  callback = callback || function(error){
+    if(error){
+      throw error;
+    }
+  };
+  var json = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__parseCode__["a" /* default */])(srsCode);
+  if(typeof json !== 'object'){
+    callback(srsCode);
+    return;
+  }
+  var ourProj = Projection.projections.get(json.projName);
+  if(!ourProj){
+    callback(srsCode);
+    return;
+  }
+  if (json.datumCode && json.datumCode !== 'none') {
+    var datumDef = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__match__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_4__constants_Datum__["a" /* default */], json.datumCode);
+    if (datumDef) {
+      json.datum_params = datumDef.towgs84 ? datumDef.towgs84.split(',') : null;
+      json.ellps = datumDef.ellipse;
+      json.datumName = datumDef.datumName ? datumDef.datumName : json.datumCode;
+    }
+  }
+  json.k0 = json.k0 || 1.0;
+  json.axis = json.axis || 'enu';
+  json.ellps = json.ellps || 'wgs84';
+  var sphere_ = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__deriveConstants__["a" /* sphere */])(json.a, json.b, json.rf, json.ellps, json.sphere);
+  var ecc = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__deriveConstants__["b" /* eccentricity */])(sphere_.a, sphere_.b, sphere_.rf, json.R_A);
+  var datumObj = json.datum || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__datum__["a" /* default */])(json.datumCode, json.datum_params, sphere_.a, sphere_.b, ecc.es, ecc.ep2);
+
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__extend__["a" /* default */])(this, json); // transfer everything over from the projection because we don't know what we'll need
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__extend__["a" /* default */])(this, ourProj); // transfer all the methods from the projection
+
+  // copy the 4 things over we calulated in deriveConstants.sphere
+  this.a = sphere_.a;
+  this.b = sphere_.b;
+  this.rf = sphere_.rf;
+  this.sphere = sphere_.sphere;
+
+  // copy the 3 things we calculated in deriveConstants.eccentricity
+  this.es = ecc.es;
+  this.e = ecc.e;
+  this.ep2 = ecc.ep2;
+
+  // add in the datum object
+  this.datum = datumObj;
+
+  // init the projection
+  this.init();
+
+  // legecy callback from back in the day when it went to spatialreference.org
+  callback(null, this);
+
+}
+Projection.projections = __WEBPACK_IMPORTED_MODULE_2__projections__["a" /* default */];
+Projection.projections.start();
+/* harmony default export */ __webpack_exports__["a"] = (Projection);
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(a, e, sinphi) {
+  var temp = e * sinphi;
+  return a / Math.sqrt(1 - temp * temp);
+});
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(ml, e0, e1, e2, e3) {
+  var phi;
+  var dphi;
+
+  phi = ml / e0;
+  for (var i = 0; i < 15; i++) {
+    dphi = (ml - (e0 * phi - e1 * Math.sin(2 * phi) + e2 * Math.sin(4 * phi) - e3 * Math.sin(6 * phi))) / (e0 - 2 * e1 * Math.cos(2 * phi) + 4 * e2 * Math.cos(4 * phi) - 6 * e3 * Math.cos(6 * phi));
+    phi += dphi;
+    if (Math.abs(dphi) <= 0.0000000001) {
+      return phi;
+    }
+  }
+
+  //..reportError("IMLFN-CONV:Latitude failed to converge after 15 iterations");
+  return NaN;
+});
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(phi, sphi, cphi, en) {
+  cphi *= sphi;
+  sphi *= sphi;
+  return (en[0] * phi - cphi * (en[1] + sphi * (en[2] + sphi * (en[3] + sphi * en[4]))));
+});
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(eccent, sinphi) {
+  var con;
+  if (eccent > 1.0e-7) {
+    con = eccent * sinphi;
+    return ((1 - eccent * eccent) * (sinphi / (1 - con * con) - (0.5 / eccent) * Math.log((1 - con) / (1 + con))));
+  }
+  else {
+    return (2 * sinphi);
+  }
+});
+
+/***/ }),
+/* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = match;
+var ignoredChar = /[\s_\-\/\(\)]/g;
+function match(obj, key) {
+  if (obj[key]) {
+    return obj[key];
+  }
+  var keys = Object.keys(obj);
+  var lkey = key.toLowerCase().replace(ignoredChar, '');
+  var i = -1;
+  var testkey, processedKey;
+  while (++i < keys.length) {
+    testkey = keys[i];
+    processedKey = testkey.toLowerCase().replace(ignoredChar, '');
+    if (processedKey === lkey) {
+      return obj[testkey];
+    }
+  }
+}
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["c"] = forward;
+/* unused harmony export inverse */
+/* harmony export (immutable) */ __webpack_exports__["b"] = toPoint;
+
+
+
+/**
+ * UTM zones are grouped, and assigned to one of a group of 6
+ * sets.
+ *
+ * {int} @private
+ */
+var NUM_100K_SETS = 6;
+
+/**
+ * The column letters (for easting) of the lower left value, per
+ * set.
+ *
+ * {string} @private
+ */
+var SET_ORIGIN_COLUMN_LETTERS = 'AJSAJS';
+
+/**
+ * The row letters (for northing) of the lower left value, per
+ * set.
+ *
+ * {string} @private
+ */
+var SET_ORIGIN_ROW_LETTERS = 'AFAFAF';
+
+var A = 65; // A
+var I = 73; // I
+var O = 79; // O
+var V = 86; // V
+var Z = 90; // Z
+/* harmony default export */ __webpack_exports__["a"] = ({
+  forward: forward,
+  inverse: inverse,
+  toPoint: toPoint
+});
+/**
+ * Conversion of lat/lon to MGRS.
+ *
+ * @param {object} ll Object literal with lat and lon properties on a
+ *     WGS84 ellipsoid.
+ * @param {int} accuracy Accuracy in digits (5 for 1 m, 4 for 10 m, 3 for
+ *      100 m, 2 for 1000 m or 1 for 10000 m). Optional, default is 5.
+ * @return {string} the MGRS string for the given location and accuracy.
+ */
+function forward(ll, accuracy) {
+  accuracy = accuracy || 5; // default accuracy 1m
+  return encode(LLtoUTM({
+    lat: ll[1],
+    lon: ll[0]
+  }), accuracy);
+};
+
+/**
+ * Conversion of MGRS to lat/lon.
+ *
+ * @param {string} mgrs MGRS string.
+ * @return {array} An array with left (longitude), bottom (latitude), right
+ *     (longitude) and top (latitude) values in WGS84, representing the
+ *     bounding box for the provided MGRS reference.
+ */
+function inverse(mgrs) {
+  var bbox = UTMtoLL(decode(mgrs.toUpperCase()));
+  if (bbox.lat && bbox.lon) {
+    return [bbox.lon, bbox.lat, bbox.lon, bbox.lat];
+  }
+  return [bbox.left, bbox.bottom, bbox.right, bbox.top];
+};
+
+function toPoint(mgrs) {
+  var bbox = UTMtoLL(decode(mgrs.toUpperCase()));
+  if (bbox.lat && bbox.lon) {
+    return [bbox.lon, bbox.lat];
+  }
+  return [(bbox.left + bbox.right) / 2, (bbox.top + bbox.bottom) / 2];
+};
+/**
+ * Conversion from degrees to radians.
+ *
+ * @private
+ * @param {number} deg the angle in degrees.
+ * @return {number} the angle in radians.
+ */
+function degToRad(deg) {
+  return (deg * (Math.PI / 180.0));
+}
+
+/**
+ * Conversion from radians to degrees.
+ *
+ * @private
+ * @param {number} rad the angle in radians.
+ * @return {number} the angle in degrees.
+ */
+function radToDeg(rad) {
+  return (180.0 * (rad / Math.PI));
+}
+
+/**
+ * Converts a set of Longitude and Latitude co-ordinates to UTM
+ * using the WGS84 ellipsoid.
+ *
+ * @private
+ * @param {object} ll Object literal with lat and lon properties
+ *     representing the WGS84 coordinate to be converted.
+ * @return {object} Object literal containing the UTM value with easting,
+ *     northing, zoneNumber and zoneLetter properties, and an optional
+ *     accuracy property in digits. Returns null if the conversion failed.
+ */
+function LLtoUTM(ll) {
+  var Lat = ll.lat;
+  var Long = ll.lon;
+  var a = 6378137.0; //ellip.radius;
+  var eccSquared = 0.00669438; //ellip.eccsq;
+  var k0 = 0.9996;
+  var LongOrigin;
+  var eccPrimeSquared;
+  var N, T, C, A, M;
+  var LatRad = degToRad(Lat);
+  var LongRad = degToRad(Long);
+  var LongOriginRad;
+  var ZoneNumber;
+  // (int)
+  ZoneNumber = Math.floor((Long + 180) / 6) + 1;
+
+  //Make sure the longitude 180.00 is in Zone 60
+  if (Long === 180) {
+    ZoneNumber = 60;
+  }
+
+  // Special zone for Norway
+  if (Lat >= 56.0 && Lat < 64.0 && Long >= 3.0 && Long < 12.0) {
+    ZoneNumber = 32;
+  }
+
+  // Special zones for Svalbard
+  if (Lat >= 72.0 && Lat < 84.0) {
+    if (Long >= 0.0 && Long < 9.0) {
+      ZoneNumber = 31;
+    }
+    else if (Long >= 9.0 && Long < 21.0) {
+      ZoneNumber = 33;
+    }
+    else if (Long >= 21.0 && Long < 33.0) {
+      ZoneNumber = 35;
+    }
+    else if (Long >= 33.0 && Long < 42.0) {
+      ZoneNumber = 37;
+    }
+  }
+
+  LongOrigin = (ZoneNumber - 1) * 6 - 180 + 3; //+3 puts origin
+  // in middle of
+  // zone
+  LongOriginRad = degToRad(LongOrigin);
+
+  eccPrimeSquared = (eccSquared) / (1 - eccSquared);
+
+  N = a / Math.sqrt(1 - eccSquared * Math.sin(LatRad) * Math.sin(LatRad));
+  T = Math.tan(LatRad) * Math.tan(LatRad);
+  C = eccPrimeSquared * Math.cos(LatRad) * Math.cos(LatRad);
+  A = Math.cos(LatRad) * (LongRad - LongOriginRad);
+
+  M = a * ((1 - eccSquared / 4 - 3 * eccSquared * eccSquared / 64 - 5 * eccSquared * eccSquared * eccSquared / 256) * LatRad - (3 * eccSquared / 8 + 3 * eccSquared * eccSquared / 32 + 45 * eccSquared * eccSquared * eccSquared / 1024) * Math.sin(2 * LatRad) + (15 * eccSquared * eccSquared / 256 + 45 * eccSquared * eccSquared * eccSquared / 1024) * Math.sin(4 * LatRad) - (35 * eccSquared * eccSquared * eccSquared / 3072) * Math.sin(6 * LatRad));
+
+  var UTMEasting = (k0 * N * (A + (1 - T + C) * A * A * A / 6.0 + (5 - 18 * T + T * T + 72 * C - 58 * eccPrimeSquared) * A * A * A * A * A / 120.0) + 500000.0);
+
+  var UTMNorthing = (k0 * (M + N * Math.tan(LatRad) * (A * A / 2 + (5 - T + 9 * C + 4 * C * C) * A * A * A * A / 24.0 + (61 - 58 * T + T * T + 600 * C - 330 * eccPrimeSquared) * A * A * A * A * A * A / 720.0)));
+  if (Lat < 0.0) {
+    UTMNorthing += 10000000.0; //10000000 meter offset for
+    // southern hemisphere
+  }
+
+  return {
+    northing: Math.round(UTMNorthing),
+    easting: Math.round(UTMEasting),
+    zoneNumber: ZoneNumber,
+    zoneLetter: getLetterDesignator(Lat)
+  };
+}
+
+/**
+ * Converts UTM coords to lat/long, using the WGS84 ellipsoid. This is a convenience
+ * class where the Zone can be specified as a single string eg."60N" which
+ * is then broken down into the ZoneNumber and ZoneLetter.
+ *
+ * @private
+ * @param {object} utm An object literal with northing, easting, zoneNumber
+ *     and zoneLetter properties. If an optional accuracy property is
+ *     provided (in meters), a bounding box will be returned instead of
+ *     latitude and longitude.
+ * @return {object} An object literal containing either lat and lon values
+ *     (if no accuracy was provided), or top, right, bottom and left values
+ *     for the bounding box calculated according to the provided accuracy.
+ *     Returns null if the conversion failed.
+ */
+function UTMtoLL(utm) {
+
+  var UTMNorthing = utm.northing;
+  var UTMEasting = utm.easting;
+  var zoneLetter = utm.zoneLetter;
+  var zoneNumber = utm.zoneNumber;
+  // check the ZoneNummber is valid
+  if (zoneNumber < 0 || zoneNumber > 60) {
+    return null;
+  }
+
+  var k0 = 0.9996;
+  var a = 6378137.0; //ellip.radius;
+  var eccSquared = 0.00669438; //ellip.eccsq;
+  var eccPrimeSquared;
+  var e1 = (1 - Math.sqrt(1 - eccSquared)) / (1 + Math.sqrt(1 - eccSquared));
+  var N1, T1, C1, R1, D, M;
+  var LongOrigin;
+  var mu, phi1Rad;
+
+  // remove 500,000 meter offset for longitude
+  var x = UTMEasting - 500000.0;
+  var y = UTMNorthing;
+
+  // We must know somehow if we are in the Northern or Southern
+  // hemisphere, this is the only time we use the letter So even
+  // if the Zone letter isn't exactly correct it should indicate
+  // the hemisphere correctly
+  if (zoneLetter < 'N') {
+    y -= 10000000.0; // remove 10,000,000 meter offset used
+    // for southern hemisphere
+  }
+
+  // There are 60 zones with zone 1 being at West -180 to -174
+  LongOrigin = (zoneNumber - 1) * 6 - 180 + 3; // +3 puts origin
+  // in middle of
+  // zone
+
+  eccPrimeSquared = (eccSquared) / (1 - eccSquared);
+
+  M = y / k0;
+  mu = M / (a * (1 - eccSquared / 4 - 3 * eccSquared * eccSquared / 64 - 5 * eccSquared * eccSquared * eccSquared / 256));
+
+  phi1Rad = mu + (3 * e1 / 2 - 27 * e1 * e1 * e1 / 32) * Math.sin(2 * mu) + (21 * e1 * e1 / 16 - 55 * e1 * e1 * e1 * e1 / 32) * Math.sin(4 * mu) + (151 * e1 * e1 * e1 / 96) * Math.sin(6 * mu);
+  // double phi1 = ProjMath.radToDeg(phi1Rad);
+
+  N1 = a / Math.sqrt(1 - eccSquared * Math.sin(phi1Rad) * Math.sin(phi1Rad));
+  T1 = Math.tan(phi1Rad) * Math.tan(phi1Rad);
+  C1 = eccPrimeSquared * Math.cos(phi1Rad) * Math.cos(phi1Rad);
+  R1 = a * (1 - eccSquared) / Math.pow(1 - eccSquared * Math.sin(phi1Rad) * Math.sin(phi1Rad), 1.5);
+  D = x / (N1 * k0);
+
+  var lat = phi1Rad - (N1 * Math.tan(phi1Rad) / R1) * (D * D / 2 - (5 + 3 * T1 + 10 * C1 - 4 * C1 * C1 - 9 * eccPrimeSquared) * D * D * D * D / 24 + (61 + 90 * T1 + 298 * C1 + 45 * T1 * T1 - 252 * eccPrimeSquared - 3 * C1 * C1) * D * D * D * D * D * D / 720);
+  lat = radToDeg(lat);
+
+  var lon = (D - (1 + 2 * T1 + C1) * D * D * D / 6 + (5 - 2 * C1 + 28 * T1 - 3 * C1 * C1 + 8 * eccPrimeSquared + 24 * T1 * T1) * D * D * D * D * D / 120) / Math.cos(phi1Rad);
+  lon = LongOrigin + radToDeg(lon);
+
+  var result;
+  if (utm.accuracy) {
+    var topRight = UTMtoLL({
+      northing: utm.northing + utm.accuracy,
+      easting: utm.easting + utm.accuracy,
+      zoneLetter: utm.zoneLetter,
+      zoneNumber: utm.zoneNumber
+    });
+    result = {
+      top: topRight.lat,
+      right: topRight.lon,
+      bottom: lat,
+      left: lon
+    };
+  }
+  else {
+    result = {
+      lat: lat,
+      lon: lon
+    };
+  }
+  return result;
+}
+
+/**
+ * Calculates the MGRS letter designator for the given latitude.
+ *
+ * @private
+ * @param {number} lat The latitude in WGS84 to get the letter designator
+ *     for.
+ * @return {char} The letter designator.
+ */
+function getLetterDesignator(lat) {
+  //This is here as an error flag to show that the Latitude is
+  //outside MGRS limits
+  var LetterDesignator = 'Z';
+
+  if ((84 >= lat) && (lat >= 72)) {
+    LetterDesignator = 'X';
+  }
+  else if ((72 > lat) && (lat >= 64)) {
+    LetterDesignator = 'W';
+  }
+  else if ((64 > lat) && (lat >= 56)) {
+    LetterDesignator = 'V';
+  }
+  else if ((56 > lat) && (lat >= 48)) {
+    LetterDesignator = 'U';
+  }
+  else if ((48 > lat) && (lat >= 40)) {
+    LetterDesignator = 'T';
+  }
+  else if ((40 > lat) && (lat >= 32)) {
+    LetterDesignator = 'S';
+  }
+  else if ((32 > lat) && (lat >= 24)) {
+    LetterDesignator = 'R';
+  }
+  else if ((24 > lat) && (lat >= 16)) {
+    LetterDesignator = 'Q';
+  }
+  else if ((16 > lat) && (lat >= 8)) {
+    LetterDesignator = 'P';
+  }
+  else if ((8 > lat) && (lat >= 0)) {
+    LetterDesignator = 'N';
+  }
+  else if ((0 > lat) && (lat >= -8)) {
+    LetterDesignator = 'M';
+  }
+  else if ((-8 > lat) && (lat >= -16)) {
+    LetterDesignator = 'L';
+  }
+  else if ((-16 > lat) && (lat >= -24)) {
+    LetterDesignator = 'K';
+  }
+  else if ((-24 > lat) && (lat >= -32)) {
+    LetterDesignator = 'J';
+  }
+  else if ((-32 > lat) && (lat >= -40)) {
+    LetterDesignator = 'H';
+  }
+  else if ((-40 > lat) && (lat >= -48)) {
+    LetterDesignator = 'G';
+  }
+  else if ((-48 > lat) && (lat >= -56)) {
+    LetterDesignator = 'F';
+  }
+  else if ((-56 > lat) && (lat >= -64)) {
+    LetterDesignator = 'E';
+  }
+  else if ((-64 > lat) && (lat >= -72)) {
+    LetterDesignator = 'D';
+  }
+  else if ((-72 > lat) && (lat >= -80)) {
+    LetterDesignator = 'C';
+  }
+  return LetterDesignator;
+}
+
+/**
+ * Encodes a UTM location as MGRS string.
+ *
+ * @private
+ * @param {object} utm An object literal with easting, northing,
+ *     zoneLetter, zoneNumber
+ * @param {number} accuracy Accuracy in digits (1-5).
+ * @return {string} MGRS string for the given UTM location.
+ */
+function encode(utm, accuracy) {
+  // prepend with leading zeroes
+  var seasting = "00000" + utm.easting,
+    snorthing = "00000" + utm.northing;
+
+  return utm.zoneNumber + utm.zoneLetter + get100kID(utm.easting, utm.northing, utm.zoneNumber) + seasting.substr(seasting.length - 5, accuracy) + snorthing.substr(snorthing.length - 5, accuracy);
+}
+
+/**
+ * Get the two letter 100k designator for a given UTM easting,
+ * northing and zone number value.
+ *
+ * @private
+ * @param {number} easting
+ * @param {number} northing
+ * @param {number} zoneNumber
+ * @return the two letter 100k designator for the given UTM location.
+ */
+function get100kID(easting, northing, zoneNumber) {
+  var setParm = get100kSetForZone(zoneNumber);
+  var setColumn = Math.floor(easting / 100000);
+  var setRow = Math.floor(northing / 100000) % 20;
+  return getLetter100kID(setColumn, setRow, setParm);
+}
+
+/**
+ * Given a UTM zone number, figure out the MGRS 100K set it is in.
+ *
+ * @private
+ * @param {number} i An UTM zone number.
+ * @return {number} the 100k set the UTM zone is in.
+ */
+function get100kSetForZone(i) {
+  var setParm = i % NUM_100K_SETS;
+  if (setParm === 0) {
+    setParm = NUM_100K_SETS;
+  }
+
+  return setParm;
+}
+
+/**
+ * Get the two-letter MGRS 100k designator given information
+ * translated from the UTM northing, easting and zone number.
+ *
+ * @private
+ * @param {number} column the column index as it relates to the MGRS
+ *        100k set spreadsheet, created from the UTM easting.
+ *        Values are 1-8.
+ * @param {number} row the row index as it relates to the MGRS 100k set
+ *        spreadsheet, created from the UTM northing value. Values
+ *        are from 0-19.
+ * @param {number} parm the set block, as it relates to the MGRS 100k set
+ *        spreadsheet, created from the UTM zone. Values are from
+ *        1-60.
+ * @return two letter MGRS 100k code.
+ */
+function getLetter100kID(column, row, parm) {
+  // colOrigin and rowOrigin are the letters at the origin of the set
+  var index = parm - 1;
+  var colOrigin = SET_ORIGIN_COLUMN_LETTERS.charCodeAt(index);
+  var rowOrigin = SET_ORIGIN_ROW_LETTERS.charCodeAt(index);
+
+  // colInt and rowInt are the letters to build to return
+  var colInt = colOrigin + column - 1;
+  var rowInt = rowOrigin + row;
+  var rollover = false;
+
+  if (colInt > Z) {
+    colInt = colInt - Z + A - 1;
+    rollover = true;
+  }
+
+  if (colInt === I || (colOrigin < I && colInt > I) || ((colInt > I || colOrigin < I) && rollover)) {
+    colInt++;
+  }
+
+  if (colInt === O || (colOrigin < O && colInt > O) || ((colInt > O || colOrigin < O) && rollover)) {
+    colInt++;
+
+    if (colInt === I) {
+      colInt++;
+    }
+  }
+
+  if (colInt > Z) {
+    colInt = colInt - Z + A - 1;
+  }
+
+  if (rowInt > V) {
+    rowInt = rowInt - V + A - 1;
+    rollover = true;
+  }
+  else {
+    rollover = false;
+  }
+
+  if (((rowInt === I) || ((rowOrigin < I) && (rowInt > I))) || (((rowInt > I) || (rowOrigin < I)) && rollover)) {
+    rowInt++;
+  }
+
+  if (((rowInt === O) || ((rowOrigin < O) && (rowInt > O))) || (((rowInt > O) || (rowOrigin < O)) && rollover)) {
+    rowInt++;
+
+    if (rowInt === I) {
+      rowInt++;
+    }
+  }
+
+  if (rowInt > V) {
+    rowInt = rowInt - V + A - 1;
+  }
+
+  var twoLetter = String.fromCharCode(colInt) + String.fromCharCode(rowInt);
+  return twoLetter;
+}
+
+/**
+ * Decode the UTM parameters from a MGRS string.
+ *
+ * @private
+ * @param {string} mgrsString an UPPERCASE coordinate string is expected.
+ * @return {object} An object literal with easting, northing, zoneLetter,
+ *     zoneNumber and accuracy (in meters) properties.
+ */
+function decode(mgrsString) {
+
+  if (mgrsString && mgrsString.length === 0) {
+    throw ("MGRSPoint coverting from nothing");
+  }
+
+  var length = mgrsString.length;
+
+  var hunK = null;
+  var sb = "";
+  var testChar;
+  var i = 0;
+
+  // get Zone number
+  while (!(/[A-Z]/).test(testChar = mgrsString.charAt(i))) {
+    if (i >= 2) {
+      throw ("MGRSPoint bad conversion from: " + mgrsString);
+    }
+    sb += testChar;
+    i++;
+  }
+
+  var zoneNumber = parseInt(sb, 10);
+
+  if (i === 0 || i + 3 > length) {
+    // A good MGRS string has to be 4-5 digits long,
+    // ##AAA/#AAA at least.
+    throw ("MGRSPoint bad conversion from: " + mgrsString);
+  }
+
+  var zoneLetter = mgrsString.charAt(i++);
+
+  // Should we check the zone letter here? Why not.
+  if (zoneLetter <= 'A' || zoneLetter === 'B' || zoneLetter === 'Y' || zoneLetter >= 'Z' || zoneLetter === 'I' || zoneLetter === 'O') {
+    throw ("MGRSPoint zone letter " + zoneLetter + " not handled: " + mgrsString);
+  }
+
+  hunK = mgrsString.substring(i, i += 2);
+
+  var set = get100kSetForZone(zoneNumber);
+
+  var east100k = getEastingFromChar(hunK.charAt(0), set);
+  var north100k = getNorthingFromChar(hunK.charAt(1), set);
+
+  // We have a bug where the northing may be 2000000 too low.
+  // How
+  // do we know when to roll over?
+
+  while (north100k < getMinNorthing(zoneLetter)) {
+    north100k += 2000000;
+  }
+
+  // calculate the char index for easting/northing separator
+  var remainder = length - i;
+
+  if (remainder % 2 !== 0) {
+    throw ("MGRSPoint has to have an even number \nof digits after the zone letter and two 100km letters - front \nhalf for easting meters, second half for \nnorthing meters" + mgrsString);
+  }
+
+  var sep = remainder / 2;
+
+  var sepEasting = 0.0;
+  var sepNorthing = 0.0;
+  var accuracyBonus, sepEastingString, sepNorthingString, easting, northing;
+  if (sep > 0) {
+    accuracyBonus = 100000.0 / Math.pow(10, sep);
+    sepEastingString = mgrsString.substring(i, i + sep);
+    sepEasting = parseFloat(sepEastingString) * accuracyBonus;
+    sepNorthingString = mgrsString.substring(i + sep);
+    sepNorthing = parseFloat(sepNorthingString) * accuracyBonus;
+  }
+
+  easting = sepEasting + east100k;
+  northing = sepNorthing + north100k;
+
+  return {
+    easting: easting,
+    northing: northing,
+    zoneLetter: zoneLetter,
+    zoneNumber: zoneNumber,
+    accuracy: accuracyBonus
+  };
+}
+
+/**
+ * Given the first letter from a two-letter MGRS 100k zone, and given the
+ * MGRS table set for the zone number, figure out the easting value that
+ * should be added to the other, secondary easting value.
+ *
+ * @private
+ * @param {char} e The first letter from a two-letter MGRS 100´k zone.
+ * @param {number} set The MGRS table set for the zone number.
+ * @return {number} The easting value for the given letter and set.
+ */
+function getEastingFromChar(e, set) {
+  // colOrigin is the letter at the origin of the set for the
+  // column
+  var curCol = SET_ORIGIN_COLUMN_LETTERS.charCodeAt(set - 1);
+  var eastingValue = 100000.0;
+  var rewindMarker = false;
+
+  while (curCol !== e.charCodeAt(0)) {
+    curCol++;
+    if (curCol === I) {
+      curCol++;
+    }
+    if (curCol === O) {
+      curCol++;
+    }
+    if (curCol > Z) {
+      if (rewindMarker) {
+        throw ("Bad character: " + e);
+      }
+      curCol = A;
+      rewindMarker = true;
+    }
+    eastingValue += 100000.0;
+  }
+
+  return eastingValue;
+}
+
+/**
+ * Given the second letter from a two-letter MGRS 100k zone, and given the
+ * MGRS table set for the zone number, figure out the northing value that
+ * should be added to the other, secondary northing value. You have to
+ * remember that Northings are determined from the equator, and the vertical
+ * cycle of letters mean a 2000000 additional northing meters. This happens
+ * approx. every 18 degrees of latitude. This method does *NOT* count any
+ * additional northings. You have to figure out how many 2000000 meters need
+ * to be added for the zone letter of the MGRS coordinate.
+ *
+ * @private
+ * @param {char} n Second letter of the MGRS 100k zone
+ * @param {number} set The MGRS table set number, which is dependent on the
+ *     UTM zone number.
+ * @return {number} The northing value for the given letter and set.
+ */
+function getNorthingFromChar(n, set) {
+
+  if (n > 'V') {
+    throw ("MGRSPoint given invalid Northing " + n);
+  }
+
+  // rowOrigin is the letter at the origin of the set for the
+  // column
+  var curRow = SET_ORIGIN_ROW_LETTERS.charCodeAt(set - 1);
+  var northingValue = 0.0;
+  var rewindMarker = false;
+
+  while (curRow !== n.charCodeAt(0)) {
+    curRow++;
+    if (curRow === I) {
+      curRow++;
+    }
+    if (curRow === O) {
+      curRow++;
+    }
+    // fixing a bug making whole application hang in this loop
+    // when 'n' is a wrong character
+    if (curRow > V) {
+      if (rewindMarker) { // making sure that this loop ends
+        throw ("Bad character: " + n);
+      }
+      curRow = A;
+      rewindMarker = true;
+    }
+    northingValue += 100000.0;
+  }
+
+  return northingValue;
+}
+
+/**
+ * The function getMinNorthing returns the minimum northing value of a MGRS
+ * zone.
+ *
+ * Ported from Geotrans' c Lattitude_Band_Value structure table.
+ *
+ * @private
+ * @param {char} zoneLetter The MGRS zone to get the min northing for.
+ * @return {number}
+ */
+function getMinNorthing(zoneLetter) {
+  var northing;
+  switch (zoneLetter) {
+  case 'C':
+    northing = 1100000.0;
+    break;
+  case 'D':
+    northing = 2000000.0;
+    break;
+  case 'E':
+    northing = 2800000.0;
+    break;
+  case 'F':
+    northing = 3700000.0;
+    break;
+  case 'G':
+    northing = 4600000.0;
+    break;
+  case 'H':
+    northing = 5500000.0;
+    break;
+  case 'J':
+    northing = 6400000.0;
+    break;
+  case 'K':
+    northing = 7300000.0;
+    break;
+  case 'L':
+    northing = 8200000.0;
+    break;
+  case 'M':
+    northing = 9100000.0;
+    break;
+  case 'N':
+    northing = 0.0;
+    break;
+  case 'P':
+    northing = 800000.0;
+    break;
+  case 'Q':
+    northing = 1700000.0;
+    break;
+  case 'R':
+    northing = 2600000.0;
+    break;
+  case 'S':
+    northing = 3500000.0;
+    break;
+  case 'T':
+    northing = 4400000.0;
+    break;
+  case 'U':
+    northing = 5300000.0;
+    break;
+  case 'V':
+    northing = 6200000.0;
+    break;
+  case 'W':
+    northing = 7000000.0;
+    break;
+  case 'X':
+    northing = 7900000.0;
+    break;
+  default:
+    northing = -1.0;
+  }
+  if (northing >= 0.0) {
+    return northing;
+  }
+  else {
+    throw ("Invalid zone letter: " + zoneLetter);
+  }
+
+}
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(x, y) {
+  x = Math.abs(x);
+  y = Math.abs(y);
+  var a = Math.max(x, y);
+  var b = Math.min(x, y) / (a ? a : 1);
+
+  return a * Math.sqrt(1 + Math.pow(b, 2));
+});
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var C00 = 1;
+var C02 = 0.25;
+var C04 = 0.046875;
+var C06 = 0.01953125;
+var C08 = 0.01068115234375;
+var C22 = 0.75;
+var C44 = 0.46875;
+var C46 = 0.01302083333333333333;
+var C48 = 0.00712076822916666666;
+var C66 = 0.36458333333333333333;
+var C68 = 0.00569661458333333333;
+var C88 = 0.3076171875;
+
+/* harmony default export */ __webpack_exports__["a"] = (function(es) {
+  var en = [];
+  en[0] = C00 - es * (C02 + es * (C04 + es * (C06 + es * C08)));
+  en[1] = es * (C22 - es * (C04 + es * (C06 + es * C08)));
+  var t = es * es;
+  en[2] = t * (C44 - es * (C46 + es * C48));
+  t *= es;
+  en[3] = t * (C66 - es * C68);
+  en[4] = t * es * C88;
+  return en;
+});
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pj_mlfn__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants_values__ = __webpack_require__(0);
+
+
+
+var MAX_ITER = 20;
+
+/* harmony default export */ __webpack_exports__["a"] = (function(arg, es, en) {
+  var k = 1 / (1 - es);
+  var phi = arg;
+  for (var i = MAX_ITER; i; --i) { /* rarely goes over 2 iterations */
+    var s = Math.sin(phi);
+    var t = 1 - es * s * s;
+    //t = this.pj_mlfn(phi, s, Math.cos(phi), en) - arg;
+    //phi -= t * (t * Math.sqrt(t)) * k;
+    t = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__pj_mlfn__["a" /* default */])(phi, s, Math.cos(phi), en) - arg) * (t * Math.sqrt(t)) * k;
+    phi -= t;
+    if (Math.abs(t) < __WEBPACK_IMPORTED_MODULE_1__constants_values__["a" /* EPSLN */]) {
+      return phi;
+    }
+  }
+  //..reportError("cass:pj_inv_mlfn: Convergence error");
+  return phi;
+});
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(x) {
+  var r = Math.exp(x);
+  r = (r - 1 / r) / 2;
+  return r;
+});
+
+/***/ }),
+/* 26 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function (array){
+  var out = {
+    x: array[0],
+    y: array[1]
+  };
+  if (array.length>2) {
+    out.z = array[2];
+  }
+  if (array.length>3) {
+    out.m = array[3];
+  }
+  return out;
+});
+
+/***/ }),
+/* 27 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__global__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__projString__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_wkt_parser__ = __webpack_require__(31);
+
+
+
+
+function defs(name) {
+  /*global console*/
+  var that = this;
+  if (arguments.length === 2) {
+    var def = arguments[1];
+    if (typeof def === 'string') {
+      if (def.charAt(0) === '+') {
+        defs[name] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__projString__["a" /* default */])(arguments[1]);
+      }
+      else {
+        defs[name] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_wkt_parser__["a" /* default */])(arguments[1]);
+      }
+    } else {
+      defs[name] = def;
+    }
+  }
+  else if (arguments.length === 1) {
+    if (Array.isArray(name)) {
+      return name.map(function(v) {
+        if (Array.isArray(v)) {
+          defs.apply(that, v);
+        }
+        else {
+          defs(v);
+        }
+      });
+    }
+    else if (typeof name === 'string') {
+      if (name in defs) {
+        return defs[name];
+      }
+    }
+    else if ('EPSG' in name) {
+      defs['EPSG:' + name.EPSG] = name;
+    }
+    else if ('ESRI' in name) {
+      defs['ESRI:' + name.ESRI] = name;
+    }
+    else if ('IAU2000' in name) {
+      defs['IAU2000:' + name.IAU2000] = name;
+    }
+    else {
+      console.log(name);
+    }
+    return;
+  }
+
+
+}
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__global__["a" /* default */])(defs);
+/* harmony default export */ __webpack_exports__["a"] = (defs);
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants_PrimeMeridian__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants_units__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__match__ = __webpack_require__(20);
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (function(defData) {
+  var self = {};
+  var paramObj = defData.split('+').map(function(v) {
+    return v.trim();
+  }).filter(function(a) {
+    return a;
+  }).reduce(function(p, a) {
+    var split = a.split('=');
+    split.push(true);
+    p[split[0].toLowerCase()] = split[1];
+    return p;
+  }, {});
+  var paramName, paramVal, paramOutname;
+  var params = {
+    proj: 'projName',
+    datum: 'datumCode',
+    rf: function(v) {
+      self.rf = parseFloat(v);
+    },
+    lat_0: function(v) {
+      self.lat0 = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
+    },
+    lat_1: function(v) {
+      self.lat1 = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
+    },
+    lat_2: function(v) {
+      self.lat2 = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
+    },
+    lat_ts: function(v) {
+      self.lat_ts = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
+    },
+    lon_0: function(v) {
+      self.long0 = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
+    },
+    lon_1: function(v) {
+      self.long1 = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
+    },
+    lon_2: function(v) {
+      self.long2 = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
+    },
+    alpha: function(v) {
+      self.alpha = parseFloat(v) * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
+    },
+    lonc: function(v) {
+      self.longc = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
+    },
+    x_0: function(v) {
+      self.x0 = parseFloat(v);
+    },
+    y_0: function(v) {
+      self.y0 = parseFloat(v);
+    },
+    k_0: function(v) {
+      self.k0 = parseFloat(v);
+    },
+    k: function(v) {
+      self.k0 = parseFloat(v);
+    },
+    a: function(v) {
+      self.a = parseFloat(v);
+    },
+    b: function(v) {
+      self.b = parseFloat(v);
+    },
+    r_a: function() {
+      self.R_A = true;
+    },
+    zone: function(v) {
+      self.zone = parseInt(v, 10);
+    },
+    south: function() {
+      self.utmSouth = true;
+    },
+    towgs84: function(v) {
+      self.datum_params = v.split(",").map(function(a) {
+        return parseFloat(a);
+      });
+    },
+    to_meter: function(v) {
+      self.to_meter = parseFloat(v);
+    },
+    units: function(v) {
+      self.units = v;
+      var unit = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__match__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_2__constants_units__["a" /* default */], v);
+      if (unit) {
+        self.to_meter = unit.to_meter;
+      }
+    },
+    from_greenwich: function(v) {
+      self.from_greenwich = v * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
+    },
+    pm: function(v) {
+      var pm = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__match__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_1__constants_PrimeMeridian__["a" /* default */], v);
+      self.from_greenwich = (pm ? pm : parseFloat(v)) * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */];
+    },
+    nadgrids: function(v) {
+      if (v === '@null') {
+        self.datumCode = 'none';
+      }
+      else {
+        self.nadgrids = v;
+      }
+    },
+    axis: function(v) {
+      var legalAxis = "ewnsud";
+      if (v.length === 3 && legalAxis.indexOf(v.substr(0, 1)) !== -1 && legalAxis.indexOf(v.substr(1, 1)) !== -1 && legalAxis.indexOf(v.substr(2, 1)) !== -1) {
+        self.axis = v;
+      }
+    }
+  };
+  for (paramName in paramObj) {
+    paramVal = paramObj[paramName];
+    if (paramName in params) {
+      paramOutname = params[paramName];
+      if (typeof paramOutname === 'function') {
+        paramOutname(paramVal);
+      }
+      else {
+        self[paramOutname] = paramVal;
+      }
+    }
+    else {
+      self[paramName] = paramVal;
+    }
+  }
+  if(typeof self.datumCode === 'string' && self.datumCode !== "WGS84"){
+    self.datumCode = self.datumCode.toLowerCase();
+  }
+  return self;
+});
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export init */
+/* unused harmony export forward */
+/* unused harmony export inverse */
+/* unused harmony export names */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_sinh__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_hypot__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_asinhy__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_gatg__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_clens__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_clens_cmplx__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_adjust_lon__ = __webpack_require__(1);
+// Heavily based on this etmerc projection implementation
+// https://github.com/mbloch/mapshaper-proj/blob/master/src/projections/etmerc.js
+
+
+
+
+
+
+
+
+
+function init() {
+  if (this.es === undefined || this.es <= 0) {
+    throw new Error('incorrect elliptical usage');
+  }
+
+  this.x0 = this.x0 !== undefined ? this.x0 : 0;
+  this.y0 = this.y0 !== undefined ? this.y0 : 0;
+  this.long0 = this.long0 !== undefined ? this.long0 : 0;
+  this.lat0 = this.lat0 !== undefined ? this.lat0 : 0;
+
+  this.cgb = [];
+  this.cbg = [];
+  this.utg = [];
+  this.gtu = [];
+
+  var f = this.es / (1 + Math.sqrt(1 - this.es));
+  var n = f / (2 - f);
+  var np = n;
+
+  this.cgb[0] = n * (2 + n * (-2 / 3 + n * (-2 + n * (116 / 45 + n * (26 / 45 + n * (-2854 / 675 ))))));
+  this.cbg[0] = n * (-2 + n * ( 2 / 3 + n * ( 4 / 3 + n * (-82 / 45 + n * (32 / 45 + n * (4642 / 4725))))));
+
+  np = np * n;
+  this.cgb[1] = np * (7 / 3 + n * (-8 / 5 + n * (-227 / 45 + n * (2704 / 315 + n * (2323 / 945)))));
+  this.cbg[1] = np * (5 / 3 + n * (-16 / 15 + n * ( -13 / 9 + n * (904 / 315 + n * (-1522 / 945)))));
+
+  np = np * n;
+  this.cgb[2] = np * (56 / 15 + n * (-136 / 35 + n * (-1262 / 105 + n * (73814 / 2835))));
+  this.cbg[2] = np * (-26 / 15 + n * (34 / 21 + n * (8 / 5 + n * (-12686 / 2835))));
+
+  np = np * n;
+  this.cgb[3] = np * (4279 / 630 + n * (-332 / 35 + n * (-399572 / 14175)));
+  this.cbg[3] = np * (1237 / 630 + n * (-12 / 5 + n * ( -24832 / 14175)));
+
+  np = np * n;
+  this.cgb[4] = np * (4174 / 315 + n * (-144838 / 6237));
+  this.cbg[4] = np * (-734 / 315 + n * (109598 / 31185));
+
+  np = np * n;
+  this.cgb[5] = np * (601676 / 22275);
+  this.cbg[5] = np * (444337 / 155925);
+
+  np = Math.pow(n, 2);
+  this.Qn = this.k0 / (1 + n) * (1 + np * (1 / 4 + np * (1 / 64 + np / 256)));
+
+  this.utg[0] = n * (-0.5 + n * ( 2 / 3 + n * (-37 / 96 + n * ( 1 / 360 + n * (81 / 512 + n * (-96199 / 604800))))));
+  this.gtu[0] = n * (0.5 + n * (-2 / 3 + n * (5 / 16 + n * (41 / 180 + n * (-127 / 288 + n * (7891 / 37800))))));
+
+  this.utg[1] = np * (-1 / 48 + n * (-1 / 15 + n * (437 / 1440 + n * (-46 / 105 + n * (1118711 / 3870720)))));
+  this.gtu[1] = np * (13 / 48 + n * (-3 / 5 + n * (557 / 1440 + n * (281 / 630 + n * (-1983433 / 1935360)))));
+
+  np = np * n;
+  this.utg[2] = np * (-17 / 480 + n * (37 / 840 + n * (209 / 4480 + n * (-5569 / 90720 ))));
+  this.gtu[2] = np * (61 / 240 + n * (-103 / 140 + n * (15061 / 26880 + n * (167603 / 181440))));
+
+  np = np * n;
+  this.utg[3] = np * (-4397 / 161280 + n * (11 / 504 + n * (830251 / 7257600)));
+  this.gtu[3] = np * (49561 / 161280 + n * (-179 / 168 + n * (6601661 / 7257600)));
+
+  np = np * n;
+  this.utg[4] = np * (-4583 / 161280 + n * (108847 / 3991680));
+  this.gtu[4] = np * (34729 / 80640 + n * (-3418889 / 1995840));
+
+  np = np * n;
+  this.utg[5] = np * (-20648693 / 638668800);
+  this.gtu[5] = np * (212378941 / 319334400);
+
+  var Z = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__common_gatg__["a" /* default */])(this.cbg, this.lat0);
+  this.Zb = -this.Qn * (Z + __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__common_clens__["a" /* default */])(this.gtu, 2 * Z));
+}
+
+function forward(p) {
+  var Ce = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__common_adjust_lon__["a" /* default */])(p.x - this.long0);
+  var Cn = p.y;
+
+  Cn = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__common_gatg__["a" /* default */])(this.cbg, Cn);
+  var sin_Cn = Math.sin(Cn);
+  var cos_Cn = Math.cos(Cn);
+  var sin_Ce = Math.sin(Ce);
+  var cos_Ce = Math.cos(Ce);
+
+  Cn = Math.atan2(sin_Cn, cos_Ce * cos_Cn);
+  Ce = Math.atan2(sin_Ce * cos_Cn, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__common_hypot__["a" /* default */])(sin_Cn, cos_Cn * cos_Ce));
+  Ce = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__common_asinhy__["a" /* default */])(Math.tan(Ce));
+
+  var tmp = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__common_clens_cmplx__["a" /* default */])(this.gtu, 2 * Cn, 2 * Ce);
+
+  Cn = Cn + tmp[0];
+  Ce = Ce + tmp[1];
+
+  var x;
+  var y;
+
+  if (Math.abs(Ce) <= 2.623395162778) {
+    x = this.a * (this.Qn * Ce) + this.x0;
+    y = this.a * (this.Qn * Cn + this.Zb) + this.y0;
+  }
+  else {
+    x = Infinity;
+    y = Infinity;
+  }
+
+  p.x = x;
+  p.y = y;
+
+  return p;
+}
+
+function inverse(p) {
+  var Ce = (p.x - this.x0) * (1 / this.a);
+  var Cn = (p.y - this.y0) * (1 / this.a);
+
+  Cn = (Cn - this.Zb) / this.Qn;
+  Ce = Ce / this.Qn;
+
+  var lon;
+  var lat;
+
+  if (Math.abs(Ce) <= 2.623395162778) {
+    var tmp = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__common_clens_cmplx__["a" /* default */])(this.utg, 2 * Cn, 2 * Ce);
+
+    Cn = Cn + tmp[0];
+    Ce = Ce + tmp[1];
+    Ce = Math.atan(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__common_sinh__["a" /* default */])(Ce));
+
+    var sin_Cn = Math.sin(Cn);
+    var cos_Cn = Math.cos(Cn);
+    var sin_Ce = Math.sin(Ce);
+    var cos_Ce = Math.cos(Ce);
+
+    Cn = Math.atan2(sin_Cn * cos_Ce, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__common_hypot__["a" /* default */])(sin_Ce, cos_Ce * cos_Cn));
+    Ce = Math.atan2(sin_Ce, cos_Ce * cos_Cn);
+
+    lon = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6__common_adjust_lon__["a" /* default */])(Ce + this.long0);
+    lat = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__common_gatg__["a" /* default */])(this.cgb, Cn);
+  }
+  else {
+    lon = Infinity;
+    lat = Infinity;
+  }
+
+  p.x = lon;
+  p.y = lat;
+
+  return p;
+}
+
+var names = ["Extended_Transverse_Mercator", "Extended Transverse Mercator", "etmerc"];
+/* harmony default export */ __webpack_exports__["a"] = ({
+  init: init,
+  forward: forward,
+  inverse: inverse,
+  names: names
+});
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = transform;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__datum_transform__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__adjust_axis__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Proj__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_toPoint__ = __webpack_require__(26);
+
+
+
+
+
+function checkNotWGS(source, dest) {
+  return ((source.datum.datum_type === __WEBPACK_IMPORTED_MODULE_0__constants_values__["h" /* PJD_3PARAM */] || source.datum.datum_type === __WEBPACK_IMPORTED_MODULE_0__constants_values__["i" /* PJD_7PARAM */]) && dest.datumCode !== 'WGS84') || ((dest.datum.datum_type === __WEBPACK_IMPORTED_MODULE_0__constants_values__["h" /* PJD_3PARAM */] || dest.datum.datum_type === __WEBPACK_IMPORTED_MODULE_0__constants_values__["i" /* PJD_7PARAM */]) && source.datumCode !== 'WGS84');
+}
+
+function transform(source, dest, point) {
+  var wgs84;
+  if (Array.isArray(point)) {
+    point = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__common_toPoint__["a" /* default */])(point);
+  }
+
+  // Workaround for datum shifts towgs84, if either source or destination projection is not wgs84
+  if (source.datum && dest.datum && checkNotWGS(source, dest)) {
+    wgs84 = new __WEBPACK_IMPORTED_MODULE_3__Proj__["a" /* default */]('WGS84');
+    point = transform(source, wgs84, point);
+    source = wgs84;
+  }
+  // DGR, 2010/11/12
+  if (source.axis !== 'enu') {
+    point = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__adjust_axis__["a" /* default */])(source, false, point);
+  }
+  // Transform source points to long/lat, if they aren't already.
+  if (source.projName === 'longlat') {
+    point = {
+      x: point.x * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */],
+      y: point.y * __WEBPACK_IMPORTED_MODULE_0__constants_values__["g" /* D2R */]
+    };
+  }
+  else {
+    if (source.to_meter) {
+      point = {
+        x: point.x * source.to_meter,
+        y: point.y * source.to_meter
+      };
+    }
+    point = source.inverse(point); // Convert Cartesian to longlat
+  }
+  // Adjust for the prime meridian if necessary
+  if (source.from_greenwich) {
+    point.x += source.from_greenwich;
+  }
+
+  // Convert datums if needed, and if possible.
+  point = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__datum_transform__["a" /* default */])(source.datum, dest.datum, point);
+
+  // Adjust for the prime meridian if necessary
+  if (dest.from_greenwich) {
+    point = {
+      x: point.x - dest.from_greenwich,
+      y: point.y
+    };
+  }
+
+  if (dest.projName === 'longlat') {
+    // convert radians to decimal degrees
+    point = {
+      x: point.x * __WEBPACK_IMPORTED_MODULE_0__constants_values__["j" /* R2D */],
+      y: point.y * __WEBPACK_IMPORTED_MODULE_0__constants_values__["j" /* R2D */]
+    };
+  } else { // else project
+    point = dest.forward(point);
+    if (dest.to_meter) {
+      point = {
+        x: point.x / dest.to_meter,
+        y: point.y / dest.to_meter
+      };
+    }
+  }
+
+  // DGR, 2010/11/12
+  if (dest.axis !== 'enu') {
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__adjust_axis__["a" /* default */])(dest, true, point);
+  }
+
+  return point;
+}
+
+
+/***/ }),
 /* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Proj__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Point__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_toPoint__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__defs__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__transform__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_mgrs__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__version__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__projs__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__parser__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__process__ = __webpack_require__(91);
+var D2R = 0.01745329251994329577;
 
 
 
 
 
+function rename(obj, params) {
+  var outName = params[0];
+  var inName = params[1];
+  if (!(outName in obj) && (inName in obj)) {
+    obj[outName] = obj[inName];
+    if (params.length === 3) {
+      obj[outName] = params[2](obj[outName]);
+    }
+  }
+}
 
+function d2r(input) {
+  return input * D2R;
+}
 
+function cleanWKT(wkt) {
+  if (wkt.type === 'GEOGCS') {
+    wkt.projName = 'longlat';
+  } else if (wkt.type === 'LOCAL_CS') {
+    wkt.projName = 'identity';
+    wkt.local = true;
+  } else {
+    if (typeof wkt.PROJECTION === 'object') {
+      wkt.projName = Object.keys(wkt.PROJECTION)[0];
+    } else {
+      wkt.projName = wkt.PROJECTION;
+    }
+  }
+  if (wkt.UNIT) {
+    wkt.units = wkt.UNIT.name.toLowerCase();
+    if (wkt.units === 'metre') {
+      wkt.units = 'meter';
+    }
+    if (wkt.UNIT.convert) {
+      if (wkt.type === 'GEOGCS') {
+        if (wkt.DATUM && wkt.DATUM.SPHEROID) {
+          wkt.to_meter = wkt.UNIT.convert*wkt.DATUM.SPHEROID.a;
+        }
+      } else {
+        wkt.to_meter = wkt.UNIT.convert, 10;
+      }
+    }
+  }
+  var geogcs = wkt.GEOGCS;
+  if (wkt.type === 'GEOGCS') {
+    geogcs = wkt;
+  }
+  if (geogcs) {
+    //if(wkt.GEOGCS.PRIMEM&&wkt.GEOGCS.PRIMEM.convert){
+    //  wkt.from_greenwich=wkt.GEOGCS.PRIMEM.convert*D2R;
+    //}
+    if (geogcs.DATUM) {
+      wkt.datumCode = geogcs.DATUM.name.toLowerCase();
+    } else {
+      wkt.datumCode = geogcs.name.toLowerCase();
+    }
+    if (wkt.datumCode.slice(0, 2) === 'd_') {
+      wkt.datumCode = wkt.datumCode.slice(2);
+    }
+    if (wkt.datumCode === 'new_zealand_geodetic_datum_1949' || wkt.datumCode === 'new_zealand_1949') {
+      wkt.datumCode = 'nzgd49';
+    }
+    if (wkt.datumCode === 'wgs_1984') {
+      if (wkt.PROJECTION === 'Mercator_Auxiliary_Sphere') {
+        wkt.sphere = true;
+      }
+      wkt.datumCode = 'wgs84';
+    }
+    if (wkt.datumCode.slice(-6) === '_ferro') {
+      wkt.datumCode = wkt.datumCode.slice(0, - 6);
+    }
+    if (wkt.datumCode.slice(-8) === '_jakarta') {
+      wkt.datumCode = wkt.datumCode.slice(0, - 8);
+    }
+    if (~wkt.datumCode.indexOf('belge')) {
+      wkt.datumCode = 'rnb72';
+    }
+    if (geogcs.DATUM && geogcs.DATUM.SPHEROID) {
+      wkt.ellps = geogcs.DATUM.SPHEROID.name.replace('_19', '').replace(/[Cc]larke\_18/, 'clrk');
+      if (wkt.ellps.toLowerCase().slice(0, 13) === 'international') {
+        wkt.ellps = 'intl';
+      }
 
+      wkt.a = geogcs.DATUM.SPHEROID.a;
+      wkt.rf = parseFloat(geogcs.DATUM.SPHEROID.rf, 10);
+    }
+    if (~wkt.datumCode.indexOf('osgb_1936')) {
+      wkt.datumCode = 'osgb36';
+    }
+    if (~wkt.datumCode.indexOf('osni_1952')) {
+      wkt.datumCode = 'osni52';
+    }
+    if (~wkt.datumCode.indexOf('tm65')
+      || ~wkt.datumCode.indexOf('geodetic_datum_of_1965')) {
+      wkt.datumCode = 'ire65';
+    }
+  }
+  if (wkt.b && !isFinite(wkt.b)) {
+    wkt.b = wkt.a;
+  }
 
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].defaultDatum = 'WGS84'; //default datum
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].Proj = __WEBPACK_IMPORTED_MODULE_1__Proj__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].WGS84 = new __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].Proj('WGS84');
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].Point = __WEBPACK_IMPORTED_MODULE_2__Point__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].toPoint = __WEBPACK_IMPORTED_MODULE_3__common_toPoint__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].defs = __WEBPACK_IMPORTED_MODULE_4__defs__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].transform = __WEBPACK_IMPORTED_MODULE_5__transform__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].mgrs = __WEBPACK_IMPORTED_MODULE_6_mgrs__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].version = __WEBPACK_IMPORTED_MODULE_7__version__["a" /* default */];
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__projs__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */]);
-/* harmony default export */ __webpack_exports__["default"] = (__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */]);
+  function toMeter(input) {
+    var ratio = wkt.to_meter || 1;
+    return input * ratio;
+  }
+  var renamer = function(a) {
+    return rename(wkt, a);
+  };
+  var list = [
+    ['standard_parallel_1', 'Standard_Parallel_1'],
+    ['standard_parallel_2', 'Standard_Parallel_2'],
+    ['false_easting', 'False_Easting'],
+    ['false_northing', 'False_Northing'],
+    ['central_meridian', 'Central_Meridian'],
+    ['latitude_of_origin', 'Latitude_Of_Origin'],
+    ['latitude_of_origin', 'Central_Parallel'],
+    ['scale_factor', 'Scale_Factor'],
+    ['k0', 'scale_factor'],
+    ['latitude_of_center', 'Latitude_of_center'],
+    ['lat0', 'latitude_of_center', d2r],
+    ['longitude_of_center', 'Longitude_Of_Center'],
+    ['longc', 'longitude_of_center', d2r],
+    ['x0', 'false_easting', toMeter],
+    ['y0', 'false_northing', toMeter],
+    ['long0', 'central_meridian', d2r],
+    ['lat0', 'latitude_of_origin', d2r],
+    ['lat0', 'standard_parallel_1', d2r],
+    ['lat1', 'standard_parallel_1', d2r],
+    ['lat2', 'standard_parallel_2', d2r],
+    ['alpha', 'azimuth', d2r],
+    ['srsCode', 'name']
+  ];
+  list.forEach(renamer);
+  if (!wkt.long0 && wkt.longc && (wkt.projName === 'Albers_Conic_Equal_Area' || wkt.projName === 'Lambert_Azimuthal_Equal_Area')) {
+    wkt.long0 = wkt.longc;
+  }
+  if (!wkt.lat_ts && wkt.lat1 && (wkt.projName === 'Stereographic_South_Pole' || wkt.projName === 'Polar Stereographic (variant B)')) {
+    wkt.lat0 = d2r(wkt.lat1 > 0 ? 90 : -90);
+    wkt.lat_ts = wkt.lat1;
+  }
+}
+/* harmony default export */ __webpack_exports__["a"] = (function(wkt) {
+  var lisp = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__parser__["a" /* default */])(wkt);
+  var type = lisp.shift();
+  var name = lisp.shift();
+  lisp.unshift(['name', name]);
+  lisp.unshift(['type', type]);
+  var obj = {};
+  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__process__["a" /* sExpr */])(lisp, obj);
+  cleanWKT(obj);
+  return obj;
+});
 
 
 /***/ }),
@@ -18858,32 +18858,131 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__projs__["a" /* default */])(_
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Created by Gio on 28/05/2017.
- */
-/**
- * Created by Pedro Sereno on 28/05/2017.
- */
-var d3 = __webpack_require__(30);
-var proj4x = __webpack_require__(31);
+var proj4x = __webpack_require__(4);
+// import {arc} from "d3-shape";
+var proj4 = proj4x.default;
+var Projections = (function () {
+    function Projections() {
+    }
+    return Projections;
+}());
+Projections.utm = "+proj=utm +zone=10";
+Projections.wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
+var Crime = (function () {
+    function Crime(values) {
+        this.TYPE = values.TYPE;
+        this.HUNDRED_BLOCK = values.HUNDRED_BLOCK;
+        this.NEIGHBOURHOOD = values.NEIGHBOURHOOD;
+        this.X = values.X;
+        this.Y = values.Y;
+        this.YEAR = values.YEAR;
+        this.MONTH = values.MONTH;
+        this.DAY = values.DAY;
+        this.HOUR = values.HOUR;
+        this.MINUTE = values.MINUTE;
+        // let latlong: any = proj4(Projections.utm, Projections.wgs84, [this.X, this.Y]);
+        // this.LATITUDE = latlong[0];
+        // this.LONGITUDE = latlong[1];
+    }
+    return Crime;
+}());
+exports.Crime = Crime;
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var d3 = __webpack_require__(7);
+var proj4x = __webpack_require__(4);
 // import {arc} from "d3-shape";
 var proj4 = proj4x.default;
 var width = 800;
 var height = 800;
 var colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
-var utm = "+proj=utm +zone=10";
-var wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
+// Plots histogram with crime data
+function plotData(crimeData) {
+    var data = [];
+    var indexes = {};
+    var z = 0;
+    crimeData.forEach(function (value) {
+        if (value.YEAR == 2017) {
+            if (!indexes.hasOwnProperty(value.TYPE)) {
+                indexes[value.TYPE] = z++;
+                data.push({ "TYPE": value.TYPE, "COUNT": 0 });
+            }
+            var index = indexes[value.TYPE];
+            data[index]["COUNT"]++;
+        }
+    });
+    data.sort(function (a, b) {
+        return b.COUNT - a.COUNT;
+    });
+    console.log("histogram", data);
+    var margin = { top: 10, right: 20, bottom: 30, left: 40 };
+    var canvas = d3.select("body").append("svg")
+        .attr("class", "histogram")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var svg = d3.select("svg"), 
+    // width = +svg.attr("width") - margin.left - margin.right,
+    // height = +svg.attr("height") - margin.top - margin.bottom,
+    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var x = d3.scaleBand()
+        .domain(data.map(function (d) { return d.TYPE; }))
+        .range([0, width - margin.left - margin.right]);
+    var y = d3.scaleLinear()
+        .domain([0, d3.max(data, function (d) { return d.COUNT; }) + 100])
+        .range([height - margin.top - margin.bottom, 0]);
+    var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
+    var rectangles = canvas.selectAll("rect").data(data);
+    var rectangleWidth = width / (2 * data.length);
+    rectangles.exit().remove();
+    rectangles.enter().append("rect").merge(rectangles)
+        .attr("x", function (d) { return x(d.TYPE) + rectangleWidth / 2; })
+        .attr("y", function (d) { return y(d.COUNT) - margin.top - margin.bottom; })
+        .attr("width", function (d) { return rectangleWidth; })
+        .attr("height", function (d) { return height - y(d.COUNT); })
+        .attr("fill", function (d) { return colorScale(d.TYPE); })
+        .attr("text", function (d) { return d.TYPE; });
+    var xAxisGroup = canvas.append("g").attr("transform", "translate(0, " + (height - margin.top - margin.bottom) + ")");
+    var yAxisGroup = canvas.append("g");
+    var xAxis = xAxisGroup.call(d3.axisBottom(x));
+    var yAxis = yAxisGroup.call(d3.axisLeft(y));
+}
+exports.plotData = plotData;
+
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var d3 = __webpack_require__(7);
+var proj4x = __webpack_require__(4);
+// import {arc} from "d3-shape";
+var proj4 = proj4x.default;
+var width = 800;
+var height = 800;
+var colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
+var Projections = (function () {
+    function Projections() {
+    }
+    return Projections;
+}());
+Projections.utm = "+proj=utm +zone=10";
+Projections.wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
 // console.log(proj4(utm,wgs84,[492890.15, 5457202.22]));
-// Load data and plot
-d3.queue()
-    .defer(d3.json, "assets/data/vancouver_geo.json")
-    .defer(d3.csv, "assets/data/vancouver_crimes.csv")
-    .await(plotData);
-// Plots GeoJSON data with crime data
-function plotData(err, geoData, crimeData) {
+function plotData(geoData, crimeData) {
     console.log(geoData);
     console.log(crimeData);
-    // return;
     var projection = d3.geoMercator()
         .translate([width / 2, height / 2])
         .scale(200000)
@@ -18927,23 +19026,43 @@ function plotData(err, geoData, crimeData) {
         .enter()
         .append("circle")
         .attr("cx", function (d) {
-        var latlong = proj4(utm, wgs84, [d.X, d.Y]);
+        var latlong = proj4(Projections.utm, Projections.wgs84, [d.X, d.Y]);
         return projection([latlong[0], latlong[1]])[0];
     })
         .attr("cy", function (d) {
-        var latlong = proj4(utm, wgs84, [d.X, d.Y]);
+        var latlong = proj4(Projections.utm, Projections.wgs84, [d.X, d.Y]);
         return projection([latlong[0], latlong[1]])[1];
     })
         .attr("r", 2)
         .style("fill", "rgb(217,91,67)")
         .style("opacity", 0.85);
-    // Pie chart
+}
+exports.plotData = plotData;
+;
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var d3 = __webpack_require__(7);
+var proj4x = __webpack_require__(4);
+// import {arc} from "d3-shape";
+var proj4 = proj4x.default;
+var width = 800;
+var height = 800;
+var colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
+// Plots Pie chart with crime data
+function plotData(crimeData) {
     var pieData = [];
     var indexes = {};
     var z = 0;
     crimeData.forEach(function (value) {
         if (value.YEAR == 2017) {
-            if (!indexes[value.TYPE]) {
+            if (!indexes.hasOwnProperty(value.TYPE)) {
                 indexes[value.TYPE] = z++;
                 pieData.push({ "TYPE": value.TYPE, "COUNT": 0 });
             }
@@ -18954,14 +19073,14 @@ function plotData(err, geoData, crimeData) {
     pieData.sort(function (a, b) {
         return a.COUNT - b.COUNT;
     });
-    console.log("Pie data: " + pieData);
+    console.log("Pie data: ", pieData);
     var color = d3.scaleOrdinal(d3.schemeCategory20);
     var legend = d3.select("body").append("svg")
         .attr("class", "legend")
         .attr("width", 400)
-        .attr("height", (pieData.length - 1) * 20)
+        .attr("height", (pieData.length) * 20)
         .selectAll("g")
-        .data(pieData.slice(1).reverse())
+        .data(pieData.reverse())
         .enter().append("g")
         .attr("transform", function (d, i) {
         return "translate(0," + i * 20 + ")";
@@ -19009,15 +19128,67 @@ function plotData(err, geoData, crimeData) {
     //         return d.MONTH;
     //     });
 }
+exports.plotData = plotData;
 ;
 
 
 /***/ }),
-/* 33 */
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Created by Gio on 28/05/2017.
+ */
+/**
+ * Created by Pedro Sereno on 28/05/2017.
+ */
+var d3 = __webpack_require__(7);
+var proj4x = __webpack_require__(4);
+// import * as crossfilter from "crossfilter";
+// import {arc} from "d3-shape";
+var proj4 = proj4x.default;
+var crime_1 = __webpack_require__(32);
+var Map = __webpack_require__(34);
+var PieChart = __webpack_require__(35);
+var Histogram = __webpack_require__(33);
+var width = 800;
+var height = 800;
+var colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
+var Projections = (function () {
+    function Projections() {
+    }
+    return Projections;
+}());
+Projections.utm = "+proj=utm +zone=10";
+Projections.wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
+// console.log(proj4(utm,wgs84,[492890.15, 5457202.22]));
+// Load data and plot
+d3.queue()
+    .defer(d3.json, "assets/data/vancouver_geo.json")
+    .defer(d3.csv, "assets/data/vancouver_crimes.csv", function (d) { return new crime_1.Crime(d); })
+    .await(main);
+function main(err, geoData, crimeData) {
+    if (err) {
+        console.log(err);
+        return;
+    }
+    Map.plotData(geoData, crimeData);
+    PieChart.plotData(crimeData);
+    Histogram.plotData(crimeData);
+    // let crimes = crossfilter(crimeData);
+    // console.log(crimes);
+}
+
+
+/***/ }),
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mgrs__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mgrs__ = __webpack_require__(21);
 
 
 function Point(x, y, z) {
@@ -19055,7 +19226,7 @@ Point.prototype.toMGRS = function(accuracy) {
 
 
 /***/ }),
-/* 34 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19114,7 +19285,7 @@ Point.prototype.toMGRS = function(accuracy) {
 
 
 /***/ }),
-/* 35 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19136,12 +19307,12 @@ Point.prototype.toMGRS = function(accuracy) {
 
 
 /***/ }),
-/* 36 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__hypot__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__log1py__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__hypot__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__log1py__ = __webpack_require__(46);
 
 
 
@@ -19154,7 +19325,7 @@ Point.prototype.toMGRS = function(accuracy) {
 
 
 /***/ }),
-/* 37 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19176,12 +19347,12 @@ Point.prototype.toMGRS = function(accuracy) {
 
 
 /***/ }),
-/* 38 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sinh__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cosh__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sinh__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cosh__ = __webpack_require__(43);
 
 
 
@@ -19217,7 +19388,7 @@ Point.prototype.toMGRS = function(accuracy) {
 
 
 /***/ }),
-/* 39 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19228,7 +19399,7 @@ Point.prototype.toMGRS = function(accuracy) {
 });
 
 /***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19250,7 +19421,7 @@ Point.prototype.toMGRS = function(accuracy) {
 
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19290,7 +19461,7 @@ Point.prototype.toMGRS = function(accuracy) {
 
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19303,7 +19474,7 @@ Point.prototype.toMGRS = function(accuracy) {
 
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19312,7 +19483,7 @@ Point.prototype.toMGRS = function(accuracy) {
 });
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19417,7 +19588,7 @@ exports.rnb72 = {
 
 
 /***/ }),
-/* 45 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19685,7 +19856,7 @@ exports.sphere = {
 
 
 /***/ }),
-/* 46 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19709,7 +19880,7 @@ exports.oslo = 10.722916666667; //"10d43'22.5\"E"
 
 
 /***/ }),
-/* 47 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19720,12 +19891,12 @@ exports.oslo = 10.722916666667; //"10d43'22.5\"E"
 
 
 /***/ }),
-/* 48 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Proj__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__transform__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Proj__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__transform__ = __webpack_require__(30);
 
 
 var wgs84 = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__Proj__["a" /* default */])('WGS84');
@@ -19792,7 +19963,7 @@ function proj4(fromProj, toProj, coord) {
 /* harmony default export */ __webpack_exports__["a"] = (proj4);
 
 /***/ }),
-/* 49 */
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19835,7 +20006,7 @@ function datum(datumCode, datum_params, a, b, es, ep2) {
 
 
 /***/ }),
-/* 50 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20090,12 +20261,12 @@ function geocentricFromWgs84(p, datum_type, datum_params) {
 
 
 /***/ }),
-/* 51 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__datumUtils__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__datumUtils__ = __webpack_require__(54);
 
 
 
@@ -20138,15 +20309,15 @@ function checkParams(type) {
 
 
 /***/ }),
-/* 52 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["b"] = eccentricity;
 /* harmony export (immutable) */ __webpack_exports__["a"] = sphere;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants_Ellipsoid__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__match__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants_Ellipsoid__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__match__ = __webpack_require__(20);
 
 
 
@@ -20198,7 +20369,7 @@ function sphere(a, b, rf, ellps, sphere) {
 
 
 /***/ }),
-/* 53 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20219,7 +20390,7 @@ function sphere(a, b, rf, ellps, sphere) {
 
 
 /***/ }),
-/* 54 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20237,13 +20408,13 @@ function sphere(a, b, rf, ellps, sphere) {
 
 
 /***/ }),
-/* 55 */
+/* 59 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__defs__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_wkt_parser__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__projString__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__defs__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_wkt_parser__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__projString__ = __webpack_require__(28);
 
 
 
@@ -20283,15 +20454,15 @@ function parse(code){
 
 
 /***/ }),
-/* 56 */
+/* 60 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export add */
 /* unused harmony export get */
 /* unused harmony export start */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__projections_merc__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__projections_longlat__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__projections_merc__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__projections_longlat__ = __webpack_require__(72);
 
 
 var projs = [__WEBPACK_IMPORTED_MODULE_0__projections_merc__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__projections_longlat__["a" /* default */]];
@@ -20334,7 +20505,7 @@ function start() {
 
 
 /***/ }),
-/* 57 */
+/* 61 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20344,7 +20515,7 @@ function start() {
 /* unused harmony export phi1z */
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_msfnz__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_qsfnz__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_qsfnz__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_adjust_lon__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_asinz__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_values__ = __webpack_require__(0);
@@ -20480,7 +20651,7 @@ var names = ["Albers_Conic_Equal_Area", "Albers", "aea"];
 
 
 /***/ }),
-/* 58 */
+/* 62 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20490,14 +20661,14 @@ var names = ["Albers_Conic_Equal_Area", "Albers", "aea"];
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_adjust_lon__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_mlfn__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_e0fn__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_e1fn__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_e2fn__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_e3fn__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_gN__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_mlfn__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_e0fn__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_e1fn__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_e2fn__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_e3fn__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_gN__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_asinz__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__common_imlfn__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__common_imlfn__ = __webpack_require__(17);
 
 
 
@@ -20708,7 +20879,7 @@ var names = ["Azimuthal_Equidistant", "aeqd"];
 
 
 /***/ }),
-/* 59 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20716,15 +20887,15 @@ var names = ["Azimuthal_Equidistant", "aeqd"];
 /* unused harmony export forward */
 /* unused harmony export inverse */
 /* unused harmony export names */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_mlfn__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_e0fn__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_e1fn__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_e2fn__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_e3fn__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_gN__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_mlfn__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_e0fn__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_e1fn__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_e2fn__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_e3fn__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_gN__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_adjust_lat__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_imlfn__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_adjust_lat__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_imlfn__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__constants_values__ = __webpack_require__(0);
 
 
@@ -20837,7 +21008,7 @@ var names = ["Cassini", "Cassini_Soldner", "cass"];
 
 
 /***/ }),
-/* 60 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20846,9 +21017,9 @@ var names = ["Cassini", "Cassini_Soldner", "cass"];
 /* unused harmony export inverse */
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_qsfnz__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_qsfnz__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_msfnz__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_iqsfnz__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_iqsfnz__ = __webpack_require__(45);
 
 
 
@@ -20922,7 +21093,7 @@ var names = ["cea"];
 
 
 /***/ }),
-/* 61 */
+/* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20931,7 +21102,7 @@ var names = ["cea"];
 /* unused harmony export inverse */
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_adjust_lat__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_adjust_lat__ = __webpack_require__(5);
 
 
 
@@ -20983,7 +21154,7 @@ var names = ["Equirectangular", "Equidistant_Cylindrical", "eqc"];
 
 
 /***/ }),
-/* 62 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20991,15 +21162,15 @@ var names = ["Equirectangular", "Equidistant_Cylindrical", "eqc"];
 /* unused harmony export forward */
 /* unused harmony export inverse */
 /* unused harmony export names */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_e0fn__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_e1fn__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_e2fn__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_e3fn__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_e0fn__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_e1fn__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_e2fn__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_e3fn__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_msfnz__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_mlfn__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_mlfn__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_adjust_lat__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_imlfn__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_adjust_lat__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_imlfn__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__constants_values__ = __webpack_require__(0);
 
 
@@ -21121,7 +21292,7 @@ var names = ["Equidistant_Conic", "eqdc"];
 
 
 /***/ }),
-/* 63 */
+/* 67 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21129,7 +21300,7 @@ var names = ["Equidistant_Conic", "eqdc"];
 /* unused harmony export forward */
 /* unused harmony export inverse */
 /* unused harmony export names */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_srat__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_srat__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__constants_values__ = __webpack_require__(0);
 
 var MAX_ITER = 20;
@@ -21186,7 +21357,7 @@ var names = ["gauss"];
 
 
 /***/ }),
-/* 64 */
+/* 68 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21304,7 +21475,7 @@ var names = ["gnom"];
 
 
 /***/ }),
-/* 65 */
+/* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21422,7 +21593,7 @@ var names = ["Krovak", "krovak"];
 
 
 /***/ }),
-/* 66 */
+/* 70 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21435,7 +21606,7 @@ var names = ["Krovak", "krovak"];
 /* unused harmony export inverse */
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_qsfnz__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_qsfnz__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_adjust_lon__ = __webpack_require__(1);
 
 
@@ -21738,7 +21909,7 @@ var names = ["Lambert Azimuthal Equal Area", "Lambert_Azimuthal_Equal_Area", "la
 
 
 /***/ }),
-/* 67 */
+/* 71 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21747,10 +21918,10 @@ var names = ["Lambert Azimuthal Equal Area", "Lambert_Azimuthal_Equal_Area", "la
 /* unused harmony export inverse */
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_msfnz__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_tsfnz__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_sign__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_tsfnz__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_sign__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_phi2z__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_phi2z__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_values__ = __webpack_require__(0);
 
 
@@ -21894,7 +22065,7 @@ var names = ["Lambert Tangential Conformal Conic Projection", "Lambert_Conformal
 
 
 /***/ }),
-/* 68 */
+/* 72 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21921,7 +22092,7 @@ var names = ["longlat", "identity"];
 
 
 /***/ }),
-/* 69 */
+/* 73 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21931,8 +22102,8 @@ var names = ["longlat", "identity"];
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_msfnz__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_tsfnz__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_phi2z__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_tsfnz__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_phi2z__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_values__ = __webpack_require__(0);
 
 
@@ -22037,7 +22208,7 @@ var names = ["Mercator", "Popular Visualisation Pseudo Mercator", "Mercator_1SP"
 
 
 /***/ }),
-/* 70 */
+/* 74 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22101,7 +22272,7 @@ var names = ["Miller_Cylindrical", "mill"];
 
 
 /***/ }),
-/* 71 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22197,7 +22368,7 @@ var names = ["Mollweide", "moll"];
 
 
 /***/ }),
-/* 72 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22436,7 +22607,7 @@ var names = ["New_Zealand_Map_Grid", "nzmg"];
 
 
 /***/ }),
-/* 73 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22444,9 +22615,9 @@ var names = ["New_Zealand_Map_Grid", "nzmg"];
 /* unused harmony export forward */
 /* unused harmony export inverse */
 /* unused harmony export names */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_tsfnz__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_tsfnz__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_phi2z__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_phi2z__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__constants_values__ = __webpack_require__(0);
 
 
@@ -22622,7 +22793,7 @@ var names = ["Hotine_Oblique_Mercator", "Hotine Oblique Mercator", "Hotine_Obliq
 
 
 /***/ }),
-/* 74 */
+/* 78 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22727,7 +22898,7 @@ var names = ["ortho"];
 
 
 /***/ }),
-/* 75 */
+/* 79 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22735,15 +22906,15 @@ var names = ["ortho"];
 /* unused harmony export forward */
 /* unused harmony export inverse */
 /* unused harmony export names */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_e0fn__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_e1fn__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_e2fn__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_e3fn__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_e0fn__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_e1fn__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_e2fn__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_e3fn__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_adjust_lat__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_mlfn__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_adjust_lat__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_mlfn__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_gN__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_gN__ = __webpack_require__(16);
 
 
 
@@ -22882,7 +23053,7 @@ var names = ["Polyconic", "poly"];
 
 
 /***/ }),
-/* 76 */
+/* 80 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22891,10 +23062,10 @@ var names = ["Polyconic", "poly"];
 /* unused harmony export inverse */
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_adjust_lat__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_pj_enfn__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_pj_mlfn__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_pj_inv_mlfn__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_adjust_lat__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_pj_enfn__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_pj_mlfn__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_pj_inv_mlfn__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_values__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_asinz__ = __webpack_require__(2);
 
@@ -23015,7 +23186,7 @@ var names = ["Sinusoidal", "sinu"];
 
 
 /***/ }),
-/* 77 */
+/* 81 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23112,7 +23283,7 @@ var names = ["somerc"];
 
 
 /***/ }),
-/* 78 */
+/* 82 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23122,10 +23293,10 @@ var names = ["somerc"];
 /* unused harmony export inverse */
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_sign__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_sign__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_msfnz__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_tsfnz__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_phi2z__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_tsfnz__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_phi2z__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_adjust_lon__ = __webpack_require__(1);
 
 
@@ -23304,7 +23475,7 @@ var names = ["stere", "Stereographic_South_Pole", "Polar Stereographic (variant 
 
 
 /***/ }),
-/* 79 */
+/* 83 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23312,7 +23483,7 @@ var names = ["stere", "Stereographic_South_Pole", "Polar Stereographic (variant 
 /* unused harmony export forward */
 /* unused harmony export inverse */
 /* unused harmony export names */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gauss__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gauss__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_adjust_lon__ = __webpack_require__(1);
 
 
@@ -23381,7 +23552,7 @@ var names = ["Stereographic_North_Pole", "Oblique_Stereographic", "Polar_Stereog
 
 
 /***/ }),
-/* 80 */
+/* 84 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23389,12 +23560,12 @@ var names = ["Stereographic_North_Pole", "Oblique_Stereographic", "Polar_Stereog
 /* unused harmony export forward */
 /* unused harmony export inverse */
 /* unused harmony export names */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_pj_enfn__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_pj_mlfn__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_pj_inv_mlfn__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_pj_enfn__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_pj_mlfn__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_pj_inv_mlfn__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_adjust_lon__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_sign__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_sign__ = __webpack_require__(6);
 // Heavily based on this tmerc projection implementation
 // https://github.com/mbloch/mapshaper-proj/blob/master/src/projections/tmerc.js
 
@@ -23571,15 +23742,15 @@ var names = ["Transverse_Mercator", "Transverse Mercator", "tmerc"];
 
 
 /***/ }),
-/* 81 */
+/* 85 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export dependsOn */
 /* unused harmony export init */
 /* unused harmony export names */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_adjust_zone__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__etmerc__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_adjust_zone__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__etmerc__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__constants_values__ = __webpack_require__(0);
 
 
@@ -23612,7 +23783,7 @@ var names = ["Universal Transverse Mercator System", "utm"];
 
 
 /***/ }),
-/* 82 */
+/* 86 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23755,18 +23926,18 @@ var names = ["Van_der_Grinten_I", "VanDerGrinten", "vandg"];
 
 
 /***/ }),
-/* 83 */
+/* 87 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__package_json__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__package_json__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__package_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__package_json__);
 /* harmony reexport (binding) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__package_json__, "version")) __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__package_json__["version"]; });
 
 
 
 /***/ }),
-/* 84 */
+/* 88 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -23908,34 +24079,34 @@ module.exports = {
 };
 
 /***/ }),
-/* 85 */
+/* 89 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_projections_tmerc__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_projections_etmerc__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_projections_utm__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_projections_sterea__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_projections_stere__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_projections_somerc__ = __webpack_require__(77);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_projections_omerc__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_projections_lcc__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__lib_projections_krovak__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__lib_projections_cass__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__lib_projections_laea__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__lib_projections_aea__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__lib_projections_gnom__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__lib_projections_cea__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__lib_projections_eqc__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__lib_projections_poly__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__lib_projections_nzmg__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__lib_projections_mill__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__lib_projections_sinu__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__lib_projections_moll__ = __webpack_require__(71);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__lib_projections_eqdc__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__lib_projections_vandg__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__lib_projections_aeqd__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__lib_projections_ortho__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_projections_tmerc__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_projections_etmerc__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_projections_utm__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_projections_sterea__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__lib_projections_stere__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__lib_projections_somerc__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib_projections_omerc__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__lib_projections_lcc__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__lib_projections_krovak__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__lib_projections_cass__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__lib_projections_laea__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__lib_projections_aea__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__lib_projections_gnom__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__lib_projections_cea__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__lib_projections_eqc__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__lib_projections_poly__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__lib_projections_nzmg__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__lib_projections_mill__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__lib_projections_sinu__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__lib_projections_moll__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__lib_projections_eqdc__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__lib_projections_vandg__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__lib_projections_aeqd__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__lib_projections_ortho__ = __webpack_require__(78);
 
 
 
@@ -23988,7 +24159,7 @@ module.exports = {
 });
 
 /***/ }),
-/* 86 */
+/* 90 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24164,7 +24335,7 @@ function parseString(txt) {
 
 
 /***/ }),
-/* 87 */
+/* 91 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
