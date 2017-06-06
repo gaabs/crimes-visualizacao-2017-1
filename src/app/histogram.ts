@@ -42,12 +42,6 @@ export function plotData(crimeData) {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    let svg = d3.select("svg"),
-
-        // width = +svg.attr("width") - margin.left - margin.right,
-        // height = +svg.attr("height") - margin.top - margin.bottom,
-        g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
     let x = d3.scaleBand()
         .domain(data.map(d => d.TYPE))
         .range([0, width - margin.left - margin.right]);

@@ -14,6 +14,7 @@ import {Crime} from "./app/crime"
 import * as Map from "./app/map"
 import * as PieChart from "./app/pieChart"
 import * as Histogram from "./app/histogram"
+import * as LineChart from "./app/lineChart"
 
 const width = 800;
 const height = 800;
@@ -41,6 +42,7 @@ function main(err, geoData, crimeData) {
     Map.plotData(geoData, crimeData);
     PieChart.plotData(crimeData);
     Histogram.plotData(crimeData);
+    LineChart.plotData(crimeData);
 
     // let crimes = crossfilter(crimeData);
     // console.log(crimes);
