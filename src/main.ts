@@ -6,15 +6,14 @@
  */
 import * as d3 from "d3";
 import * as proj4x from "proj4";
-// import * as crossfilter from "crossfilter";
+import * as crossfilter from "crossfilter";
+import {Crime} from "./app/crime";
+import * as Map from "./app/map";
+import * as PieChart from "./app/pieChart";
+import * as Histogram from "./app/histogram";
+import * as LineChart from "./app/lineChart";
 // import {arc} from "d3-shape";
 const proj4 = (proj4x as any).default;
-
-import {Crime} from "./app/crime"
-import * as Map from "./app/map"
-import * as PieChart from "./app/pieChart"
-import * as Histogram from "./app/histogram"
-import * as LineChart from "./app/lineChart"
 
 const width = 800;
 const height = 800;
@@ -39,11 +38,19 @@ function main(err, geoData, crimeData) {
         return;
     }
 
-    Map.plotData(geoData, crimeData);
-    PieChart.plotData(crimeData);
-    Histogram.plotData(crimeData);
-    LineChart.plotData(crimeData);
+    console.log("crimeData", crimeData);
+    let crimes = crossfilter(crimeData);
+    let crimesByType = crimes.dimension(d => d["TYPE"]);
+    let crimesByYear = crimes.dimension(d => d["YEAR"]);
 
-    // let crimes = crossfilter(crimeData);
-    // console.log(crimes);
+    crimesByYear.filter(d => d == 2017);
+    Map.plotData(geoData, crimesByYear.top(Infinity));
+    PieChart.plotData(crimesByType.group().top(Infinity));
+    Histogram.plotData(crimesByType.group().top(Infinity));
+
+    let crimesOriginal = crossfilter(crimeData);
+    let crimesOriginalByDate = crimesOriginal.dimension(d => d["DATE"]);
+
+    LineChart.plotData(crimesOriginalByDate.group().all());
+
 }

@@ -20,6 +20,7 @@ export class Crime {
     DAY: number;
     HOUR: number;
     MINUTE: number;
+    DATE: Date;
 
     constructor(values: any) {
         this.TYPE = values.TYPE;
@@ -32,6 +33,8 @@ export class Crime {
         this.DAY = values.DAY;
         this.HOUR = values.HOUR;
         this.MINUTE = values.MINUTE;
+
+        this.DATE = new Date(values.YEAR, values.MONTH - 1, values.DAY);
 
         // let latlong: any = proj4(Projections.utm, Projections.wgs84, [this.X, this.Y]);
         // this.LATITUDE = latlong[0];

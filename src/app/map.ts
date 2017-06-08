@@ -15,8 +15,8 @@ class Projections {
 // console.log(proj4(utm,wgs84,[492890.15, 5457202.22]));
 
 export function plotData(geoData, crimeData) {
-    console.log(geoData);
-    console.log(crimeData);
+    console.log("map geoData", geoData);
+    console.log("map crimeData", crimeData);
 
     const projection = d3.geoMercator()
         .translate([width / 2, height / 2])
@@ -58,23 +58,17 @@ export function plotData(geoData, crimeData) {
         .style("fill", '#00441b');
 
 
-    var data = [];
-    crimeData.forEach((value, index) => {
-        if (value.YEAR == 2017) data.push(value);
-    });
-    console.log(data);
-
     // Draw crimes circles
     canvas.selectAll("circle")
-        .data(data)
+        .data(crimeData)
         .enter()
         .append("circle")
         .attr("cx", (d) => {
-            const latlong: any = proj4(Projections.utm, Projections.wgs84, [d.X, d.Y]);
+            const latlong: any = proj4(Projections.utm, Projections.wgs84, [d["X"], d["Y"]]);
             return projection([latlong[0], latlong[1]])[0];
         })
         .attr("cy", (d) => {
-            const latlong: any = proj4(Projections.utm, Projections.wgs84, [d.X, d.Y]);
+            const latlong: any = proj4(Projections.utm, Projections.wgs84, [d["X"], d["Y"]]);
             return projection([latlong[0], latlong[1]])[1];
         })
         .attr("r", 2)
