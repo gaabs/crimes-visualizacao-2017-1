@@ -3,8 +3,6 @@ import * as proj4x from "proj4";
 // import {arc} from "d3-shape";
 const proj4 = (proj4x as any).default;
 
-const width = 800;
-const height = 800;
 const colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
 
 class Projections {
@@ -14,35 +12,34 @@ class Projections {
 
 // console.log(proj4(utm,wgs84,[492890.15, 5457202.22]));
 
-export function plotData(geoData, crimeData) {
+export function plotData(parent, x, y, width, height, geoData, crimeData) {
     console.log("map geoData", geoData);
     console.log("map crimeData", crimeData);
 
     const projection = d3.geoMercator()
         .translate([width / 2, height / 2])
-        .scale(200000)
+        .scale(100000)
         .center([-123.115328, 49.249808]);
 
     const path = d3.geoPath()
         .projection(projection);
 
-    const div = d3.select("body")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
-
     //Create SVG element
-    const svg = d3.select("body")
-        .append("svg")
+    let svg = parent.append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .attr("x", x)
+        .attr("y", y);
 
     const canvas = svg.append("g");
 
     const zoom = d3.zoom()
         .scaleExtent([0, 5])
+        // .translateExtent([[-2*1000, -1000], [2*1000, 2*1000]])
         .on('zoom', _ => {
             canvas.attr("transform", d3.event.transform);
+            console.log(d3.event.transform);
+            console.log("zoomed");
         });
 
     svg.call(zoom);
@@ -74,4 +71,4 @@ export function plotData(geoData, crimeData) {
         .attr("r", 2)
         .style("fill", "rgb(217,91,67)")
         .style("opacity", 0.85);
-};
+}

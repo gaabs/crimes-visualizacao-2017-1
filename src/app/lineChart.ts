@@ -10,22 +10,24 @@ const colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45'
 
 
 // Plots line chart with crime data
-export function plotData(data: Grouping<Date, number>[]) {
+export function plotData(parent, x, y, width, height, data: Grouping<Date, number>[]) {
     console.log("linechart", data);
 
     let margin = {top: 10, right: 20, bottom: 30, left: 40};
-    let canvas = d3.select("body").append("svg")
+    let canvas = parent.append("svg")
         .attr("class", "histogram")
         .attr("width", width)
         .attr("height", height)
+        .attr("x", x)
+        .attr("y", y)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    let x = d3.scaleTime()
+    let xScale = d3.scaleTime()
         .domain(d3.extent(data, d => d.key))
         .range([0, width - margin.left - margin.right]);
 
-    let y = d3.scaleLinear()
+    let yScale = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.value) + 100])
         .range([height - margin.top - margin.bottom, 0]);
 
@@ -45,9 +47,9 @@ export function plotData(data: Grouping<Date, number>[]) {
     //     .attr("text", d => d.TYPE);
 
 
-    var lineFunction = d3.line<Grouping<Date, number>>()
-        .x(d => x(d.key))
-        .y(d => y(d.value))
+    let lineFunction = d3.line<Grouping<Date, number>>()
+        .x(d => xScale(d.key))
+        .y(d => yScale(d.value))
         .curve(d3.curveLinear);
 
 
@@ -60,6 +62,6 @@ export function plotData(data: Grouping<Date, number>[]) {
 
     let xAxisGroup = canvas.append("g").attr("transform", `translate(0, ${height - margin.top - margin.bottom})`);
     let yAxisGroup = canvas.append("g");
-    let xAxis = xAxisGroup.call(d3.axisBottom(x));
-    let yAxis = yAxisGroup.call(d3.axisLeft(y));
+    let xAxis = xAxisGroup.call(d3.axisBottom(xScale));
+    let yAxis = yAxisGroup.call(d3.axisLeft(yScale));
 }
