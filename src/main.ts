@@ -8,9 +8,9 @@ import * as d3 from "d3";
 import * as proj4x from "proj4";
 import * as crossfilter from "crossfilter";
 import {Crime} from "./app/crime";
-import * as Map from "./app/map";
 import * as Histogram from "./app/histogram";
 import * as LineChart from "./app/lineChart";
+import * as HeatMap from "./app/heatmap";
 import Grouping = CrossFilter.Grouping;
 import Dimension = CrossFilter.Dimension;
 // import {arc} from "d3-shape";
@@ -37,26 +37,31 @@ function main(err, geoData, crimeData: Crime[]) {
         return;
     }
 
-    // let svg = d3.select("body").append("svg")
-    //     .attr("height", svgHeight)
-    //     .attr("width", svgWidth);
+    // Creating svg elements
+    let svg = d3.select("body").append("svg")
+        .attr("height", svgHeight)
+        .attr("width", svgWidth);
 
-    let body = d3.select("body");
+    // let body = d3.select("body");
 
     console.log("crimeData", crimeData);
+    // Creating crossfilter Dimensions
     let crimes = crossfilter(crimeData);
     let crimesByType: Dimension<Crime, string> = crimes.dimension(d => d.TYPE);
     let crimesByYear: Dimension<Crime, number> = crimes.dimension(d => d.YEAR);
+    let crimesByDate: Dimension<Crime, Date> = crimes.dimension(d => d.DATE);
 
 
     crimesByYear.filter(d => d == 2017);
-    Map.plotData(body, mapX, mapY, mapWidth, mapHeight, geoData, crimesByYear.top(Infinity));
+    // Map.plotData(svg, mapX, mapY, mapWidth, mapHeight, geoData, crimesByYear.top(Infinity));
     // PieChart.plotData(crimesByType.group().reduceCount().top(Infinity));
 
-    Histogram.plotData(body, histogramX, histogramY, histogramWidth, histogramHeight, crimesByType.group().reduceCount().top(Infinity));
+    Histogram.plotData(svg, histogramX, histogramY, histogramWidth, histogramHeight, crimesByType.group().reduceCount().top(Infinity));
+
     let crimesOriginal = crossfilter(crimeData);
     let crimesOriginalByDate: Dimension<Crime, Date> = crimesOriginal.dimension(d => d.DATE);
+    LineChart.plotData(svg, linechartX, linechartY, linechartWidth, linechartHeight, crimesOriginalByDate.group().reduceCount().all());
 
-    LineChart.plotData(body, linechartX, linechartY, linechartWidth, linechartHeight, crimesOriginalByDate.group().reduceCount().all());
 
+    HeatMap.plotData(svg, mapX, mapY, mapWidth, mapHeight, geoData, crimesByYear.top(Infinity));
 }
