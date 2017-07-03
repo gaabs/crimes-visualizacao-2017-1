@@ -39,6 +39,67 @@ let histogram: Histogram;
 let linechart: LineChart;
 let heatmap: HeatMap;
 
+//Data filter methods
+/*class Projections {
+    static readonly utm = "+proj=utm +zone=10";
+    static readonly wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
+}
+
+function convertArrayOfObjectsToCSV(data) {
+    var result, ctr, keys, columnDelimiter, lineDelimiter;
+    columnDelimiter = ',';
+    lineDelimiter = '\n';
+
+    keys = Object.keys(data[0]);
+
+    result = '';
+    result += keys.join(columnDelimiter);
+    result += lineDelimiter;
+
+    data.forEach(function (item) {
+        let latlong: any = proj4(Projections.utm, Projections.wgs84, [item["X"], item["Y"]]);
+        ctr = 0;
+        keys.forEach(function (key) {
+            if (ctr > 0) result += columnDelimiter;
+
+            if (key == "X") {
+                result += latlong[0];
+            } else if (key == "Y") {
+                result += latlong[1];
+            } else {
+                result += item[key];
+            }
+            ctr++;
+        });
+        result += lineDelimiter;
+    });
+
+    return result;
+}
+
+function downloadFile(data, fileName) {
+    var csvData = convertArrayOfObjectsToCSV(data);
+    var blob = new Blob([csvData], {
+        type: "application/csv;charset=utf-8;"
+    });
+
+    if (window.navigator.msSaveBlob) {
+        // FOR IE BROWSER
+        navigator.msSaveBlob(blob, fileName);
+    } else {
+        // FOR OTHER BROWSERS
+        var link = document.createElement("a");
+        var csvUrl = URL.createObjectURL(blob);
+        link.href = csvUrl;
+        // link.style = "visibility:hidden";
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+}
+
+downloadFile(crimeData, 'vancouver_crimes_filtered.csv');*/
 
 // Load data and plot
 d3.queue()
