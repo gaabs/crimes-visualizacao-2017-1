@@ -116,7 +116,7 @@ var SPI = 3.14159265359;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sign__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sign__ = __webpack_require__(5);
 
 
 
@@ -153,46 +153,8 @@ var SPI = 3.14159265359;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Proj__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Point__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_toPoint__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__defs__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__transform__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_mgrs__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__version__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__projs__ = __webpack_require__(91);
-
-
-
-
-
-
-
-
-
-
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].defaultDatum = 'WGS84'; //default datum
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].Proj = __WEBPACK_IMPORTED_MODULE_1__Proj__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].WGS84 = new __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].Proj('WGS84');
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].Point = __WEBPACK_IMPORTED_MODULE_2__Point__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].toPoint = __WEBPACK_IMPORTED_MODULE_3__common_toPoint__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].defs = __WEBPACK_IMPORTED_MODULE_4__defs__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].transform = __WEBPACK_IMPORTED_MODULE_5__transform__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].mgrs = __WEBPACK_IMPORTED_MODULE_6_mgrs__["a" /* default */];
-__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].version = __WEBPACK_IMPORTED_MODULE_7__version__["a" /* default */];
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__projs__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */]);
-/* harmony default export */ __webpack_exports__["default"] = (__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */]);
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sign__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sign__ = __webpack_require__(5);
 
 
 
@@ -202,7 +164,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__projs__["a" /* default */])(_
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -211,7 +173,7 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__projs__["a" /* default */])(_
 });
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://d3js.org Version 4.9.1. Copyright 2017 Mike Bostock.
@@ -17083,6 +17045,44 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 
 /***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__core__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Proj__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Point__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_toPoint__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__defs__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__transform__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_mgrs__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__version__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__projs__ = __webpack_require__(91);
+
+
+
+
+
+
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].defaultDatum = 'WGS84'; //default datum
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].Proj = __WEBPACK_IMPORTED_MODULE_1__Proj__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].WGS84 = new __WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].Proj('WGS84');
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].Point = __WEBPACK_IMPORTED_MODULE_2__Point__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].toPoint = __WEBPACK_IMPORTED_MODULE_3__common_toPoint__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].defs = __WEBPACK_IMPORTED_MODULE_4__defs__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].transform = __WEBPACK_IMPORTED_MODULE_5__transform__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].mgrs = __WEBPACK_IMPORTED_MODULE_6_mgrs__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */].version = __WEBPACK_IMPORTED_MODULE_7__version__["a" /* default */];
+__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__projs__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */]);
+/* harmony default export */ __webpack_exports__["default"] = (__WEBPACK_IMPORTED_MODULE_0__core__["a" /* default */]);
+
+
+/***/ }),
 /* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -18858,16 +18858,16 @@ function cleanWKT(wkt) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var proj4x = __webpack_require__(4);
+var proj4x = __webpack_require__(7);
 // import {arc} from "d3-shape";
 var proj4 = proj4x.default;
 var Projections = (function () {
     function Projections() {
     }
-    Projections.utm = "+proj=utm +zone=10";
-    Projections.wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
     return Projections;
 }());
+Projections.utm = "+proj=utm +zone=10";
+Projections.wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
 var Crime = (function () {
     function Crime(values) {
         this.TYPE = values.TYPE;
@@ -18897,8 +18897,8 @@ exports.Crime = Crime;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var d3 = __webpack_require__(7);
-var proj4x = __webpack_require__(4);
+var d3 = __webpack_require__(6);
+var proj4x = __webpack_require__(7);
 // import {arc} from "d3-shape";
 var proj4 = proj4x.default;
 var colors = ["#ffffd9", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"];
@@ -18907,105 +18907,125 @@ var colors = ["#ffffd9", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", 
 var Projections = (function () {
     function Projections() {
     }
-    Projections.utm = "+proj=utm +zone=10";
-    Projections.wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
     return Projections;
 }());
-// console.log(proj4(utm,wgs84,[492890.15, 5457202.22]));
-function plotData(parent, x, y, width, height, geoData, crimeData) {
-    console.log("heatmap crimeData", crimeData);
-    console.log("heatmap geoData", geoData);
-    var projection = d3.geoMercator()
-        .translate([width / 2, height / 2])
-        .scale(100000)
-        .center([-123.115328, 49.249808]);
-    var path = d3.geoPath()
-        .projection(projection);
-    //Create SVG element
-    var svg = parent.append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("x", x)
-        .attr("y", y);
-    var canvas = svg.append("g");
-    var zoom = d3.zoom()
-        .scaleExtent([0, 5])
-        .on('zoom', function (_) {
-        canvas.attr("transform", d3.event.transform);
-    });
-    svg.call(zoom);
-    // Draw map
-    canvas.selectAll("path")
-        .data(geoData.features)
-        .enter()
-        .append("path")
-        .attr("d", path)
-        .style("stroke", "#fff")
-        .style("stroke-width", "1")
-        .style("fill", '#00441b');
-    var heatmap = [];
-    var gridSize = 10;
-    for (var i = 0; i < height / gridSize; i++) {
-        heatmap[i] = [];
-        for (var j = 0; j < width / gridSize; j++) {
-            heatmap[i][j] = 0;
-        }
+Projections.utm = "+proj=utm +zone=10";
+Projections.wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
+var HeatMap = (function () {
+    function HeatMap(parent, x, y, width, height, gridSize, geoData) {
+        var _this = this;
+        this.parent = parent;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.gridSize = gridSize;
+        this.geoData = geoData;
+        // Initialize attributes
+        this.projection = d3.geoMercator()
+            .translate([width / 2, height / 2])
+            .scale(100000)
+            .center([-123.115328, 49.249808]);
+        this.svg = parent.append("svg")
+            .attr("class", "heatmap")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("x", x)
+            .attr("y", y);
+        this.canvas = this.svg.append("g");
+        // Add zoom functionality
+        var zoom = d3.zoom()
+            .scaleExtent([0, 5])
+            .on('zoom', function (_) {
+            _this.canvas.attr("transform", d3.event.transform);
+        });
+        this.svg.call(zoom);
+        // Draw map
+        this.plotMap();
     }
-    var maxi = 0;
-    crimeData.forEach(function (d) {
-        var latlong = proj4(Projections.utm, Projections.wgs84, [d["X"], d["Y"]]);
-        var proj = projection([latlong[0], latlong[1]]);
-        var i = Math.round(proj[0] / gridSize), j = Math.round(proj[1] / gridSize);
-        // console.log(i, j);
-        if (i >= 0 && i < height / gridSize && j >= 0 && j < width / gridSize) {
-            heatmap[i][j]++;
-            // console.log("entrou", i, j, heatmap[i][j]);
-            maxi = Math.max(maxi, heatmap[i][j]);
+    HeatMap.prototype.plotMap = function () {
+        var path = d3.geoPath()
+            .projection(this.projection);
+        this.canvas.append("g")
+            .selectAll("path")
+            .data(this.geoData.features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .style("stroke", "#fff")
+            .style("stroke-width", "1")
+            .style("fill", '#00441b');
+    };
+    HeatMap.prototype.update = function (crimeData) {
+        var _this = this;
+        var heatmap = this.calculateHeatmap(this.width, this.height, this.gridSize, crimeData, this.projection);
+        var maxi = d3.max(heatmap, function (d) { return d['value']; });
+        console.log("heatmap: ", heatmap);
+        console.log("maxi:", maxi);
+        var colorScale = d3.scaleQuantize().range(colors);
+        colorScale.domain([0, maxi]);
+        var opacityScale = d3.scaleLinear().range([0.5, 0.85]);
+        opacityScale.domain([0, maxi]);
+        // Draw grid
+        var grid = this.canvas.selectAll("rect")
+            .data(heatmap);
+        grid.enter()
+            .append("rect")
+            .attr("x", function (d) { return d['i'] * _this.gridSize; })
+            .attr("y", function (d) { return d['j'] * _this.gridSize; })
+            .attr("width", this.gridSize)
+            .attr("height", this.gridSize)
+            .merge(grid)
+            .attr("fill", function (d) { return colorScale(d['value']); })
+            .attr("opacity", function (d) { return opacityScale(d['value']); })
+            .text(function (d) { return d['value']; });
+        grid.exit().remove();
+    };
+    /**
+     *  Returns heatmap data array, where each element contains:
+     *  i: row number
+     *  j: column number
+     *  value: heatmap count value
+     *
+     * @param width
+     * @param height
+     * @param gridSize
+     * @param crimeData
+     * @param projection
+     * @returns {Array}
+     */
+    HeatMap.prototype.calculateHeatmap = function (width, height, gridSize, crimeData, projection) {
+        var heatmap = [];
+        for (var i = 0; i < height / gridSize; i++) {
+            heatmap[i] = [];
+            for (var j = 0; j < width / gridSize; j++) {
+                heatmap[i][j] = 0;
+            }
         }
-        else {
-            // console.log(i,j);
-        }
-    });
-    var crimeValues = [];
-    heatmap.forEach(function (row) {
-        row.forEach(function (value) {
-            if (value > 0) {
-                crimeValues.push(value);
+        crimeData.forEach(function (d) {
+            var latlong = proj4(Projections.utm, Projections.wgs84, [d["X"], d["Y"]]);
+            var proj = projection([latlong[0], latlong[1]]);
+            var i = Math.round(proj[0] / gridSize), j = Math.round(proj[1] / gridSize);
+            if (i >= 0 && i < height / gridSize && j >= 0 && j < width / gridSize) {
+                heatmap[i][j]++;
+            }
+            else {
+                // console.log(i,j);
             }
         });
-    });
-    console.log("heatmap: ", heatmap);
-    console.log("maxi:", maxi);
-    var colorScale = d3.scaleQuantize().range(colors);
-    // let colorScale = d3.scaleLinear<number>().range([0, 10]);
-    colorScale.domain([0, maxi]);
-    // colorScale.interpolate(d3.interpolateRgb);
-    var opacityScale = d3.scaleLinear().range([0.5, 0.85]);
-    opacityScale.domain([0, maxi]);
-    // let opacityScale = d3.scaleLinear().range([0.1, 0,5, 0.85]);
-    // opacityScale.domain([0, 11, maxi]);
-    // Draw grid
-    for (var i = 0; i < height / gridSize; i++) {
-        for (var j = 0; j < width / gridSize; j++) {
-            if (heatmap[i][j] > 0) {
-                canvas.append("rect")
-                    .attr("x", i * gridSize)
-                    .attr("y", j * gridSize)
-                    .attr("width", gridSize)
-                    .attr("height", gridSize)
-                    .attr("fill", colorScale(heatmap[i][j]))
-                    .attr("opacity", opacityScale(heatmap[i][j]))
-                    .text(heatmap[i][j]);
-                // console.log(i, j, heatmap[i][j], colorScale(heatmap[i][j]), opacityScale(heatmap[i][j]));
-            }
-        }
-    }
-    var mean = d3.mean(crimeValues);
-    console.log("mean", mean, typeof mean);
-    var median = d3.median(crimeValues);
-    console.log("median", median, typeof median);
-}
-exports.plotData = plotData;
+        var heatmapData = [];
+        heatmap.forEach(function (row, i) {
+            row.forEach(function (value, j) {
+                if (value) {
+                    heatmapData.push({ 'i': i, 'j': j, 'value': value });
+                }
+            });
+        });
+        return heatmapData;
+    };
+    return HeatMap;
+}());
+exports.HeatMap = HeatMap;
 
 
 /***/ }),
@@ -19015,46 +19035,76 @@ exports.plotData = plotData;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var d3 = __webpack_require__(7);
-var proj4x = __webpack_require__(4);
-// import {arc} from "d3-shape";
-var proj4 = proj4x.default;
+var d3 = __webpack_require__(6);
 var colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
-// Plots histogram with crime data
-function plotData(parent, x, y, width, height, data) {
-    console.log("histogram", data);
-    var margin = { top: 10, right: 20, bottom: 30, left: 40 };
-    var canvas = parent.append("svg")
-        .attr("class", "histogram")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("x", x)
-        .attr("y", y)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    var xScale = d3.scaleBand()
-        .domain(data.map(function (d) { return d.key; }))
-        .range([0, width - margin.left - margin.right]);
-    var yScale = d3.scaleLinear()
-        .domain([0, d3.max(data, function (d) { return d.value; }) + 100])
-        .range([height - margin.top - margin.bottom, 0]);
-    var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
-    var rectangles = canvas.selectAll("rect").data(data);
-    var rectangleWidth = width / (2 * data.length);
-    rectangles.exit().remove();
-    rectangles.enter().append("rect").merge(rectangles)
-        .attr("x", function (d) { return xScale(d.key) + rectangleWidth / 2; })
-        .attr("y", function (d) { return yScale(d.value) - margin.top - margin.bottom; })
-        .attr("width", function (d) { return rectangleWidth; })
-        .attr("height", function (d) { return height - yScale(d.value); })
-        .attr("fill", function (d) { return colorScale(d.key); })
-        .attr("text", function (d) { return d.key; });
-    var xAxisGroup = canvas.append("g").attr("transform", "translate(0, " + (height - margin.top - margin.bottom) + ")");
-    var yAxisGroup = canvas.append("g");
-    var xAxis = xAxisGroup.call(d3.axisBottom(xScale));
-    var yAxis = yAxisGroup.call(d3.axisLeft(yScale));
-}
-exports.plotData = plotData;
+var Histogram = (function () {
+    function Histogram(parent, x, y, width, height) {
+        this.parent = parent;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.selectedBars = {};
+        // Initiate attributes
+        this.margin = { top: 10, right: 20, bottom: 30, left: 50 };
+        this.canvas = parent.append("svg")
+            .attr("class", "histogram")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("x", x)
+            .attr("y", y)
+            .append("g")
+            .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+        // Creating groups
+        this.barsGroup = this.canvas.append("g")
+            .attr("class", "bars");
+        this.xAxisGroup = this.canvas.append("g")
+            .attr("class", "xAxis")
+            .attr("transform", "translate(0, " + (this.height - this.margin.top - this.margin.bottom) + ")");
+        this.yAxisGroup = this.canvas.append("g")
+            .attr("class", "yAxis");
+    }
+    Histogram.prototype.plotData = function (data) {
+        var _this = this;
+        console.log("histogram", data);
+        // X scale represents the values
+        var xScale = d3.scaleLinear()
+            .domain([0, d3.max(data, function (d) { return d.value; }) + 100])
+            .range([0, this.width - this.margin.left - this.margin.right]);
+        // Y scale represents the labels
+        var yScale = d3.scaleBand()
+            .domain(data.map(function (d) { return d.key; }))
+            .range([this.height - this.margin.top - this.margin.bottom, 0]);
+        var colorScale = d3.scaleOrdinal(d3.schemeCategory20).domain(data.map(function (d) { return d.key; }));
+        var rectangles = this.barsGroup.selectAll("rect").data(data);
+        var rectangleHeight = this.height / (2 * data.length);
+        rectangles.exit().remove();
+        rectangles.enter().append("rect").merge(rectangles)
+            .attr("x", 0)
+            .attr("y", function (d) { return yScale(d.key) + rectangleHeight / 3; })
+            .attr("width", function (d) { return xScale(d.value); })
+            .attr("height", function (d) { return rectangleHeight; })
+            .attr("text", function (d) { return d.key; })
+            .attr("fill", function (d) { return _this.selectedBars.hasOwnProperty(d["key"]) ? "gray" : colorScale(d.key); })
+            .on("click", function (data) {
+            if (_this.selectedBars.hasOwnProperty(data.key)) {
+                delete _this.selectedBars[data.key];
+            }
+            else {
+                _this.selectedBars[data.key] = true;
+            }
+            _this.dispatch.call("selectionChanged", {}, _this.selectedBars);
+        });
+        // Create axises then rotate labels
+        var xAxis = this.xAxisGroup.call(d3.axisBottom(xScale));
+        var yAxis = this.yAxisGroup.call(d3.axisLeft(yScale))
+            .selectAll("text")
+            .style("text-anchor", "start")
+            .attr("transform", "translate(20, 0)");
+    };
+    return Histogram;
+}());
+exports.Histogram = Histogram;
 
 
 /***/ }),
@@ -19064,60 +19114,59 @@ exports.plotData = plotData;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var d3 = __webpack_require__(7);
-var proj4x = __webpack_require__(4);
+var d3 = __webpack_require__(6);
+var proj4x = __webpack_require__(7);
 // import {arc} from "d3-shape";
 var proj4 = proj4x.default;
-var width = 800;
-var height = 800;
 var colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
-// Plots line chart with crime data
-function plotData(parent, x, y, width, height, data) {
-    console.log("linechart", data);
-    var margin = { top: 10, right: 20, bottom: 30, left: 40 };
-    var canvas = parent.append("svg")
-        .attr("class", "histogram")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("x", x)
-        .attr("y", y)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    var xScale = d3.scaleTime()
-        .domain(d3.extent(data, function (d) { return d.key; }))
-        .range([0, width - margin.left - margin.right]);
-    var yScale = d3.scaleLinear()
-        .domain([0, d3.max(data, function (d) { return d.value; }) + 100])
-        .range([height - margin.top - margin.bottom, 0]);
-    var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
-    // let rectangles = canvas.selectAll("rect").data(data);
-    // let rectangleWidth = width / (data.length);
-    //
-    // rectangles.exit().remove();
-    // rectangles.enter().append("rect").merge(rectangles)
-    //     .attr("x", d => x(d.DATE) + rectangleWidth)
-    //     .attr("y", d => y(d.COUNT) - margin.top - margin.bottom)
-    //     .attr("width", d => rectangleWidth)
-    //     .attr("height", d => height - y(d.COUNT))
-    //     //.attr("fill", d => colorScale(d.TYPE))
-    //     .attr("fill", d => "#86170F")
-    //     .attr("text", d => d.TYPE);
-    var lineFunction = d3.line()
-        .x(function (d) { return xScale(d.key); })
-        .y(function (d) { return yScale(d.value); })
-        .curve(d3.curveLinear);
-    canvas.append("g")
-        .append("path")
-        .style("stroke", "#86170F")
-        .style("stroke-width", "1px")
-        .style("fill", "none")
-        .attr("d", lineFunction(data));
-    var xAxisGroup = canvas.append("g").attr("transform", "translate(0, " + (height - margin.top - margin.bottom) + ")");
-    var yAxisGroup = canvas.append("g");
-    var xAxis = xAxisGroup.call(d3.axisBottom(xScale));
-    var yAxis = yAxisGroup.call(d3.axisLeft(yScale));
-}
-exports.plotData = plotData;
+var LineChart = (function () {
+    function LineChart(parent, x, y, width, height) {
+        this.parent = parent;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        // Initiate attributes
+        this.margin = { top: 10, right: 20, bottom: 30, left: 40 };
+        this.canvas = parent.append("svg")
+            .attr("class", "linechart")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("x", x)
+            .attr("y", y)
+            .append("g")
+            .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+        this.path = this.canvas.append("g").append("path");
+        this.xAxisGroup = this.canvas.append("g")
+            .attr("class", "xAxis")
+            .attr("transform", "translate(0, " + (this.height - this.margin.top - this.margin.bottom) + ")");
+        this.yAxisGroup = this.canvas.append("g")
+            .attr("class", "yAxis");
+    }
+    // Plots line chart with crime data
+    LineChart.prototype.plotData = function (data) {
+        console.log("linechart", data);
+        var xScale = d3.scaleTime()
+            .domain(d3.extent(data, function (d) { return d.key; }))
+            .range([0, this.width - this.margin.left - this.margin.right]);
+        var yScale = d3.scaleLinear()
+            .domain([0, d3.max(data, function (d) { return d.value; }) + 100])
+            .range([this.height - this.margin.top - this.margin.bottom, 0]);
+        var lineFunction = d3.line()
+            .x(function (d) { return xScale(d.key); })
+            .y(function (d) { return yScale(d.value); })
+            .curve(d3.curveLinear);
+        this.path
+            .style("stroke", "#86170F")
+            .style("stroke-width", "1px")
+            .style("fill", "none")
+            .attr("d", lineFunction(data));
+        var xAxis = this.xAxisGroup.call(d3.axisBottom(xScale));
+        var yAxis = this.yAxisGroup.call(d3.axisLeft(yScale));
+    };
+    return LineChart;
+}());
+exports.LineChart = LineChart;
 
 
 /***/ }),
@@ -19140,22 +19189,34 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by Pedro Sereno on 28/05/2017.
  */
-var d3 = __webpack_require__(7);
-var proj4x = __webpack_require__(4);
+var d3 = __webpack_require__(6);
+var proj4x = __webpack_require__(7);
 var crossfilter = __webpack_require__(36);
 var crime_1 = __webpack_require__(32);
-var Histogram = __webpack_require__(34);
-var LineChart = __webpack_require__(35);
-var HeatMap = __webpack_require__(33);
+var histogram_1 = __webpack_require__(34);
+var lineChart_1 = __webpack_require__(35);
+var heatmap_1 = __webpack_require__(33);
 // import {arc} from "d3-shape";
 var proj4 = proj4x.default;
+// Measures
 var svgHeight = 800;
-var svgWidth = 800;
+var svgWidth = 1200;
 var colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
 var mapWidth = 500, mapHeight = 500, mapX = 0, mapY = 0;
 var histogramWidth = 500, histogramHeight = 300, histogramX = 500, histogramY = 0;
 var linechartWidth = 1000, linechartHeight = 300, linechartX = 0, linechartY = 500;
-// console.log(proj4(utm,wgs84,[492890.15, 5457202.22]));
+var gridSize = 10;
+// Crossfilter Dimensions
+var crimes; //: CrossFilter<Crime>;
+var crimesByType;
+var crimesByYear;
+var crimesByDate;
+var crimesOriginal; //: CrossFilter<Crime>;
+var crimesOriginalByDate;
+// Plot objects
+var histogram;
+var linechart;
+var heatmap;
 // Load data and plot
 d3.queue()
     .defer(d3.json, "assets/data/vancouver_geo.json")
@@ -19172,19 +19233,38 @@ function main(err, geoData, crimeData) {
         .attr("width", svgWidth);
     // let body = d3.select("body");
     console.log("crimeData", crimeData);
-    // Creating crossfilter Dimensions
-    var crimes = crossfilter(crimeData);
-    var crimesByType = crimes.dimension(function (d) { return d.TYPE; });
-    var crimesByYear = crimes.dimension(function (d) { return d.YEAR; });
-    var crimesByDate = crimes.dimension(function (d) { return d.DATE; });
+    // Initializing crossfilter Dimensions
+    crimes = crossfilter(crimeData);
+    crimesByType = crimes.dimension(function (d) { return d.TYPE; });
+    crimesByYear = crimes.dimension(function (d) { return d.YEAR; });
+    crimesByDate = crimes.dimension(function (d) { return d.DATE; });
+    crimesOriginal = crossfilter(crimeData);
+    crimesOriginalByDate = crimesOriginal.dimension(function (d) { return d.DATE; });
+    // Initializing plot objects
+    histogram = new histogram_1.Histogram(svg, histogramX, histogramY, histogramWidth, histogramHeight);
+    linechart = new lineChart_1.LineChart(svg, linechartX, linechartY, linechartWidth, linechartHeight);
+    heatmap = new heatmap_1.HeatMap(svg, mapX, mapY, mapWidth, mapHeight, gridSize, geoData);
+    // Add dispatch
+    var histogramDispatch = d3.dispatch("selectionChanged");
+    // histogramDispatch.on("selectionChanged", ids => scatterplot.setSelectableIds(ids));
+    histogramDispatch.on("selectionChanged", function (selectedBars) {
+        console.log("histogram dispatch:", selectedBars);
+        crimesByType.filterFunction(function (key) {
+            return !selectedBars.hasOwnProperty(key);
+        });
+        update();
+    });
+    histogram.dispatch = histogramDispatch;
+    // Applying initial filters
     crimesByYear.filter(function (d) { return d == 2017; });
-    // Map.plotData(svg, mapX, mapY, mapWidth, mapHeight, geoData, crimesByYear.top(Infinity));
-    // PieChart.plotData(crimesByType.group().reduceCount().top(Infinity));
-    Histogram.plotData(svg, histogramX, histogramY, histogramWidth, histogramHeight, crimesByType.group().reduceCount().top(Infinity));
-    var crimesOriginal = crossfilter(crimeData);
-    var crimesOriginalByDate = crimesOriginal.dimension(function (d) { return d.DATE; });
-    LineChart.plotData(svg, linechartX, linechartY, linechartWidth, linechartHeight, crimesOriginalByDate.group().reduceCount().all());
-    HeatMap.plotData(svg, mapX, mapY, mapWidth, mapHeight, geoData, crimesByYear.top(Infinity));
+    // Initial plot
+    update();
+}
+function update() {
+    histogram.plotData(crimesByType.group().reduceCount().top(Infinity));
+    linechart.plotData(crimesOriginalByDate.group().reduceCount().all());
+    //linechart.plotData(crimesByDate.group().reduceCount().all());
+    heatmap.update(crimesByYear.top(Infinity));
 }
 
 
@@ -22306,7 +22386,7 @@ var names = ["Azimuthal_Equidistant", "aeqd"];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_e3fn__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_gN__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_adjust_lat__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_adjust_lat__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_imlfn__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__constants_values__ = __webpack_require__(0);
 
@@ -22514,7 +22594,7 @@ var names = ["cea"];
 /* unused harmony export inverse */
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_adjust_lat__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_adjust_lat__ = __webpack_require__(4);
 
 
 
@@ -22581,7 +22661,7 @@ var names = ["Equirectangular", "Equidistant_Cylindrical", "eqc"];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_msfnz__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_mlfn__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_adjust_lat__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__common_adjust_lat__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_imlfn__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__constants_values__ = __webpack_require__(0);
 
@@ -23331,7 +23411,7 @@ var names = ["Lambert Azimuthal Equal Area", "Lambert_Azimuthal_Equal_Area", "la
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_msfnz__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_tsfnz__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_sign__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_sign__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_adjust_lon__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_phi2z__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__constants_values__ = __webpack_require__(0);
@@ -24323,7 +24403,7 @@ var names = ["ortho"];
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_e2fn__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_e3fn__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_adjust_lat__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_adjust_lat__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__common_mlfn__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__constants_values__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__common_gN__ = __webpack_require__(16);
@@ -24474,7 +24554,7 @@ var names = ["Polyconic", "poly"];
 /* unused harmony export inverse */
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_adjust_lon__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_adjust_lat__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_adjust_lat__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_pj_enfn__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_pj_mlfn__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_pj_inv_mlfn__ = __webpack_require__(24);
@@ -24705,7 +24785,7 @@ var names = ["somerc"];
 /* unused harmony export inverse */
 /* unused harmony export names */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_sign__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__common_sign__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_msfnz__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_tsfnz__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__common_phi2z__ = __webpack_require__(13);
@@ -24977,7 +25057,7 @@ var names = ["Stereographic_North_Pole", "Oblique_Stereographic", "Polar_Stereog
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_pj_inv_mlfn__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__common_adjust_lon__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants_values__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_sign__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__common_sign__ = __webpack_require__(5);
 // Heavily based on this tmerc projection implementation
 // https://github.com/mbloch/mapshaper-proj/blob/master/src/projections/tmerc.js
 
@@ -25353,34 +25433,56 @@ var names = ["Van_der_Grinten_I", "VanDerGrinten", "vandg"];
 /***/ (function(module, exports) {
 
 module.exports = {
-	"_from": "proj4@^2.4.3",
+	"_args": [
+		[
+			{
+				"raw": "proj4@^2.4.3",
+				"scope": null,
+				"escapedName": "proj4",
+				"name": "proj4",
+				"rawSpec": "^2.4.3",
+				"spec": ">=2.4.3 <3.0.0",
+				"type": "range"
+			},
+			"D:\\Documents\\javascript\\crimes-visualizacao-2017-1"
+		]
+	],
+	"_from": "proj4@>=2.4.3 <3.0.0",
 	"_id": "proj4@2.4.3",
-	"_inBundle": false,
-	"_integrity": "sha1-87t+Yxv/wEfDaho8wUUzoDu+mWk=",
+	"_inCache": true,
 	"_location": "/proj4",
+	"_nodeVersion": "6.9.2",
+	"_npmOperationalInternal": {
+		"host": "packages-18-east.internal.npmjs.com",
+		"tmp": "tmp/proj4-2.4.3.tgz_1488570790416_0.3068596587982029"
+	},
+	"_npmUser": {
+		"name": "cwmma",
+		"email": "calvin.metcalf@gmail.com"
+	},
+	"_npmVersion": "4.0.5",
 	"_phantomChildren": {},
 	"_requested": {
-		"type": "range",
-		"registry": true,
 		"raw": "proj4@^2.4.3",
-		"name": "proj4",
+		"scope": null,
 		"escapedName": "proj4",
+		"name": "proj4",
 		"rawSpec": "^2.4.3",
-		"saveSpec": null,
-		"fetchSpec": "^2.4.3"
+		"spec": ">=2.4.3 <3.0.0",
+		"type": "range"
 	},
 	"_requiredBy": [
 		"/"
 	],
 	"_resolved": "https://registry.npmjs.org/proj4/-/proj4-2.4.3.tgz",
 	"_shasum": "f3bb7e631bffc047c36a1a3cc14533a03bbe9969",
+	"_shrinkwrap": null,
 	"_spec": "proj4@^2.4.3",
-	"_where": "C:\\Users\\Pedro Sereno\\WebstormProjects\\crimes-visualizacao-2017-1",
+	"_where": "D:\\Documents\\javascript\\crimes-visualizacao-2017-1",
 	"author": "",
 	"bugs": {
 		"url": "https://github.com/proj4js/proj4js/issues"
 	},
-	"bundleDependencies": false,
 	"contributors": [
 		{
 			"name": "Mike Adair",
@@ -25412,7 +25514,6 @@ module.exports = {
 		"mgrs": "1.0.0",
 		"wkt-parser": "^1.1.3"
 	},
-	"deprecated": false,
 	"description": "Proj4js is a JavaScript library to transform point coordinates from one coordinate system to another, including datum transformations.",
 	"devDependencies": {
 		"chai": "~1.8.1",
@@ -25435,11 +25536,28 @@ module.exports = {
 		"test": "test",
 		"doc": "docs"
 	},
+	"dist": {
+		"shasum": "f3bb7e631bffc047c36a1a3cc14533a03bbe9969",
+		"tarball": "https://registry.npmjs.org/proj4/-/proj4-2.4.3.tgz"
+	},
+	"gitHead": "e975a5462ad7abb23e33ea75281eb749e77e1510",
 	"homepage": "https://github.com/proj4js/proj4js#readme",
 	"license": "MIT",
 	"main": "dist/proj4-src.js",
+	"maintainers": [
+		{
+			"name": "cwmma",
+			"email": "calvin.metcalf@gmail.com"
+		},
+		{
+			"name": "ahocevar",
+			"email": "andreas.hocevar@gmail.com"
+		}
+	],
 	"module": "lib/index.js",
 	"name": "proj4",
+	"optionalDependencies": {},
+	"readme": "ERROR: No README data found!",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/proj4js/proj4js.git"

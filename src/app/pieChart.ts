@@ -74,4 +74,4 @@ export function plotData(data) {
     //     .text(function (d) {
     //         return d.MONTH;
     //     });
-};
+}
