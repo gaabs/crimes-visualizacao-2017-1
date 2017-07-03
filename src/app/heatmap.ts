@@ -12,122 +12,136 @@ class Projections {
     static readonly wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
 }
 
-// console.log(proj4(utm,wgs84,[492890.15, 5457202.22]));
+export class HeatMap {
+    private projection;
+    private svg;
+    private canvas;
 
-export function plotData(parent, x, y, width, height, geoData, crimeData) {
-    console.log("heatmap crimeData", crimeData);
-    console.log("heatmap geoData", geoData);
+    constructor(private parent,
+                private x: number,
+                private y: number,
+                private width: number,
+                private height: number,
+                private gridSize: number,
+                private geoData) {
 
-    const projection = d3.geoMercator()
-        .translate([width / 2, height / 2])
-        .scale(100000)
-        .center([-123.115328, 49.249808]);
+        // Initialize attributes
+        this.projection = d3.geoMercator()
+            .translate([width / 2, height / 2])
+            .scale(100000)
+            .center([-123.115328, 49.249808]);
 
-    const path = d3.geoPath()
-        .projection(projection);
+        this.svg = parent.append("svg")
+            .attr("class", "heatmap")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("x", x)
+            .attr("y", y);
 
-    //Create SVG element
-    let svg = parent.append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("x", x)
-        .attr("y", y);
+        this.canvas = this.svg.append("g");
 
-    const canvas = svg.append("g");
+        // Add zoom functionality
+        const zoom = d3.zoom()
+            .scaleExtent([0, 5])
+            .on('zoom', _ => {
+                this.canvas.attr("transform", d3.event.transform);
+            });
 
-    const zoom = d3.zoom()
-        .scaleExtent([0, 5])
-        // .translateExtent([[-2*1000, -1000], [2*1000, 2*1000]])
-        .on('zoom', _ => {
-            canvas.attr("transform", d3.event.transform);
-        });
+        this.svg.call(zoom);
 
-    svg.call(zoom);
+        // Draw map
+        this.plotMap();
 
-
-    // Draw map
-    canvas.selectAll("path")
-        .data(geoData.features)
-        .enter()
-        .append("path")
-        .attr("d", path)
-        .style("stroke", "#fff")
-        .style("stroke-width", "1")
-        .style("fill", '#00441b');
-
-
-    let heatmap = [];
-    let gridSize = 10;
-    for (let i = 0; i < height / gridSize; i++) {
-        heatmap[i] = [];
-        for (let j = 0; j < width / gridSize; j++) {
-            heatmap[i][j] = 0;
-        }
     }
 
-    let maxi = 0;
+    plotMap() {
+        const path = d3.geoPath()
+            .projection(this.projection);
 
-
-    crimeData.forEach(d => {
-        let latlong: any = proj4(Projections.utm, Projections.wgs84, [d["X"], d["Y"]]);
-        let proj = projection([latlong[0], latlong[1]]);
-        let i = Math.round(proj[0] / gridSize), j = Math.round(proj[1] / gridSize);
-        // console.log(i, j);
-        if (i >= 0 && i < height / gridSize && j >= 0 && j < width / gridSize) {
-            heatmap[i][j]++;
-            // console.log("entrou", i, j, heatmap[i][j]);
-            maxi = Math.max(maxi, heatmap[i][j]);
-        } else {
-            // console.log(i,j);
-        }
-    });
-
-    let crimeValues = [];
-    heatmap.forEach(row => {
-        row.forEach(value => {
-            if (value > 0) {
-                crimeValues.push(value);
-            }
-        });
-    });
-
-    console.log("heatmap: ", heatmap);
-    console.log("maxi:", maxi);
-
-    let colorScale = d3.scaleQuantize<string>().range(colors);
-    // let colorScale = d3.scaleLinear<number>().range([0, 10]);
-    colorScale.domain([0, maxi]);
-    // colorScale.interpolate(d3.interpolateRgb);
-
-    let opacityScale = d3.scaleLinear().range([0.5, 0.85]);
-    opacityScale.domain([0, maxi]);
-
-    // let opacityScale = d3.scaleLinear().range([0.1, 0,5, 0.85]);
-    // opacityScale.domain([0, 11, maxi]);
-
-    // Draw grid
-
-    for (let i = 0; i < height / gridSize; i++) {
-        for (let j = 0; j < width / gridSize; j++) {
-            if (heatmap[i][j] > 0) {
-                canvas.append("rect")
-                    .attr("x", i * gridSize)
-                    .attr("y", j * gridSize)
-                    .attr("width", gridSize)
-                    .attr("height", gridSize)
-                    .attr("fill", colorScale(heatmap[i][j]))
-                    .attr("opacity", opacityScale(heatmap[i][j]))
-                    .text(heatmap[i][j])
-                ;
-
-                // console.log(i, j, heatmap[i][j], colorScale(heatmap[i][j]), opacityScale(heatmap[i][j]));
-            }
-        }
+        this.canvas.append("g")
+            .selectAll("path")
+            .data(this.geoData.features)
+            .enter()
+            .append("path")
+            .attr("d", path)
+            .style("stroke", "#fff")
+            .style("stroke-width", "1")
+            .style("fill", '#00441b');
     }
 
-    let mean = d3.mean(crimeValues);
-    console.log("mean", mean, typeof mean);
+    update(crimeData) {
+        let heatmap = this.calculateHeatmap(this.width, this.height, this.gridSize, crimeData, this.projection);
+        let maxi = d3.max(heatmap, d => d['value']);
 
-    let median = d3.median(crimeValues);
-    console.log("median", median, typeof median);
+        console.log("heatmap: ", heatmap);
+        console.log("maxi:", maxi);
+
+        let colorScale = d3.scaleQuantize<string>().range(colors);
+        colorScale.domain([0, maxi]);
+
+        let opacityScale = d3.scaleLinear().range([0.5, 0.85]);
+        opacityScale.domain([0, maxi]);
+
+        // Draw grid
+        let grid = this.canvas.selectAll("rect")
+            .data(heatmap);
+
+        grid.enter()
+            .append("rect")
+            .attr("x", d => d['i'] * this.gridSize)
+            .attr("y", d => d['j'] * this.gridSize)
+            .attr("width", this.gridSize)
+            .attr("height", this.gridSize)
+            .merge(grid)
+            .attr("fill", d => colorScale(d['value']))
+            .attr("opacity", d => opacityScale(d['value']))
+            .text(d => d['value']);
+
+        grid.exit().remove();
+    }
+
+    /**
+     *  Returns heatmap data array, where each element contains:
+     *  i: row number
+     *  j: column number
+     *  value: heatmap count value
+     *
+     * @param width
+     * @param height
+     * @param gridSize
+     * @param crimeData
+     * @param projection
+     * @returns {Array}
+     */
+    calculateHeatmap(width, height, gridSize, crimeData, projection) {
+        let heatmap = [];
+        for (let i = 0; i < height / gridSize; i++) {
+            heatmap[i] = [];
+            for (let j = 0; j < width / gridSize; j++) {
+                heatmap[i][j] = 0;
+            }
+        }
+
+        crimeData.forEach(d => {
+            let latlong: any = proj4(Projections.utm, Projections.wgs84, [d["X"], d["Y"]]);
+            let proj = projection([latlong[0], latlong[1]]);
+            let i = Math.round(proj[0] / gridSize), j = Math.round(proj[1] / gridSize);
+            if (i >= 0 && i < height / gridSize && j >= 0 && j < width / gridSize) {
+                heatmap[i][j]++;
+            } else {
+                // console.log(i,j);
+            }
+        });
+
+        let heatmapData = [];
+        heatmap.forEach((row, i) => {
+            row.forEach((value, j) => {
+                if (value) {
+                    heatmapData.push({'i': i, 'j': j, 'value': value});
+                }
+            });
+        });
+
+        return heatmapData;
+    }
 }

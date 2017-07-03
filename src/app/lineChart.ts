@@ -4,64 +4,65 @@ import Grouping = CrossFilter.Grouping;
 // import {arc} from "d3-shape";
 const proj4 = (proj4x as any).default;
 
-const width = 800;
-const height = 800;
 const colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
 
+export class LineChart {
+    private margin;
+    private canvas;
+    private path;
+    private xAxisGroup;
+    private yAxisGroup;
 
-// Plots line chart with crime data
-export function plotData(parent, x, y, width, height, data: Grouping<Date, number>[]) {
-    console.log("linechart", data);
+    constructor(private parent,
+                private x: number,
+                private y: number,
+                private width: number,
+                private height: number) {
 
-    let margin = {top: 10, right: 20, bottom: 30, left: 40};
-    let canvas = parent.append("svg")
-        .attr("class", "histogram")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("x", x)
-        .attr("y", y)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        // Initiate attributes
+        this.margin = {top: 10, right: 20, bottom: 30, left: 40};
 
-    let xScale = d3.scaleTime()
-        .domain(d3.extent(data, d => d.key))
-        .range([0, width - margin.left - margin.right]);
+        this.canvas = parent.append("svg")
+            .attr("class", "linechart")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("x", x)
+            .attr("y", y)
+            .append("g")
+            .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
 
-    let yScale = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.value) + 100])
-        .range([height - margin.top - margin.bottom, 0]);
+        this.path = this.canvas.append("g").append("path");
 
-    let colorScale = d3.scaleOrdinal(d3.schemeCategory20);
+        this.xAxisGroup = this.canvas.append("g")
+            .attr("transform", `translate(0, ${this.height - this.margin.top - this.margin.bottom})`);
+        this.yAxisGroup = this.canvas.append("g");
+    }
 
-    // let rectangles = canvas.selectAll("rect").data(data);
-    // let rectangleWidth = width / (data.length);
-    //
-    // rectangles.exit().remove();
-    // rectangles.enter().append("rect").merge(rectangles)
-    //     .attr("x", d => x(d.DATE) + rectangleWidth)
-    //     .attr("y", d => y(d.COUNT) - margin.top - margin.bottom)
-    //     .attr("width", d => rectangleWidth)
-    //     .attr("height", d => height - y(d.COUNT))
-    //     //.attr("fill", d => colorScale(d.TYPE))
-    //     .attr("fill", d => "#86170F")
-    //     .attr("text", d => d.TYPE);
+    // Plots line chart with crime data
+    plotData(data: Grouping<Date, number>[]) {
+        console.log("linechart", data);
 
+        let xScale = d3.scaleTime()
+            .domain(d3.extent(data, d => d.key))
+            .range([0, this.width - this.margin.left - this.margin.right]);
 
-    let lineFunction = d3.line<Grouping<Date, number>>()
-        .x(d => xScale(d.key))
-        .y(d => yScale(d.value))
-        .curve(d3.curveLinear);
+        let yScale = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.value) + 100])
+            .range([this.height - this.margin.top - this.margin.bottom, 0]);
 
+        let lineFunction = d3.line<Grouping<Date, number>>()
+            .x(d => xScale(d.key))
+            .y(d => yScale(d.value))
+            .curve(d3.curveLinear);
 
-    canvas.append("g")
-        .append("path")
-        .style("stroke", "#86170F")
-        .style("stroke-width", "1px")
-        .style("fill", "none")
-        .attr("d", lineFunction(data));
+        this.path
+            .style("stroke", "#86170F")
+            .style("stroke-width", "1px")
+            .style("fill", "none")
+            .attr("d", lineFunction(data));
 
-    let xAxisGroup = canvas.append("g").attr("transform", `translate(0, ${height - margin.top - margin.bottom})`);
-    let yAxisGroup = canvas.append("g");
-    let xAxis = xAxisGroup.call(d3.axisBottom(xScale));
-    let yAxis = yAxisGroup.call(d3.axisLeft(yScale));
+        let xAxis = this.xAxisGroup.call(d3.axisBottom(xScale));
+        let yAxis = this.yAxisGroup.call(d3.axisLeft(yScale));
+    }
 }
+
