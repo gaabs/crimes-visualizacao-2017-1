@@ -17,6 +17,7 @@ import Dimension = CrossFilter.Dimension;
 // import {arc} from "d3-shape";
 const proj4 = (proj4x as any).default;
 
+// Measures
 const svgHeight = 800;
 const svgWidth = 1200;
 const colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
@@ -25,7 +26,19 @@ const histogramWidth = 500, histogramHeight = 300, histogramX = 500, histogramY 
 const linechartWidth = 1000, linechartHeight = 300, linechartX = 0, linechartY = 500;
 const gridSize = 10;
 
-// console.log(proj4(utm,wgs84,[492890.15, 5457202.22]));
+// Crossfilter Dimensions
+let crimes; //: CrossFilter<Crime>;
+let crimesByType: Dimension<Crime, string>;
+let crimesByYear: Dimension<Crime, number>;
+let crimesByDate: Dimension<Crime, Date>;
+let crimesOriginal; //: CrossFilter<Crime>;
+let crimesOriginalByDate: Dimension<Crime, Date>;
+
+// Plot objects
+let histogram: Histogram;
+let linechart: LineChart;
+let heatmap: HeatMap;
+
 
 // Load data and plot
 d3.queue()
@@ -47,28 +60,43 @@ function main(err, geoData, crimeData: Crime[]) {
     // let body = d3.select("body");
 
     console.log("crimeData", crimeData);
-    // Creating crossfilter Dimensions
-    let crimes = crossfilter(crimeData);
-    let crimesByType: Dimension<Crime, string> = crimes.dimension(d => d.TYPE);
-    let crimesByYear: Dimension<Crime, number> = crimes.dimension(d => d.YEAR);
-    let crimesByDate: Dimension<Crime, Date> = crimes.dimension(d => d.DATE);
 
+    // Initializing crossfilter Dimensions
+    crimes = crossfilter(crimeData);
+    crimesByType = crimes.dimension(d => d.TYPE);
+    crimesByYear = crimes.dimension(d => d.YEAR);
+    crimesByDate = crimes.dimension(d => d.DATE);
+    crimesOriginal = crossfilter(crimeData);
+    crimesOriginalByDate = crimesOriginal.dimension(d => d.DATE);
 
+    // Initializing plot objects
+    histogram = new Histogram(svg, histogramX, histogramY, histogramWidth, histogramHeight);
+    linechart = new LineChart(svg, linechartX, linechartY, linechartWidth, linechartHeight);
+    heatmap = new HeatMap(svg, mapX, mapY, mapWidth, mapHeight, gridSize, geoData);
+
+    // Add dispatch
+    let histogramDispatch = d3.dispatch("selectionChanged");
+    // histogramDispatch.on("selectionChanged", ids => scatterplot.setSelectableIds(ids));
+    histogramDispatch.on("selectionChanged", selectedBars => {
+        console.log("histogram dispatch:", selectedBars);
+
+        crimesByType.filterFunction(key => {
+            return !selectedBars.hasOwnProperty(key);
+        });
+        update();
+    });
+    histogram.dispatch = histogramDispatch;
+
+    // Applying initial filters
     crimesByYear.filter(d => d == 2017);
-    // Map.plotData(svg, mapX, mapY, mapWidth, mapHeight, geoData, crimesByYear.top(Infinity));
-    // PieChart.plotData(crimesByType.group().reduceCount().top(Infinity));
 
-    // Histogram.plotData(svg, histogramX, histogramY, histogramWidth, histogramHeight, crimesByType.group().reduceCount().top(Infinity));
-    let histogram: Histogram = new Histogram(svg, histogramX, histogramY, histogramWidth, histogramHeight);
+    // Initial plot
+    update();
+}
+
+function update() {
     histogram.plotData(crimesByType.group().reduceCount().top(Infinity));
-
-    let crimesOriginal = crossfilter(crimeData);
-    let crimesOriginalByDate: Dimension<Crime, Date> = crimesOriginal.dimension(d => d.DATE);
-    // LineChart.plotData(svg, linechartX, linechartY, linechartWidth, linechartHeight, crimesOriginalByDate.group().reduceCount().all());
-    let linechart: LineChart = new LineChart(svg, linechartX, linechartY, linechartWidth, linechartHeight);
     linechart.plotData(crimesOriginalByDate.group().reduceCount().all());
-
-    //HeatMap.plotData(svg, mapX, mapY, mapWidth, mapHeight, geoData, crimesByYear.top(Infinity));
-    let heatmap: HeatMap = new HeatMap(svg, mapX, mapY, mapWidth, mapHeight, gridSize, geoData);
+    //linechart.plotData(crimesByDate.group().reduceCount().all());
     heatmap.update(crimesByYear.top(Infinity));
 }

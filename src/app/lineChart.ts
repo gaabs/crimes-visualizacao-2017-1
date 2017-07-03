@@ -1,6 +1,7 @@
 import * as d3 from "d3";
 import * as proj4x from "proj4";
 import Grouping = CrossFilter.Grouping;
+import {BaseType} from "d3-selection";
 // import {arc} from "d3-shape";
 const proj4 = (proj4x as any).default;
 
@@ -13,7 +14,7 @@ export class LineChart {
     private xAxisGroup;
     private yAxisGroup;
 
-    constructor(private parent,
+    constructor(private parent: d3.Selection<BaseType, {}, HTMLElement, any>,
                 private x: number,
                 private y: number,
                 private width: number,
@@ -34,8 +35,10 @@ export class LineChart {
         this.path = this.canvas.append("g").append("path");
 
         this.xAxisGroup = this.canvas.append("g")
+            .attr("class", "xAxis")
             .attr("transform", `translate(0, ${this.height - this.margin.top - this.margin.bottom})`);
-        this.yAxisGroup = this.canvas.append("g");
+        this.yAxisGroup = this.canvas.append("g")
+            .attr("class", "yAxis");
     }
 
     // Plots line chart with crime data
