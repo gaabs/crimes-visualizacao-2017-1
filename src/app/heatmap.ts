@@ -89,11 +89,11 @@ export class HeatMap {
 
         grid.enter()
             .append("rect")
-            .attr("x", d => d['i'] * this.gridSize)
-            .attr("y", d => d['j'] * this.gridSize)
             .attr("width", this.gridSize)
             .attr("height", this.gridSize)
             .merge(grid)
+            .attr("x", d => d['i'] * this.gridSize)
+            .attr("y", d => d['j'] * this.gridSize)
             .attr("fill", d => colorScale(d['value']))
             .attr("opacity", d => opacityScale(d['value']))
             .text(d => d['value']);
