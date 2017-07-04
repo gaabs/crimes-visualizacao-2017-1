@@ -1,15 +1,11 @@
 import * as d3 from "d3";
 import * as proj4x from "proj4";
 import {BaseType} from "d3-selection";
+import {Crime} from "./crime";
 // import {arc} from "d3-shape";
 const proj4 = (proj4x as any).default;
 
 const colors = ["#ffffd9", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"];
-
-class Projections {
-    static readonly utm = "+proj=utm +zone=10";
-    static readonly wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
-}
 
 export class HeatMap {
     private projection;
@@ -68,11 +64,20 @@ export class HeatMap {
             .style("fill", '#00441b');
     }
 
-    update(crimeData) {
-        let heatmap = this.calculateHeatmap(this.width, this.height, this.gridSize, crimeData, this.projection);
-        let maxi = d3.max(heatmap, d => d['value']);
+    update(heatmapData: CrossFilter.Grouping<number[], number>[]) {
+        // let heatmap = this.calculateHeatmap(this.width, this.height, this.gridSize, crimeData, this.projection);
 
-        console.log("heatmap: ", heatmap);
+        // let maxi = heatmapData[0].value;
+        let maxi = d3.max(heatmapData, d => {
+            let i = d.key[0], j = d.key[1];
+            if (i >= 0 && i < this.height / this.gridSize && j >= 0 && j < this.width / this.gridSize) {
+                return d.value;
+            } else {
+                return 0;
+            }
+        });
+
+        console.log("heatmap: ", heatmapData);
         console.log("maxi:", maxi);
 
         let colorScale = d3.scaleQuantize<string>().range(colors);
@@ -83,20 +88,35 @@ export class HeatMap {
 
         // Draw grid
         let grid = this.canvas.selectAll("rect")
-            .data(heatmap);
+            .data(heatmapData);
 
         grid.enter()
             .append("rect")
             .attr("width", this.gridSize)
             .attr("height", this.gridSize)
             .merge(grid)
-            .attr("x", d => d['i'] * this.gridSize)
-            .attr("y", d => d['j'] * this.gridSize)
+            .attr("x", d => d.key[0] * this.gridSize)
+            .attr("y", d => d.key[1] * this.gridSize)
             .attr("fill", d => colorScale(d['value']))
-            .attr("opacity", d => opacityScale(d['value']))
+            .attr("opacity", d => d.value ? opacityScale(d.value) : 0)
             .text(d => d['value']);
 
         grid.exit().remove();
+    }
+
+    createGridDimension(crimes: CrossFilter.CrossFilter<Crime>) {
+        let crimesByGridDimension = crimes.dimension(d => {
+            let latlong = [d["X"], d["Y"]];
+            let proj = this.projection([latlong[0], latlong[1]]);
+
+            if ((proj[0] < 0 || proj[1] < 0) && proj[0] != -7383.050674157625) {
+                console.log(d, proj);
+            }
+
+            return [Math.round(proj[0] / this.gridSize), Math.round(proj[1] / this.gridSize)];
+        });
+
+        return crimesByGridDimension;
     }
 
     /**
