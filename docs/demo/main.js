@@ -18940,11 +18940,20 @@ var HeatMap = (function () {
             .style("stroke-width", "1")
             .style("fill", '#00441b');
     };
-    HeatMap.prototype.update = function (crimeData) {
+    HeatMap.prototype.update = function (heatmapData) {
+        // let heatmap = this.calculateHeatmap(this.width, this.height, this.gridSize, crimeData, this.projection);
         var _this = this;
-        var heatmap = this.calculateHeatmap(this.width, this.height, this.gridSize, crimeData, this.projection);
-        var maxi = d3.max(heatmap, function (d) { return d['value']; });
-        console.log("heatmap: ", heatmap);
+        // let maxi = heatmapData[0].value;
+        var maxi = d3.max(heatmapData, function (d) {
+            var i = d.key[0], j = d.key[1];
+            if (i >= 0 && i < _this.height / _this.gridSize && j >= 0 && j < _this.width / _this.gridSize) {
+                return d.value;
+            }
+            else {
+                return 0;
+            }
+        });
+        console.log("heatmap: ", heatmapData);
         console.log("maxi:", maxi);
         var colorScale = d3.scaleQuantize().range(colors);
         colorScale.domain([0, maxi]);
@@ -18952,18 +18961,32 @@ var HeatMap = (function () {
         opacityScale.domain([0, maxi]);
         // Draw grid
         var grid = this.canvas.selectAll("rect")
-            .data(heatmap);
+            .data(heatmapData);
         grid.enter()
             .append("rect")
             .attr("width", this.gridSize)
             .attr("height", this.gridSize)
             .merge(grid)
-            .attr("x", function (d) { return d['i'] * _this.gridSize; })
-            .attr("y", function (d) { return d['j'] * _this.gridSize; })
+            .transition().duration(500)
+            .attr("x", function (d) { return d.key[0] * _this.gridSize; })
+            .attr("y", function (d) { return d.key[1] * _this.gridSize; })
             .attr("fill", function (d) { return colorScale(d['value']); })
-            .attr("opacity", function (d) { return opacityScale(d['value']); })
+            .attr("opacity", function (d) { return d.value ? opacityScale(d.value) : 0; })
             .text(function (d) { return d['value']; });
         grid.exit().remove();
+    };
+    HeatMap.prototype.createGridDimension = function (crimes) {
+        var _this = this;
+        var crimesByGridDimension = crimes.dimension(function (d) {
+            // let latlong: any = proj4(Projections.utm, Projections.wgs84, [d["X"], d["Y"]]);
+            var latlong = [d.X, d.Y];
+            var proj = _this.projection([latlong[0], latlong[1]]);
+            if ((proj[0] < 0 || proj[1] < 0) && proj[0] != -7383.050674157625) {
+                console.log(d, latlong, proj);
+            }
+            return [Math.round(proj[0] / _this.gridSize), Math.round(proj[1] / _this.gridSize)];
+        });
+        return crimesByGridDimension;
     };
     /**
      *  Returns heatmap data array, where each element contains:
@@ -19064,12 +19087,6 @@ var Histogram = (function () {
         var rectangleHeight = this.height / (2 * data.length);
         rectangles.exit().remove();
         rectangles.enter().append("rect").merge(rectangles)
-            .attr("x", 0)
-            .attr("y", function (d) { return yScale(d.key) + rectangleHeight / 3; })
-            .attr("width", function (d) { return xScale(d.value); })
-            .attr("height", function (d) { return rectangleHeight; })
-            .attr("text", function (d) { return d.key; })
-            .attr("fill", function (d) { return _this.selectedBars.hasOwnProperty(d["key"]) ? "gray" : colorScale(d.key); })
             .on("click", function (data) {
             if (_this.selectedBars.hasOwnProperty(data.key)) {
                 delete _this.selectedBars[data.key];
@@ -19078,7 +19095,14 @@ var Histogram = (function () {
                 _this.selectedBars[data.key] = true;
             }
             _this.dispatch.call("selectionChanged", {}, _this.selectedBars);
-        });
+        })
+            .transition().duration(500)
+            .attr("x", 0)
+            .attr("y", function (d) { return yScale(d.key) + rectangleHeight / 3; })
+            .attr("width", function (d) { return xScale(d.value); })
+            .attr("height", function (d) { return rectangleHeight; })
+            .attr("text", function (d) { return d.key; })
+            .attr("fill", function (d) { return _this.selectedBars.hasOwnProperty(d["key"]) ? "gray" : colorScale(d.key); });
         // Create axises then rotate labels
         var xAxis = this.xAxisGroup.call(d3.axisBottom(xScale));
         var yAxis = this.yAxisGroup.call(d3.axisLeft(yScale))
@@ -19120,7 +19144,12 @@ var LineChart = (function () {
             .attr("y", y)
             .append("g")
             .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
-        this.path = this.canvas.append("g").append("path");
+        this.path = this.canvas
+            .append("g")
+            .append("path")
+            .style("stroke", "#86170F")
+            .style("stroke-width", "1px")
+            .style("fill", "none");
         this.xAxisGroup = this.canvas.append("g")
             .attr("class", "xAxis")
             .attr("transform", "translate(0, " + (this.height - this.margin.top - this.margin.bottom) + ")");
@@ -19141,12 +19170,14 @@ var LineChart = (function () {
             .y(function (d) { return yScale(d.value); })
             .curve(d3.curveLinear);
         this.path
-            .style("stroke", "#86170F")
-            .style("stroke-width", "1px")
-            .style("fill", "none")
+            .transition().duration(500)
             .attr("d", lineFunction(data));
-        var xAxis = this.xAxisGroup.call(d3.axisBottom(xScale));
-        var yAxis = this.yAxisGroup.call(d3.axisLeft(yScale));
+        var xAxis = this.xAxisGroup
+            .transition().duration(500)
+            .call(d3.axisBottom(xScale));
+        var yAxis = this.yAxisGroup
+            .transition().duration(500)
+            .call(d3.axisLeft(yScale));
     };
     return LineChart;
 }());
@@ -19187,13 +19218,20 @@ var mapWidth = 500, mapHeight = 500, mapX = 0, mapY = 0;
 var histogramWidth = 500, histogramHeight = 300, histogramX = 500, histogramY = 0;
 var linechartWidth = 1000, linechartHeight = 300, linechartX = 0, linechartY = 500;
 var gridSize = 10;
-// Crossfilter Dimensions
-var crimes; //: CrossFilter<Crime>;
-var crimesByType;
-var crimesByYear;
-var crimesByDate;
+// Crossfilter
+var crimes;
 var crimesOriginal; //: CrossFilter<Crime>;
+// Crossfilter Dimensions
+var crimesByTypeDimension;
+var crimesByYearDimension;
+var crimesByDateDimension;
+var crimesByGridDimension;
 var crimesOriginalByDate;
+// Crossfilter Groups
+var crimesByTypeGroup;
+var crimesByYearGroup;
+var crimesByDateGroup;
+var crimesByGridGroup;
 // Plot objects
 var histogram;
 var linechart;
@@ -19208,43 +19246,46 @@ function main(err, geoData, crimeData) {
         console.log(err);
         return;
     }
+    console.log("crimeData", crimeData);
     // Creating svg elements
     var svg = d3.select("body").append("svg")
         .attr("height", svgHeight)
         .attr("width", svgWidth);
-    console.log("crimeData", crimeData);
-    // Initializing crossfilter Dimensions
-    crimes = crossfilter(crimeData);
-    crimesByType = crimes.dimension(function (d) { return d.TYPE; });
-    crimesByYear = crimes.dimension(function (d) { return d.YEAR; });
-    crimesByDate = crimes.dimension(function (d) { return d.DATE; });
-    crimesOriginal = crossfilter(crimeData);
-    crimesOriginalByDate = crimesOriginal.dimension(function (d) { return d.DATE; });
     // Initializing plot objects
     histogram = new histogram_1.Histogram(svg, histogramX, histogramY, histogramWidth, histogramHeight);
     linechart = new lineChart_1.LineChart(svg, linechartX, linechartY, linechartWidth, linechartHeight);
     heatmap = new heatmap_1.HeatMap(svg, mapX, mapY, mapWidth, mapHeight, gridSize, geoData);
+    // Initializing crossfilter objects
+    crimes = crossfilter(crimeData);
+    crimesOriginal = crossfilter(crimeData);
+    crimesByTypeDimension = crimes.dimension(function (d) { return d.TYPE; });
+    crimesByYearDimension = crimes.dimension(function (d) { return d.YEAR; });
+    crimesByDateDimension = crimes.dimension(function (d) { return d.DATE; });
+    crimesByGridDimension = heatmap.createGridDimension(crimes);
+    crimesOriginalByDate = crimesOriginal.dimension(function (d) { return d.DATE; });
+    crimesByTypeGroup = crimesByTypeDimension.group();
+    crimesByYearGroup = crimesByYearDimension.group();
+    crimesByDateGroup = crimesByDateDimension.group();
+    crimesByGridGroup = crimesByGridDimension.group();
     // Add dispatch
     var histogramDispatch = d3.dispatch("selectionChanged");
-    // histogramDispatch.on("selectionChanged", ids => scatterplot.setSelectableIds(ids));
     histogramDispatch.on("selectionChanged", function (selectedBars) {
         console.log("histogram dispatch:", selectedBars);
-        crimesByType.filterFunction(function (key) {
+        crimesByTypeDimension.filterFunction(function (key) {
             return !selectedBars.hasOwnProperty(key);
         });
         update();
     });
     histogram.dispatch = histogramDispatch;
     // Applying initial filters
-    crimesByYear.filter(function (d) { return d == 2017; });
+    // crimesByYearDimension.filter(d => d == 2017);
     // Initial plot
     update();
 }
 function update() {
-    histogram.plotData(crimesByType.group().reduceCount().top(Infinity));
-    linechart.plotData(crimesOriginalByDate.group().reduceCount().all());
-    // linechart.plotData(crimesByDate.group().reduceCount().all());
-    heatmap.update(crimesByYear.top(Infinity));
+    histogram.plotData(crimesByTypeGroup.reduceCount().top(Infinity));
+    linechart.plotData(crimesByDateGroup.reduceCount().all());
+    heatmap.update(crimesByGridGroup.reduceCount().all());
 }
 
 

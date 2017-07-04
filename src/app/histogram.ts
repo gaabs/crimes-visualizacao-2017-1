@@ -67,12 +67,6 @@ export class Histogram {
 
         rectangles.exit().remove();
         rectangles.enter().append("rect").merge(rectangles)
-            .attr("x", 0)
-            .attr("y", d => yScale(d.key) + rectangleHeight / 3)
-            .attr("width", d => xScale(d.value))
-            .attr("height", d => rectangleHeight)
-            .attr("text", d => d.key)
-            .attr("fill", d => this.selectedBars.hasOwnProperty(d["key"]) ? "gray" : colorScale(d.key))
             .on("click", (data: Grouping<string, number>) => {
                 if (this.selectedBars.hasOwnProperty(data.key)) {
                     delete this.selectedBars[data.key];
@@ -80,7 +74,14 @@ export class Histogram {
                     this.selectedBars[data.key] = true;
                 }
                 this.dispatch.call("selectionChanged", {}, this.selectedBars);
-            });
+            })
+            .transition().duration(500)
+            .attr("x", 0)
+            .attr("y", d => yScale(d.key) + rectangleHeight / 3)
+            .attr("width", d => xScale(d.value))
+            .attr("height", d => rectangleHeight)
+            .attr("text", d => d.key)
+            .attr("fill", d => this.selectedBars.hasOwnProperty(d["key"]) ? "gray" : colorScale(d.key))
 
 
         // Create axises then rotate labels

@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import * as proj4x from "proj4";
-import Grouping = CrossFilter.Grouping;
 import {BaseType} from "d3-selection";
+import Grouping = CrossFilter.Grouping;
 // import {arc} from "d3-shape";
 const proj4 = (proj4x as any).default;
 
@@ -32,7 +32,12 @@ export class LineChart {
             .append("g")
             .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
 
-        this.path = this.canvas.append("g").append("path");
+        this.path = this.canvas
+            .append("g")
+            .append("path")
+            .style("stroke", "#86170F")
+            .style("stroke-width", "1px")
+            .style("fill", "none");
 
         this.xAxisGroup = this.canvas.append("g")
             .attr("class", "xAxis")
@@ -50,7 +55,7 @@ export class LineChart {
             .range([0, this.width - this.margin.left - this.margin.right]);
 
         let yScale = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d.value) + 100])
+            .domain([0, d3.max(data, d => d.value)])
             .range([this.height - this.margin.top - this.margin.bottom, 0]);
 
         let lineFunction = d3.line<Grouping<Date, number>>()
@@ -59,13 +64,16 @@ export class LineChart {
             .curve(d3.curveLinear);
 
         this.path
-            .style("stroke", "#86170F")
-            .style("stroke-width", "1px")
-            .style("fill", "none")
+            .transition().duration(500)
             .attr("d", lineFunction(data));
 
-        let xAxis = this.xAxisGroup.call(d3.axisBottom(xScale));
-        let yAxis = this.yAxisGroup.call(d3.axisLeft(yScale));
+        let xAxis = this.xAxisGroup
+            .transition().duration(500)
+            .call(d3.axisBottom(xScale));
+
+        let yAxis = this.yAxisGroup
+            .transition().duration(500)
+            .call(d3.axisLeft(yScale));
     }
 }
 

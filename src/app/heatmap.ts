@@ -7,6 +7,11 @@ const proj4 = (proj4x as any).default;
 
 const colors = ["#ffffd9", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"];
 
+class Projections {
+    static readonly utm = "+proj=utm +zone=10";
+    static readonly wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
+}
+
 export class HeatMap {
     private projection;
     private svg;
@@ -95,22 +100,24 @@ export class HeatMap {
             .attr("width", this.gridSize)
             .attr("height", this.gridSize)
             .merge(grid)
+            .transition().duration(500)
             .attr("x", d => d.key[0] * this.gridSize)
             .attr("y", d => d.key[1] * this.gridSize)
             .attr("fill", d => colorScale(d['value']))
             .attr("opacity", d => d.value ? opacityScale(d.value) : 0)
-            .text(d => d['value']);
+            .text(d => d['value'])
 
         grid.exit().remove();
     }
 
     createGridDimension(crimes: CrossFilter.CrossFilter<Crime>) {
         let crimesByGridDimension = crimes.dimension(d => {
-            let latlong = [d["X"], d["Y"]];
+            // let latlong: any = proj4(Projections.utm, Projections.wgs84, [d["X"], d["Y"]]);
+            let latlong = [d.X, d.Y];
             let proj = this.projection([latlong[0], latlong[1]]);
 
             if ((proj[0] < 0 || proj[1] < 0) && proj[0] != -7383.050674157625) {
-                console.log(d, proj);
+                console.log(d, latlong, proj);
             }
 
             return [Math.round(proj[0] / this.gridSize), Math.round(proj[1] / this.gridSize)];

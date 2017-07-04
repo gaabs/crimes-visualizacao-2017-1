@@ -78,7 +78,7 @@ function main(err, geoData, crimeData: Crime[]) {
     crimesByYearDimension = crimes.dimension(d => d.YEAR);
     crimesByDateDimension = crimes.dimension(d => d.DATE);
 
-     crimesByGridDimension = heatmap.createGridDimension(crimes);
+    crimesByGridDimension = heatmap.createGridDimension(crimes);
 
     crimesOriginalByDate = crimesOriginal.dimension(d => d.DATE);
 
@@ -111,5 +111,5 @@ function main(err, geoData, crimeData: Crime[]) {
 function update() {
     histogram.plotData(crimesByTypeGroup.reduceCount().top(Infinity));
     linechart.plotData(crimesByDateGroup.reduceCount().all());
-    heatmap.update(crimesByGridGroup.reduceCount().top(Infinity));
+    heatmap.update(crimesByGridGroup.reduceCount().all());
 }
