@@ -5,7 +5,6 @@
  * Created by Pedro Sereno on 28/05/2017.
  */
 import * as d3 from "d3";
-import * as proj4x from "proj4";
 import * as crossfilter from "crossfilter";
 import {Crime} from "./app/crime";
 import {Histogram} from "./app/histogram";
@@ -14,8 +13,6 @@ import {HeatMap} from "./app/heatmap";
 import {BaseType} from "d3-selection";
 import Grouping = CrossFilter.Grouping;
 import Dimension = CrossFilter.Dimension;
-// import {arc} from "d3-shape";
-const proj4 = (proj4x as any).default;
 
 // Measures
 const svgHeight = 800;
@@ -39,72 +36,10 @@ let histogram: Histogram;
 let linechart: LineChart;
 let heatmap: HeatMap;
 
-//Data filter methods
-/*class Projections {
-    static readonly utm = "+proj=utm +zone=10";
-    static readonly wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
-}
-
-function convertArrayOfObjectsToCSV(data) {
-    var result, ctr, keys, columnDelimiter, lineDelimiter;
-    columnDelimiter = ',';
-    lineDelimiter = '\n';
-
-    keys = Object.keys(data[0]);
-
-    result = '';
-    result += keys.join(columnDelimiter);
-    result += lineDelimiter;
-
-    data.forEach(function (item) {
-        let latlong: any = proj4(Projections.utm, Projections.wgs84, [item["X"], item["Y"]]);
-        ctr = 0;
-        keys.forEach(function (key) {
-            if (ctr > 0) result += columnDelimiter;
-
-            if (key == "X") {
-                result += latlong[0];
-            } else if (key == "Y") {
-                result += latlong[1];
-            } else {
-                result += item[key];
-            }
-            ctr++;
-        });
-        result += lineDelimiter;
-    });
-
-    return result;
-}
-
-function downloadFile(data, fileName) {
-    var csvData = convertArrayOfObjectsToCSV(data);
-    var blob = new Blob([csvData], {
-        type: "application/csv;charset=utf-8;"
-    });
-
-    if (window.navigator.msSaveBlob) {
-        // FOR IE BROWSER
-        navigator.msSaveBlob(blob, fileName);
-    } else {
-        // FOR OTHER BROWSERS
-        var link = document.createElement("a");
-        var csvUrl = URL.createObjectURL(blob);
-        link.href = csvUrl;
-        // link.style = "visibility:hidden";
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-}
-
-downloadFile(crimeData, 'vancouver_crimes_filtered.csv');*/
-
 // Load data and plot
 d3.queue()
     .defer(d3.json, "assets/data/vancouver_geo.json")
-    .defer(d3.csv, "assets/data/vancouver_crimes.csv", d => new Crime(d))
+    .defer(d3.csv, "assets/data/vancouver_crimes_filtered.csv", d => new Crime(d))
     .await(main);
 
 function main(err, geoData, crimeData: Crime[]) {
@@ -117,8 +52,6 @@ function main(err, geoData, crimeData: Crime[]) {
     let svg: d3.Selection<BaseType, {}, HTMLElement, any> = d3.select("body").append("svg")
         .attr("height", svgHeight)
         .attr("width", svgWidth);
-
-    // let body = d3.select("body");
 
     console.log("crimeData", crimeData);
 
@@ -158,6 +91,7 @@ function main(err, geoData, crimeData: Crime[]) {
 function update() {
     histogram.plotData(crimesByType.group().reduceCount().top(Infinity));
     linechart.plotData(crimesOriginalByDate.group().reduceCount().all());
-    //linechart.plotData(crimesByDate.group().reduceCount().all());
+    // linechart.plotData(crimesByDate.group().reduceCount().all());
+
     heatmap.update(crimesByYear.top(Infinity));
 }

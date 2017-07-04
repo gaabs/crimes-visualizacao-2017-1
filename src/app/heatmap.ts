@@ -5,8 +5,6 @@ import {BaseType} from "d3-selection";
 const proj4 = (proj4x as any).default;
 
 const colors = ["#ffffd9", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"];
-// const colors = ["#ffffd9", "#081d58"];
-// const colors = ["#ffffd9", "#41b6c4", "#081d58"];
 
 class Projections {
     static readonly utm = "+proj=utm +zone=10";
@@ -124,13 +122,13 @@ export class HeatMap {
         }
 
         crimeData.forEach(d => {
-            let latlong: any = proj4(Projections.utm, Projections.wgs84, [d["X"], d["Y"]]);
+            let latlong = [d["X"], d["Y"]];
             let proj = projection([latlong[0], latlong[1]]);
             let i = Math.round(proj[0] / gridSize), j = Math.round(proj[1] / gridSize);
             if (i >= 0 && i < height / gridSize && j >= 0 && j < width / gridSize) {
                 heatmap[i][j]++;
             } else {
-                // console.log(i,j);
+                //console.log(i,j, d, proj);
             }
         });
 
