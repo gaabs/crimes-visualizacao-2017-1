@@ -21,7 +21,8 @@ const svgHeight = 800;
 const svgWidth = 1200;
 const colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
 const mapWidth = 500, mapHeight = 500, mapX = 0, mapY = 0;
-const histogramWidth = 500, histogramHeight = 300, histogramX = 500, histogramY = 0;
+const typeHistogramWidth = 300, typeHistogramHeight = 300, typeHistogramX = 400, typeHistogramY = 0;
+const hourHistogramWidth = 300, hourHistogramHeight = 300, hourHistogramX = 700, hourHistogramY = 0;
 const linechartWidth = 1000, linechartHeight = 300, linechartX = 0, linechartY = 500;
 const gridSize = 10;
 
@@ -31,21 +32,24 @@ let crimesOriginal; //: CrossFilter<Crime>;
 
 // Crossfilter Dimensions
 let crimesByTypeDimension: Dimension<Crime, string>;
-let crimesByYearDimension: Dimension<Crime, number>;
 let crimesByDateDimension: Dimension<Crime, Date>;
+let crimesByYearDimension: Dimension<Crime, number>;
+let crimesByHourDimension: Dimension<Crime, number>;
 let crimesByGridDimension: CrossFilter.Dimension<Crime, number[]>;
 let crimesByNeighbourhoodDimension: CrossFilter.Dimension<Crime, string>;
 let crimesOriginalByDate: Dimension<Crime, Date>;
 
 // Crossfilter Groups
 let crimesByTypeGroup: Group<Crime, string, string>;
-let crimesByYearGroup: Group<Crime, number, number>;
 let crimesByDateGroup: Group<Crime, Date, Date>;
+let crimesByYearGroup: Group<Crime, number, number>;
+let crimesByHourGroup: Group<Crime, number, number>;
 let crimesByGridGroup: Group<Crime, number[], number[]>;
 let crimesByNeighbourhoodGroup: Group<Crime, string, string>;
 
 // Plot objects
-let histogram: Histogram;
+let typeHistogram: Histogram;
+let hourHistogram: Histogram;
 let linechart: LineChart;
 let heatmap: HeatMap;
 let choropleth: Choropleth;
@@ -69,7 +73,8 @@ function main(err, geoData, crimeData: Crime[]) {
         .attr("width", svgWidth);
 
     // Initializing plot objects
-    histogram = new Histogram(svg, histogramX, histogramY, histogramWidth, histogramHeight);
+    typeHistogram = new Histogram(svg, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight);
+    hourHistogram = new Histogram(svg, hourHistogramX, hourHistogramY, hourHistogramWidth, hourHistogramHeight);
     linechart = new LineChart(svg, linechartX, linechartY, linechartWidth, linechartHeight);
     heatmap = new HeatMap(svg, mapX, mapY, mapWidth, mapHeight, gridSize, geoData);
     choropleth = new Choropleth(svg, mapX, mapY, mapWidth, mapHeight, gridSize, geoData);
@@ -80,53 +85,53 @@ function main(err, geoData, crimeData: Crime[]) {
     // crimesOriginal = crossfilter(crimeData);
 
     crimesByTypeDimension = crimes.dimension(d => d.TYPE);
-    crimesByYearDimension = crimes.dimension(d => d.DATE.getFullYear());
     crimesByDateDimension = crimes.dimension(d => d.DATE);
+    crimesByYearDimension = crimes.dimension(d => d.YEAR);
+    crimesByHourDimension = crimes.dimension(d => d.HOUR);
     crimesByNeighbourhoodDimension = crimes.dimension(d => d.NEIGHBOURHOOD);
     crimesByGridDimension = heatmap.createGridDimension(crimes);
 
     // crimesOriginalByDate = crimesOriginal.dimension(d => d.DATE);
 
     crimesByTypeGroup = crimesByTypeDimension.group();
-    crimesByYearGroup = crimesByYearDimension.group();
     crimesByDateGroup = crimesByDateDimension.group();
+    crimesByYearGroup = crimesByYearDimension.group();
+    crimesByHourGroup = crimesByHourDimension.group();
     crimesByGridGroup = crimesByGridDimension.group();
     crimesByNeighbourhoodGroup = crimesByNeighbourhoodDimension.group();
 
 
-    // Add dispatch
-    let histogramDispatch = d3.dispatch("selectionChanged");
-    histogramDispatch.on("selectionChanged", selectedBars => {
-        // console.log("histogram dispatch:", selectedBars);
+    // Add dispatches
+    let typeHistogramDispatch = d3.dispatch("selectionChanged");
+    typeHistogramDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByTypeDimension));
+    typeHistogram.dispatch = typeHistogramDispatch;
 
-        crimesByTypeDimension.filterFunction(key => {
-            return !selectedBars.hasOwnProperty(key);
-        });
-        update();
-    });
-    histogram.dispatch = histogramDispatch;
+    let hourHistogramDispatch = d3.dispatch("selectionChanged");
+    hourHistogramDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByHourDimension));
+    hourHistogram.dispatch = hourHistogramDispatch;
 
     let choroplethDispatch = d3.dispatch("selectionChanged");
-    choroplethDispatch.on("selectionChanged", selectedBars => {
-        // console.log("choropleth dispatch:", selectedBars);
-
-        crimesByNeighbourhoodDimension.filterFunction(key => {
-            return !selectedBars.hasOwnProperty(key);
-        });
-        update();
-    });
+    choroplethDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByNeighbourhoodDimension));
     choropleth.dispatch = choroplethDispatch;
 
     // Applying initial filters
-    crimesByYearDimension.filter(d => d == 2017);
+    // crimesByYearDimension.filter(d => d == 2017);
 
     // Initial plot
     update();
 
 }
 
+function updateFilter(selection: any, dimension: Dimension<Crime, any>) {
+    dimension.filterFunction(key => {
+        return !selection.hasOwnProperty(key);
+    });
+    update();
+}
+
 function update() {
-    histogram.plotData(crimesByTypeGroup.reduceCount().top(Infinity));
+    typeHistogram.plotData(crimesByTypeGroup.reduceCount().top(Infinity));
+    hourHistogram.plotData(crimesByHourGroup.reduceCount().all());
     linechart.plotData(crimesByDateGroup.reduceCount().all());
     heatmap.update(crimesByGridGroup.reduceCount().all());
     choropleth.update(crimesByNeighbourhoodGroup.reduceCount().all());

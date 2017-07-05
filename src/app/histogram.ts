@@ -46,8 +46,11 @@ export class Histogram {
 
     }
 
-    plotData(data: Grouping<string, number>[]) {
+    plotData(data: Grouping<any, number>[]) {
         // console.log("histogram", data);
+
+        // Filter out unlabeled data
+        data = data.filter(d => d.key.length > 0);
 
         // X scale represents the values
         let xScale = d3.scaleLinear()
@@ -85,9 +88,13 @@ export class Histogram {
 
 
         // Create axises then rotate labels
-        let xAxis = this.xAxisGroup.call(d3.axisBottom(xScale));
+        let xAxis = this.xAxisGroup
+            .transition().duration(500)
+            .call(d3.axisBottom(xScale));
 
-        let yAxis = this.yAxisGroup.call(d3.axisLeft(yScale))
+        let yAxis = this.yAxisGroup
+            .transition().duration(500)
+            .call(d3.axisLeft(yScale))
             .selectAll("text")
             .style("text-anchor", "start")
             .attr("transform", `translate(20, 0)`);
