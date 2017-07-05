@@ -47,7 +47,7 @@ export class Histogram {
     }
 
     plotData(data: Grouping<string, number>[]) {
-        console.log("histogram", data);
+        // console.log("histogram", data);
 
         // X scale represents the values
         let xScale = d3.scaleLinear()

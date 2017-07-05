@@ -48,7 +48,7 @@ export class LineChart {
 
     // Plots line chart with crime data
     plotData(data: Grouping<Date, number>[]) {
-        console.log("linechart", data);
+        // console.log("linechart", data);
 
         let xScale = d3.scaleTime()
             .domain(d3.extent(data, d => d.key))

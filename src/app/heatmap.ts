@@ -12,7 +12,7 @@ class Projections {
     static readonly wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
 }
 
-export class HeatMap {
+export class HeatMap{
     private projection;
     private svg;
     private canvas;
@@ -82,8 +82,8 @@ export class HeatMap {
             }
         });
 
-        console.log("heatmap: ", heatmapData);
-        console.log("maxi:", maxi);
+        // console.log("heatmap: ", heatmapData);
+        // console.log("maxi:", maxi);
 
         let colorScale = d3.scaleQuantize<string>().range(colors);
         colorScale.domain([0, maxi]);
@@ -105,7 +105,7 @@ export class HeatMap {
             .attr("y", d => d.key[1] * this.gridSize)
             .attr("fill", d => colorScale(d['value']))
             .attr("opacity", d => d.value ? opacityScale(d.value) : 0)
-            .text(d => d['value'])
+            .text(d => d['value']);
 
         grid.exit().remove();
     }
@@ -124,50 +124,5 @@ export class HeatMap {
         });
 
         return crimesByGridDimension;
-    }
-
-    /**
-     *  Returns heatmap data array, where each element contains:
-     *  i: row number
-     *  j: column number
-     *  value: heatmap count value
-     *
-     * @param width
-     * @param height
-     * @param gridSize
-     * @param crimeData
-     * @param projection
-     * @returns {Array}
-     */
-    calculateHeatmap(width, height, gridSize, crimeData, projection) {
-        let heatmap = [];
-        for (let i = 0; i < height / gridSize; i++) {
-            heatmap[i] = [];
-            for (let j = 0; j < width / gridSize; j++) {
-                heatmap[i][j] = 0;
-            }
-        }
-
-        crimeData.forEach(d => {
-            let latlong = [d["X"], d["Y"]];
-            let proj = projection([latlong[0], latlong[1]]);
-            let i = Math.round(proj[0] / gridSize), j = Math.round(proj[1] / gridSize);
-            if (i >= 0 && i < height / gridSize && j >= 0 && j < width / gridSize) {
-                heatmap[i][j]++;
-            } else {
-                //console.log(i,j, d, proj);
-            }
-        });
-
-        let heatmapData = [];
-        heatmap.forEach((row, i) => {
-            row.forEach((value, j) => {
-                if (value) {
-                    heatmapData.push({'i': i, 'j': j, 'value': value});
-                }
-            });
-        });
-
-        return heatmapData;
     }
 }

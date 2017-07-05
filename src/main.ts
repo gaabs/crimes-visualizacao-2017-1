@@ -11,6 +11,7 @@ import {Histogram} from "./app/histogram";
 import {LineChart} from "./app/lineChart";
 import {HeatMap} from "./app/heatmap";
 import {BaseType} from "d3-selection";
+import {Choropleth} from "./app/choropleth";
 import Grouping = CrossFilter.Grouping;
 import Dimension = CrossFilter.Dimension;
 import Group = CrossFilter.Group;
@@ -33,23 +34,26 @@ let crimesByTypeDimension: Dimension<Crime, string>;
 let crimesByYearDimension: Dimension<Crime, number>;
 let crimesByDateDimension: Dimension<Crime, Date>;
 let crimesByGridDimension: CrossFilter.Dimension<Crime, number[]>;
+let crimesByNeighbourhoodDimension: CrossFilter.Dimension<Crime, string>;
 let crimesOriginalByDate: Dimension<Crime, Date>;
 
 // Crossfilter Groups
 let crimesByTypeGroup: Group<Crime, string, string>;
 let crimesByYearGroup: Group<Crime, number, number>;
 let crimesByDateGroup: Group<Crime, Date, Date>;
-let crimesByGridGroup: CrossFilter.Group<Crime, number[], number[]>;
+let crimesByGridGroup: Group<Crime, number[], number[]>;
+let crimesByNeighbourhoodGroup: Group<Crime, string, string>;
 
 // Plot objects
 let histogram: Histogram;
 let linechart: LineChart;
 let heatmap: HeatMap;
+let choropleth: Choropleth;
 
 // Load data and plot
 d3.queue()
     .defer(d3.json, "assets/data/vancouver_geo.json")
-    .defer(d3.csv, "assets/data/vancouver_crimes_filtered.csv", d => new Crime(d))
+    .defer(d3.csv, "assets/data/output.csv", d => new Crime(d))
     .await(main);
 
 function main(err, geoData, crimeData: Crime[]) {
@@ -68,30 +72,32 @@ function main(err, geoData, crimeData: Crime[]) {
     histogram = new Histogram(svg, histogramX, histogramY, histogramWidth, histogramHeight);
     linechart = new LineChart(svg, linechartX, linechartY, linechartWidth, linechartHeight);
     heatmap = new HeatMap(svg, mapX, mapY, mapWidth, mapHeight, gridSize, geoData);
+    choropleth = new Choropleth(svg, mapX, mapY, mapWidth, mapHeight, gridSize, geoData);
 
     // Initializing crossfilter objects
     crimes = crossfilter(crimeData);
 
-    crimesOriginal = crossfilter(crimeData);
+    // crimesOriginal = crossfilter(crimeData);
 
     crimesByTypeDimension = crimes.dimension(d => d.TYPE);
-    crimesByYearDimension = crimes.dimension(d => d.YEAR);
+    crimesByYearDimension = crimes.dimension(d => d.DATE.getFullYear());
     crimesByDateDimension = crimes.dimension(d => d.DATE);
-
+    crimesByNeighbourhoodDimension = crimes.dimension(d => d.NEIGHBOURHOOD);
     crimesByGridDimension = heatmap.createGridDimension(crimes);
 
-    crimesOriginalByDate = crimesOriginal.dimension(d => d.DATE);
+    // crimesOriginalByDate = crimesOriginal.dimension(d => d.DATE);
 
     crimesByTypeGroup = crimesByTypeDimension.group();
     crimesByYearGroup = crimesByYearDimension.group();
     crimesByDateGroup = crimesByDateDimension.group();
     crimesByGridGroup = crimesByGridDimension.group();
+    crimesByNeighbourhoodGroup = crimesByNeighbourhoodDimension.group();
 
 
     // Add dispatch
     let histogramDispatch = d3.dispatch("selectionChanged");
     histogramDispatch.on("selectionChanged", selectedBars => {
-        console.log("histogram dispatch:", selectedBars);
+        // console.log("histogram dispatch:", selectedBars);
 
         crimesByTypeDimension.filterFunction(key => {
             return !selectedBars.hasOwnProperty(key);
@@ -100,8 +106,19 @@ function main(err, geoData, crimeData: Crime[]) {
     });
     histogram.dispatch = histogramDispatch;
 
+    let choroplethDispatch = d3.dispatch("selectionChanged");
+    choroplethDispatch.on("selectionChanged", selectedBars => {
+        // console.log("choropleth dispatch:", selectedBars);
+
+        crimesByNeighbourhoodDimension.filterFunction(key => {
+            return !selectedBars.hasOwnProperty(key);
+        });
+        update();
+    });
+    choropleth.dispatch = choroplethDispatch;
+
     // Applying initial filters
-    // crimesByYearDimension.filter(d => d == 2017);
+    crimesByYearDimension.filter(d => d == 2017);
 
     // Initial plot
     update();
@@ -112,4 +129,5 @@ function update() {
     histogram.plotData(crimesByTypeGroup.reduceCount().top(Infinity));
     linechart.plotData(crimesByDateGroup.reduceCount().all());
     heatmap.update(crimesByGridGroup.reduceCount().all());
+    choropleth.update(crimesByNeighbourhoodGroup.reduceCount().all());
 }
