@@ -26,6 +26,9 @@ const hourHistogramWidth = 300, hourHistogramHeight = 300, hourHistogramX = 700,
 const linechartWidth = 1000, linechartHeight = 300, linechartX = 0, linechartY = 500;
 const gridSize = 10;
 
+const margin = {top: 10, right: 20, bottom: 30, left: 40};
+const zeroMargin = {top: 0, right: 0, bottom: 0, left: 0};
+
 // Crossfilter
 let crimes: CrossFilter.CrossFilter<Crime>;
 let crimesOriginal; //: CrossFilter<Crime>;
@@ -47,7 +50,7 @@ let crimesByHourGroup: Group<Crime, number, number>;
 let crimesByGridGroup: Group<Crime, number[], number[]>;
 let crimesByNeighbourhoodGroup: Group<Crime, string, string>;
 
-// Plot objects
+// AbstractPlot objects
 let typeHistogram: Histogram;
 let hourHistogram: Histogram;
 let linechart: LineChart;
@@ -73,11 +76,11 @@ function main(err, geoData, crimeData: Crime[]) {
         .attr("width", svgWidth);
 
     // Initializing plot objects
-    typeHistogram = new Histogram(svg, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight);
-    hourHistogram = new Histogram(svg, hourHistogramX, hourHistogramY, hourHistogramWidth, hourHistogramHeight);
-    linechart = new LineChart(svg, linechartX, linechartY, linechartWidth, linechartHeight);
-    heatmap = new HeatMap(svg, mapX, mapY, mapWidth, mapHeight, gridSize, geoData);
-    choropleth = new Choropleth(svg, mapX, mapY, mapWidth, mapHeight, gridSize, geoData);
+    typeHistogram = new Histogram(svg, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight, margin, "type histogram");
+    hourHistogram = new Histogram(svg, hourHistogramX, hourHistogramY, hourHistogramWidth, hourHistogramHeight, margin, "hour histogram");
+    linechart = new LineChart(svg, linechartX, linechartY, linechartWidth, linechartHeight, margin, "linechart");
+    heatmap = new HeatMap(svg, mapX, mapY, mapWidth, mapHeight, zeroMargin, "heatmap", gridSize, geoData);
+    choropleth = new Choropleth(svg, mapX, mapY, mapWidth, mapHeight, zeroMargin, "choropleth", gridSize, geoData);
 
     // Initializing crossfilter objects
     crimes = crossfilter(crimeData);
@@ -130,9 +133,9 @@ function updateFilter(selection: any, dimension: Dimension<Crime, any>) {
 }
 
 function update() {
-    typeHistogram.plotData(crimesByTypeGroup.reduceCount().top(Infinity));
-    hourHistogram.plotData(crimesByHourGroup.reduceCount().all());
-    linechart.plotData(crimesByDateGroup.reduceCount().all());
+    typeHistogram.update(crimesByTypeGroup.reduceCount().all());
+    hourHistogram.update(crimesByHourGroup.reduceCount().all());
+    linechart.update(crimesByDateGroup.reduceCount().all());
     heatmap.update(crimesByGridGroup.reduceCount().all());
     choropleth.update(crimesByNeighbourhoodGroup.reduceCount().all());
 }

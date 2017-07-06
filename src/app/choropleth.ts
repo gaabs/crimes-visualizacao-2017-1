@@ -1,6 +1,7 @@
 import * as d3 from "d3";
 import * as proj4x from "proj4";
 import {BaseType} from "d3-selection";
+import {AbstractPlot} from "./abstractPlot";
 // import {arc} from "d3-shape";
 const proj4 = (proj4x as any).default;
 
@@ -11,37 +12,31 @@ class Projections {
     static readonly wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
 }
 
-export class Choropleth {
+export class Choropleth extends AbstractPlot {
     public dispatch;
 
     private projection;
-    private svg;
-    private canvas;
     private tooltip;
-    private selectedNeighbourhoods = {};
 
-    constructor(private parent: d3.Selection<BaseType, {}, HTMLElement, any>,
-                private x: number,
-                private y: number,
-                private width: number,
-                private height: number,
+    constructor(parent: d3.Selection<BaseType, {}, HTMLElement, any>,
+                x: number,
+                y: number,
+                totalWidth: number,
+                totalHeight: number,
+                margin: {},
+                name: string,
                 private gridSize: number,
                 private geoData) {
 
+        super(parent, x, y, totalWidth, totalHeight, margin, name);
+
         // Initialize attributes
         this.projection = d3.geoMercator()
-            .translate([width / 2, height / 2])
+            .translate([this.width / 2, this.height / 2])
             .scale(100000)
             .center([-123.115328, 49.249808]);
 
-        this.svg = parent.append("svg")
-            .attr("class", "heatmap")
-            .attr("width", width)
-            .attr("height", height)
-            .attr("x", x)
-            .attr("y", y);
-
-        this.canvas = this.svg.append("g");
+        // let margin = {top: 10, right: 20, bottom: 30, left: 40};
 
         this.tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
@@ -71,13 +66,13 @@ export class Choropleth {
             if (neighbourhoodDataHash.hasOwnProperty(neighbourhood)) {
                 feature.properties.value = neighbourhoodDataHash[neighbourhood];
                 maxi = Math.max(maxi, neighbourhoodDataHash[neighbourhood]);
-                console.log(neighbourhood, feature.properties.value);
+                // console.log(neighbourhood, feature.properties.value);
             } else {
                 feature.properties.value = 0
             }
         });
 
-        // console.log("Choropleth: ", neighbourhoodData);
+        console.log("Choropleth: ", neighbourhoodData);
         // console.log("maxi:", maxi);
 
         let colorScale = d3.scaleQuantize<string>().range(colors);
@@ -101,27 +96,32 @@ export class Choropleth {
             .merge(choropleth)
             .on("click", (d) => {
                 let neighbourhood = d.properties.name;
-                if (this.selectedNeighbourhoods.hasOwnProperty(neighbourhood)) {
-                    delete this.selectedNeighbourhoods[neighbourhood];
+                if (this.selected.hasOwnProperty(neighbourhood)) {
+                    delete this.selected[neighbourhood];
                 } else {
-                    this.selectedNeighbourhoods[neighbourhood] = true;
+                    this.selected[neighbourhood] = true;
                 }
                 // console.log(this.selectedNeighbourhoods);
                 // console.log(data);
-                this.dispatch.call("selectionChanged", {}, this.selectedNeighbourhoods);
+                this.dispatch.call("selectionChanged", {}, this.selected);
             })
-            // .on("mouseover", d => {
-            //     this.tooltip.transition()
-            //         .duration(200)
-            //         .style("opacity", .9)
-            //     this.tooltip.html(d.properties.name + "<br/>" + d.properties.value)
-            //         .style("left", (d3.event.pageX) + "px")
-            //         .style("top", (d3.event.pageY - 28) + "px");
-            // })
+            .on("mouseover", d => {
+                this.tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9)
+                this.tooltip.html(d.properties.name + "<br/>" + d.properties.value)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", d => {
+                this.tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
             .transition().duration(500)
             .style("fill", d => {
                 let neighbourhood = d.properties.name;
-                return this.selectedNeighbourhoods.hasOwnProperty(neighbourhood) ? "gray" : colorScale(d.properties.value);
+                return this.selected.hasOwnProperty(neighbourhood) ? "gray" : colorScale(d.properties.value);
             });
 
         choropleth.exit().remove();
