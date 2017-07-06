@@ -15,6 +15,9 @@ export class LineChart extends AbstractPlot {
     private xScale;
     private yScale;
     private lineFunction;
+    private xScaleBase;
+    private yScaleBase;
+    private data: Grouping<Date, number>[];
 
     constructor(parent: d3.Selection<BaseType, {}, HTMLElement, any>,
                 x: number,
@@ -57,8 +60,8 @@ export class LineChart extends AbstractPlot {
             .translateExtent([[0, 0], [this.width, this.height]])
             .extent([[0, 0], [this.width, this.height]])
             .on("zoom", d => {
-                console.log(d3.event.transform);
-                //zoomed;
+                // console.log(d3.event.transform);
+                this.zoomed();
                 // this.canvas.attr("transform", d3.event.transform);
 
             });
@@ -77,30 +80,46 @@ export class LineChart extends AbstractPlot {
     // Plots line chart with crime data
     update(data: Grouping<Date, number>[]) {
         // console.log("linechart", data);
+        this.data = data;
 
-        this.xScale.domain(d3.extent(data, d => d.key));
-        this.yScale.domain([0, d3.max(data, d => d.value)]);
-
-        this.path
-            .transition().duration(500)
-            .attr("d", this.lineFunction(data));
-
+        this.resetScales();
         this.updateAxises();
+        this.plot();
     }
 
-    updateAxises(){
+    plot() {
+        //TODO: check when to do transition
+        this.path
+            // .transition().duration(500)
+            .attr("d", this.lineFunction(this.data));
+    }
+
+    resetScales() {
+        this.xScale.domain(d3.extent(this.data, d => d.key));
+        this.yScale.domain([0, d3.max(this.data, d => d.value)]);
+
+        this.xScaleBase = this.xScale.copy();
+        this.yScaleBase = this.yScale.copy();
+    }
+
+    updateAxises() {
         let xAxis = this.xAxisGroup
-            .transition().duration(500)
+            // .transition().duration(500)
             .call(d3.axisBottom(this.xScale));
 
         let yAxis = this.yAxisGroup
-            .transition().duration(500)
+            // .transition().duration(500)
             .call(d3.axisLeft(this.yScale));
     }
 
-    zoomed(){
+    zoomed() {
         var t = d3.event.transform;
-        // this.xScale.domain(t.rescaleX(x2).domain());
+        this.xScale.domain(t.rescaleX(this.xScaleBase).domain());
+        // console.log("xScale domain:" ,this.xScale.domain());
+        // console.log("originalXScale domain:" ,this.xScaleBase.domain());
+        this.updateAxises();
+        console.log(t);
+        this.plot();
     }
 }
 
