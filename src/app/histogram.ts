@@ -57,7 +57,7 @@ export class Histogram extends AbstractPlot {
         let colorScale = d3.scaleOrdinal(d3.schemeCategory20).domain(data.map(d => d.key));
 
         let rectangles = this.barsGroup.selectAll("rect").data(data);
-        let rectangleHeight = this.height / (2 * data.length);
+        let rectangleHeight = this.height / (data.length);
 
         rectangles.exit().remove();
         rectangles.enter().append("rect").merge(rectangles)
@@ -71,7 +71,7 @@ export class Histogram extends AbstractPlot {
             })
             .transition().duration(500)
             .attr("x", 0)
-            .attr("y", d => yScale(d.key) + rectangleHeight / 3)
+            .attr("y", d => yScale(d.key))
             .attr("width", d => xScale(d.value))
             .attr("height", d => rectangleHeight)
             .attr("text", d => d.key)
