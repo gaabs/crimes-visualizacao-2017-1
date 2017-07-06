@@ -31,11 +31,14 @@ export class LineChart extends AbstractPlot {
 
         // Initiate attributes
         this.path = this.canvas
-            .append("g")
+            .append("svg")
+            .attr("width", this.width)
+            .attr("height", this.height)
+            .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")")
             .append("path")
             .style("stroke", "#86170F")
             .style("stroke-width", "1px")
-            .style("fill", "none");
+            .style("fill", "red");
 
         this.xAxisGroup = this.canvas.append("g")
             .attr("class", "xAxis")
@@ -49,10 +52,18 @@ export class LineChart extends AbstractPlot {
         this.yScale = d3.scaleLinear()
             .range([this.height, 0]);
 
-        this.lineFunction = d3.line<Grouping<Date, number>>()
+        // this.lineFunction = d3.line<Grouping<Date, number>>()
+        //     .x(d => this.xScale(d.key))
+        //     .y(d => this.yScale(d.value))
+        //     .curve(d3.curveLinear);
+
+        // Area
+        this.lineFunction = d3.area<Grouping<Date, number>>()
             .x(d => this.xScale(d.key))
-            .y(d => this.yScale(d.value))
-            .curve(d3.curveLinear);
+            .y0(this.height)
+            .y1(d => this.yScale(d.value))
+            // .curve(d3.curveMonotoneX)
+
 
         // Add zoom functionality
         var zoom = d3.zoom()
@@ -83,14 +94,13 @@ export class LineChart extends AbstractPlot {
         this.data = data;
 
         this.resetScales();
-        this.updateAxises();
-        this.plot();
+        this.updateAxises(true);
+        this.plot(true);
     }
 
-    plot() {
-        //TODO: check when to do transition
+    plot(transition: boolean) {
         this.path
-            // .transition().duration(500)
+            .transition().duration(transition ? 500 : 0)
             .attr("d", this.lineFunction(this.data));
     }
 
@@ -102,13 +112,13 @@ export class LineChart extends AbstractPlot {
         this.yScaleBase = this.yScale.copy();
     }
 
-    updateAxises() {
+    updateAxises(transition: boolean) {
         let xAxis = this.xAxisGroup
-            // .transition().duration(500)
+            .transition().duration(transition ? 500 : 0)
             .call(d3.axisBottom(this.xScale));
 
         let yAxis = this.yAxisGroup
-            // .transition().duration(500)
+            .transition().duration(transition ? 500 : 0)
             .call(d3.axisLeft(this.yScale));
     }
 
@@ -117,9 +127,9 @@ export class LineChart extends AbstractPlot {
         this.xScale.domain(t.rescaleX(this.xScaleBase).domain());
         // console.log("xScale domain:" ,this.xScale.domain());
         // console.log("originalXScale domain:" ,this.xScaleBase.domain());
-        this.updateAxises();
+        this.updateAxises(false);
         console.log(t);
-        this.plot();
+        this.plot(false);
     }
 }
 
