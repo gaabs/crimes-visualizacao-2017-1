@@ -70,12 +70,7 @@ export class LineChart extends AbstractPlot {
             .scaleExtent([1, Infinity])
             .translateExtent([[0, 0], [this.width, this.height]])
             .extent([[0, 0], [this.width, this.height]])
-            .on("zoom", d => {
-                // console.log(d3.event.transform);
-                this.zoomed();
-                // this.canvas.attr("transform", d3.event.transform);
-
-            });
+            .on("zoom", _ => this.zoomed());
 
         this.svg.append("rect")
             .attr("class", "zoom")
@@ -127,8 +122,8 @@ export class LineChart extends AbstractPlot {
         this.xScale.domain(t.rescaleX(this.xScaleBase).domain());
         // console.log("xScale domain:" ,this.xScale.domain());
         // console.log("originalXScale domain:" ,this.xScaleBase.domain());
+        // console.log(t);
         this.updateAxises(false);
-        console.log(t);
         this.plot(false);
     }
 }

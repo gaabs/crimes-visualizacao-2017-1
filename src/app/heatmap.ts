@@ -66,15 +66,12 @@ export class HeatMap extends AbstractPlot {
     update(heatmapData: CrossFilter.Grouping<number[], number>[]) {
         // let heatmap = this.calculateHeatmap(this.width, this.height, this.gridSize, crimeData, this.projection);
 
-        // let maxi = heatmapData[0].value;
-        let maxi = d3.max(heatmapData, d => {
+        let filteredData = heatmapData.filter(d => {
             let i = d.key[0], j = d.key[1];
-            if (i >= 0 && i < this.height / this.gridSize && j >= 0 && j < this.width / this.gridSize) {
-                return d.value;
-            } else {
-                return 0;
-            }
+            return i >= 0 && i < this.height / this.gridSize && j >= 0 && j < this.width / this.gridSize;
         });
+        // let maxi = heatmapData[0].value;
+        let maxi = d3.max(filteredData, d => d.value);
 
         // console.log("heatmap: ", heatmapData);
         // console.log("maxi:", maxi);
@@ -87,7 +84,7 @@ export class HeatMap extends AbstractPlot {
 
         // Draw grid
         let grid = this.canvas.selectAll("rect")
-            .data(heatmapData);
+            .data(filteredData);
 
         grid.enter()
             .append("rect")
