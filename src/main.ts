@@ -19,7 +19,6 @@ import Group = CrossFilter.Group;
 // Measures
 const svgHeight = 800;
 const svgWidth = 1200;
-const colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
 const mapWidth = 500, mapHeight = 500, mapX = 0, mapY = 0;
 const typeHistogramWidth = 300, typeHistogramHeight = 300, typeHistogramX = 400, typeHistogramY = 0;
 const hourHistogramWidth = 300, hourHistogramHeight = 300, hourHistogramX = 700, hourHistogramY = 0;
@@ -31,7 +30,6 @@ const zeroMargin = {top: 0, right: 0, bottom: 0, left: 0};
 
 // Crossfilter
 let crimes: CrossFilter.CrossFilter<Crime>;
-let crimesOriginal; //: CrossFilter<Crime>;
 
 // Crossfilter Dimensions
 let crimesByTypeDimension: Dimension<Crime, string>;
@@ -40,7 +38,6 @@ let crimesByYearDimension: Dimension<Crime, number>;
 let crimesByHourDimension: Dimension<Crime, number>;
 let crimesByGridDimension: CrossFilter.Dimension<Crime, number[]>;
 let crimesByNeighbourhoodDimension: CrossFilter.Dimension<Crime, string>;
-let crimesOriginalByDate: Dimension<Crime, Date>;
 
 // Crossfilter Groups
 let crimesByTypeGroup: Group<Crime, string, string>;
@@ -123,6 +120,45 @@ function main(err, geoData, crimeData: Crime[]) {
     // Initial plot
     update();
 
+    const toggleDiv = d3.select('body').append('div')
+        .style('background-color', '#4b5257')
+        .style('width', 'auto')
+        .style('display', 'inline-block')
+        .style('padding', '15px')
+        .style('color', 'white')
+        .style('box-sizing', 'border-box')
+        .style('border-radius', '10px')
+        .style('position', 'fixed')
+        .style('top', '10px')
+        .style('left', '10px');
+
+    const radioOptions = [
+        {
+            text: 'Heatmap',
+            value: 'heatmap',
+            checked: true
+        },
+        {
+            text: 'Choropleth',
+            value: 'choropleth',
+            checked: false
+        }];
+
+    for (let i = 0; i < radioOptions.length; i++) {
+        const radioDiv = toggleDiv.append('div');
+        radioDiv.append('input')
+            .attr('type', 'radio')
+            .attr('name', 'radioOptions')
+            .attr('value', radioOptions[i].value)
+            .attr('id', 'radioOptions' + i)
+            .property('checked', radioOptions[i].checked)
+            .on('click', toggleMap);
+        radioDiv.append('label')
+            .text(radioOptions[i].text)
+            .attr('for', 'radioOptions' + i);
+    }
+
+    toggleMap();
 }
 
 function updateFilter(selection: any, dimension: Dimension<Crime, any>) {
@@ -138,4 +174,16 @@ function update() {
     linechart.update(crimesByDateGroup.reduceCount().all());
     heatmap.update(crimesByGridGroup.reduceCount().all());
     choropleth.update(crimesByNeighbourhoodGroup.reduceCount().all());
+}
+
+function toggleMap() {
+    const radios: any = document.getElementsByName("radioOptions");
+    for (let i = 0; i < radios.length; i++) {
+        const svg = document.getElementById(radios[i].value);
+        if (radios[i].checked) {
+            svg.style.display = 'block';
+        } else {
+            svg.style.display = 'none';
+        }
+    }
 }

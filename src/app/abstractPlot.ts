@@ -3,8 +3,6 @@ import {BaseType} from "d3-selection";
 
 import Grouping = CrossFilter.Grouping;
 
-const colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
-
 export abstract class AbstractPlot {
     public dispatch;
 
@@ -27,7 +25,7 @@ export abstract class AbstractPlot {
         this.height = totalHeight - margin.top - margin.bottom;
 
         this.svg = parent.append("svg")
-            .attr("class", name)
+            .attr("id", name)
             .attr("width", totalWidth)
             .attr("height", totalHeight)
             .attr("x", x)
