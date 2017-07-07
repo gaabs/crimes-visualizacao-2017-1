@@ -4,8 +4,6 @@ import {AbstractPlot} from "./abstractPlot";
 
 import Grouping = CrossFilter.Grouping;
 
-const colors = ['#e5f5f9', '#ccece6', '#99d8c9', '#66c2a4', '#41ae76', '#238b45', '#006d2c', '#00441b'];
-
 export class Histogram extends AbstractPlot {
     public dispatch;
 
@@ -61,33 +59,38 @@ export class Histogram extends AbstractPlot {
 
         rectangles.exit().remove();
         rectangles.enter().append("rect").merge(rectangles)
-            .on("click", (data: Grouping<string, number>) => {
-                if (this.selected.hasOwnProperty(data.key)) {
-                    delete this.selected[data.key];
-                } else {
-                    this.selected[data.key] = true;
-                }
-                this.dispatch.call("selectionChanged", {}, this.selected);
-            })
+            .on("click", (data: Grouping<string, number>) => this.clicked(data.key))
             .transition().duration(500)
             .attr("x", 0)
             .attr("y", d => yScale(d.key))
             .attr("width", d => xScale(d.value))
             .attr("height", d => rectangleHeight)
-            .attr("text", d => d.key)
-            .attr("fill", d => this.selected.hasOwnProperty(d["key"]) ? "gray" : colorScale(d.key))
+            .attr("fill", d => this.selected.hasOwnProperty(d.key) ? "gray" : colorScale(d.key))
+            .text(d => d.key);
 
 
         // Create axises then rotate labels
-        let xAxis = this.xAxisGroup
+        this.xAxisGroup
             .transition().duration(500)
             .call(d3.axisBottom(xScale));
 
-        let yAxis = this.yAxisGroup
+        this.yAxisGroup
             .transition().duration(500)
             .call(d3.axisLeft(yScale))
             .selectAll("text")
             .style("text-anchor", "start")
             .attr("transform", `translate(20, 0)`);
+
+        this.yAxisGroup.selectAll(".tick")
+            .on("click", d => this.clicked(d));
+    }
+
+    clicked(value: string) {
+        if (this.selected.hasOwnProperty(value)) {
+            delete this.selected[value];
+        } else {
+            this.selected[value] = true;
+        }
+        this.dispatch.call("selectionChanged", {}, this.selected);
     }
 }
