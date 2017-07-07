@@ -163,9 +163,14 @@ function main(err, geoData, crimeData: Crime[]) {
 }
 
 function updateFilter(selection: any, dimension: Dimension<Crime, any>) {
-    dimension.filterFunction(key => {
-        return !selection.hasOwnProperty(key);
-    });
+    if (Object.keys(selection).length == 0) {
+        // Clear dimension filters
+        dimension.filterAll();
+    } else {
+        dimension.filterFunction(key => {
+            return selection.hasOwnProperty(key);
+        });
+    }
     update();
 }
 

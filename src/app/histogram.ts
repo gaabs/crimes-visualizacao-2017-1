@@ -86,7 +86,7 @@ export class Histogram extends AbstractPlot {
             })
             .on("mouseout", (d, index, parentGroup) => {
                 d3.select(parentGroup[index]).select("rect")
-                    .attr("fill", _ => this.selected.hasOwnProperty(d.key) ? "gray" : this.colorScale(d.key));
+                    .attr("fill", _ => this.getColor(d.key));
             })
             .on("click", (data: Grouping<string, number>) => {
                 this.clicked(data.key)
@@ -100,7 +100,7 @@ export class Histogram extends AbstractPlot {
             .attr("y", d => this.yScale(d.key))
             .attr("width", d => this.xScale(d.value))
             .attr("height", d => rectangleHeight)
-            .attr("fill", d => this.selected.hasOwnProperty(d.key) ? "gray" : this.colorScale(d.key));
+            .attr("fill", d => this.getColor(d.key));
 
         // Update rectangles labels
         rectanglesGroups.select("text")
@@ -116,6 +116,16 @@ export class Histogram extends AbstractPlot {
         this.xAxisGroup
             .transition().duration(500)
             .call(d3.axisBottom(this.xScale));
+    }
+
+    getColor(key: string) {
+        // If none selected, default color for current element
+        // If any selected, current element has default color if selected, gray otherwise
+        if (Object.keys(this.selected).length == 0 || this.selected.hasOwnProperty(key)) {
+            return this.colorScale(key);
+        } else {
+            return "gray";
+        }
     }
 
     clicked(value: string) {

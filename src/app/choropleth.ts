@@ -36,11 +36,11 @@ export class Choropleth extends AbstractPlot {
             .scale(100000)
             .center([-123.115328, 49.249808]);
 
-        // let margin = {top: 10, right: 20, bottom: 30, left: 40};
-
         this.tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
+
+        this.colorScale = d3.scaleQuantize<string>().range(colors);
 
         // Add zoom functionality
         const zoom = d3.zoom()
@@ -75,8 +75,8 @@ export class Choropleth extends AbstractPlot {
         console.log("Choropleth: ", neighbourhoodData);
         // console.log("maxi:", maxi);
 
-        let colorScale = d3.scaleQuantize<string>().range(colors);
-        colorScale.domain([0, maxi]);
+
+        this.colorScale.domain([0, maxi]);
 
         // let opacityScale = d3.scaleLinear().range([0.5, 0.85]);
         // opacityScale.domain([0, maxi]);
@@ -120,11 +120,23 @@ export class Choropleth extends AbstractPlot {
             })
             .transition().duration(500)
             .style("fill", d => {
-                let neighbourhood = d.properties.name;
-                return this.selected.hasOwnProperty(neighbourhood) ? "gray" : colorScale(d.properties.value);
+                let neighbourhood = {"name": d.properties.name, "value": d.properties.value};
+                return this.getColor(neighbourhood);
             });
 
+
         choropleth.exit().remove();
+    }
+
+    getColor(neighbourhood: any) {
+        // If none selected, default color for current element
+        // If any selected, current element has default color if selected, gray otherwise
+
+        if (Object.keys(this.selected).length == 0 || this.selected.hasOwnProperty(neighbourhood.name)) {
+            return this.colorScale(neighbourhood.value);
+        } else {
+            return "gray";
+        }
     }
 
 }
