@@ -81,8 +81,9 @@ export class Histogram extends AbstractPlot {
         // Add listeners
         rectanglesGroups
             .on("mouseover", (data, index, parentGroup) => {
+                let color = d3.color(this.getColor(data.key)).darker();
                 d3.select(parentGroup[index]).select("rect")
-                    .attr("fill", "#e64a19");
+                    .attr("fill", color.toString());
             })
             .on("mouseout", (d, index, parentGroup) => {
                 d3.select(parentGroup[index]).select("rect")
