@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+
+    <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css"/>
+</head>
+<body>
+
+<div style="background-color: #4b5257; width: auto;
+ display: inline-block; padding: 15px; color: white;
+ box-sizing: border-box; border-radius: 10px;
+ position: fixed; top: 40vh; left: 10px; z-index: 1000;">
+    <div>
+        <input type="radio" id="1" name="radioOptions" checked>
+        <label for="1">Heatmap</label>
+    </div>
+    <div>
+        <input type="radio" id="2" name="radioOptions">
+        <label for="2">Choropleth</label>
+    </div>
+</div>
+
+<div style="display: flex; flex-direction: column; flex-wrap: wrap; height: 100vh;">
+    <div id="map" style="height: 50vh; width: 55vw; display: inline-block;">
+    </div>
+    <div style="height: 50vh; width: 55vw; display: inline-block; background-color: #636c72;">
+    </div>
+    <div style="height: 100vh; width: 45vw; display: inline-block; background-color: #8a6d3b;">
+    </div>
+</div>
+
+<script src="../node_modules/leaflet/dist/leaflet.js"></script>
+<script src="../node_modules/d3/build/d3.js"></script>
+
+<script>
+
+    const map = L.map('map').setView([49.248239, -123.118418], 11);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    const svg = d3.select(map.getPanes().overlayPane).append("svg");
+    const g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+    const transform = d3.geoTransform({point: projectPoint});
+    const path = d3.geoPath().projection(transform);
+
+    function projectPoint(x, y) {
+        var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+        this.stream.point(point.x, point.y);
+    }
+
+    d3.json("assets/data/vancouver_geo.json", function (geoJson) {
+        const d3_features = g.selectAll("path")
+            .data(geoJson.features)
+            .enter()
+            .append("path")
+            .style("stroke", "#fff")
+            .style("stroke-width", "1")
+            .style("fill", "#2196f3")
+            .style("fill-opacity", 0.3);
+
+        map.on("zoom", reset);
+        reset();
+
+        function reset() {
+            const bounds = path.bounds(geoJson);
+
+            console.log(bounds);
+            var topLeft = bounds[0],
+                bottomRight = bounds[1];
+
+            svg.attr("width", bottomRight[0] - topLeft[0])
+                .attr("height", bottomRight[1] - topLeft[1])
+                .style("left", topLeft[0] + "px")
+                .style("top", topLeft[1] + "px");
+
+            g.attr("transform", "translate(" + -topLeft[0] + ","
+                + -topLeft[1] + ")");
+
+            // initialize the path data
+            d3_features
+                .attr("d", path);
+
+        }
+    })
+
+</script>
+
+</body>
+</html>

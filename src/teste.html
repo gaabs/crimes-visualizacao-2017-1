@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div style="background-color: #4b5257; width: auto;
+ display: inline-block; padding: 15px; color: white;
+ box-sizing: border-box; border-radius: 10px;
+ position: fixed; top: 10px; left: 10px;">
+    <div>
+        <input type="radio" id="1" name="radioOptions" checked>
+        <label for="1">Heatmap</label>
+    </div>
+    <div>
+        <input type="radio" id="2" name="radioOptions">
+        <label for="2">Choropleth</label>
+    </div>
+</div>
+
+<div style="display: flex; flex-direction: column; flex-wrap: wrap; height: 100vh;">
+    <div style="height: 50vh; width: 55vw; display: inline-block; background-color: #3c763d;">
+    </div>
+    <div style="height: 50vh; width: 55vw; display: inline-block; background-color: #636c72;">
+    </div>
+    <div style="height: 100vh; width: 450vw; display: inline-block; background-color: #8a6d3b;">
+    </div>
+</div>
+
+
+</body>
+</html>

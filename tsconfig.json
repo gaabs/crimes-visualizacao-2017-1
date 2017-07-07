@@ -6,7 +6,8 @@
     "strict": true,
     "strictNullChecks": false,
     "moduleResolution": "node",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "noImplicitThis": false
   },
   "exclude": [
     "node_modules"
