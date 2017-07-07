@@ -11,6 +11,7 @@ export abstract class AbstractPlot {
     protected svg;
     protected canvas;
     protected selected = {};
+    protected colorScale;
 
     constructor(protected parent: d3.Selection<BaseType, {}, HTMLElement, any>,
                 protected x: number,

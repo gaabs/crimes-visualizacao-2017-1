@@ -10,6 +10,8 @@ export class Histogram extends AbstractPlot {
     private xAxisGroup;
     private yAxisGroup;
     private barsGroup;
+    private xScale;
+    private yScale;
 
     constructor(parent: d3.Selection<BaseType, {}, HTMLElement, any>,
                 x: number,
@@ -33,6 +35,21 @@ export class Histogram extends AbstractPlot {
         this.yAxisGroup = this.canvas.append("g")
             .attr("class", "yAxis");
 
+        // Create scales
+        // X scale represents the values
+        this.xScale = d3.scaleLinear()
+            .range([0, this.width]);
+
+        // Y scale represents the labels
+        this.yScale = d3.scaleBand()
+            .range([this.height, 0]);
+
+        this.colorScale = d3.scaleOrdinal(d3.schemeCategory20);
+
+    }
+
+    setColorRange(colorRange: string[]) {
+        this.colorScale.range(colorRange);
     }
 
     update(data: Grouping<any, number>[]) {
@@ -42,47 +59,63 @@ export class Histogram extends AbstractPlot {
         data = data.filter(d => d.key.length > 0);
 
         // X scale represents the values
-        let xScale = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d.value) + 100])
-            .range([0, this.width]);
+        this.xScale.domain([0, d3.max(data, d => d.value) + 100]);
 
         // Y scale represents the labels
-        let yScale = d3.scaleBand()
-            .domain(data.map(d => d.key))
-            .range([this.height, 0]);
+        this.yScale.domain(data.map(d => d.key));
 
+        this.colorScale.domain(data.map(d => d.key));
 
-        let colorScale = d3.scaleOrdinal(d3.schemeCategory20).domain(data.map(d => d.key));
-
-        let rectangles = this.barsGroup.selectAll("rect").data(data);
+        let rectanglesGroups = this.barsGroup.selectAll(".rect").data(data);
         let rectangleHeight = this.height / (data.length);
 
-        rectangles.exit().remove();
-        rectangles.enter().append("rect").merge(rectangles)
-            .on("click", (data: Grouping<string, number>) => this.clicked(data.key))
+        // Update rectangles elements
+        rectanglesGroups.exit().remove();
+        rectanglesGroups = rectanglesGroups.enter()
+            .append("g")
+            .attr("class", "rect");
+        rectanglesGroups.append("rect");
+        rectanglesGroups.append("text");
+        rectanglesGroups = this.barsGroup.selectAll(".rect").data(data);
+
+        // Add listeners
+        rectanglesGroups
+            .on("mouseover", (data, index, parentGroup) => {
+                d3.select(parentGroup[index]).select("rect")
+                    .attr("fill", "#e64a19");
+            })
+            .on("mouseout", (d, index, parentGroup) => {
+                d3.select(parentGroup[index]).select("rect")
+                    .attr("fill", _ => this.selected.hasOwnProperty(d.key) ? "gray" : this.colorScale(d.key));
+            })
+            .on("click", (data: Grouping<string, number>) => {
+                this.clicked(data.key)
+            });
+
+
+        // Update rectangles values
+        rectanglesGroups.select("rect")
             .transition().duration(500)
             .attr("x", 0)
-            .attr("y", d => yScale(d.key))
-            .attr("width", d => xScale(d.value))
+            .attr("y", d => this.yScale(d.key))
+            .attr("width", d => this.xScale(d.value))
             .attr("height", d => rectangleHeight)
-            .attr("fill", d => this.selected.hasOwnProperty(d.key) ? "gray" : colorScale(d.key))
+            .attr("fill", d => this.selected.hasOwnProperty(d.key) ? "gray" : this.colorScale(d.key));
+
+        // Update rectangles labels
+        rectanglesGroups.select("text")
+            .transition().duration(500)
+            .attr("x", 5)
+            .attr("y", d => this.yScale(d.key) + rectangleHeight / 2)
+            .attr("dominant-baseline", "central")
+            .style("font", "10px sans-serif")
             .text(d => d.key);
 
 
-        // Create axises then rotate labels
+        // Create axis
         this.xAxisGroup
             .transition().duration(500)
-            .call(d3.axisBottom(xScale));
-
-        this.yAxisGroup
-            .transition().duration(500)
-            .call(d3.axisLeft(yScale))
-            .selectAll("text")
-            .style("text-anchor", "start")
-            .attr("transform", `translate(20, 0)`);
-
-        this.yAxisGroup.selectAll(".tick")
-            .on("click", d => this.clicked(d));
+            .call(d3.axisBottom(this.xScale));
     }
 
     clicked(value: string) {

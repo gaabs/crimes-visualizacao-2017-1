@@ -75,6 +75,7 @@ function main(err, geoData, crimeData: Crime[]) {
     // Initializing plot objects
     typeHistogram = new Histogram(svg, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight, margin, "type histogram");
     hourHistogram = new Histogram(svg, hourHistogramX, hourHistogramY, hourHistogramWidth, hourHistogramHeight, margin, "hour histogram");
+    hourHistogram.setColorRange(["#ff7043"]);
     linechart = new LineChart(svg, linechartX, linechartY, linechartWidth, linechartHeight, margin, "linechart");
     heatmap = new HeatMap(svg, mapX, mapY, mapWidth, mapHeight, zeroMargin, "heatmap", gridSize, geoData);
     choropleth = new Choropleth(svg, mapX, mapY, mapWidth, mapHeight, zeroMargin, "choropleth", gridSize, geoData);
