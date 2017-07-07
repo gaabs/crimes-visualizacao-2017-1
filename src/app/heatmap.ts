@@ -15,6 +15,8 @@ class Projections {
 
 export class HeatMap extends AbstractPlot {
     private projection;
+    private legendAxis;
+    private legendScale;
 
     constructor(parent: d3.Selection<BaseType, {}, HTMLElement, any>,
                 x: number,
@@ -34,6 +36,8 @@ export class HeatMap extends AbstractPlot {
             .scale(100000)
             .center([-123.115328, 49.249808]);
 
+        this.colorScale = d3.scaleQuantize<string>().range(colors);
+
         // Add zoom functionality
         const zoom = d3.zoom()
             .scaleExtent([0, 5])
@@ -46,6 +50,39 @@ export class HeatMap extends AbstractPlot {
         // Draw map
         this.plotMap();
 
+        //Append a defs (for definition) element to your SVG
+        let defs = this.svg.append("defs");
+
+        //Append a linearGradient element to the defs and give it a unique id
+        let linearGradient = defs.append("linearGradient")
+            .attr("id", "linear-gradient2");
+
+        linearGradient
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "100%")
+            .attr("y2", "0%");
+
+        //Draw the rectangle and fill with gradient
+        linearGradient.selectAll("stop")
+            .data(this.colorScale.range())
+            .enter().append("stop")
+            .attr("offset", (d, i) => i / (this.colorScale.range().length - 1))
+            .attr("stop-color", d => d);
+
+        this.svg.append("rect")
+            .attr("x", this.width / 3)
+            .attr("width", this.width / 2)
+            .attr("height", 20)
+            .style("fill", "url(#linear-gradient2)");
+
+        // Create axis
+        this.legendAxis = this.svg.append("g")
+            .attr("class", "legendAxis")
+            .attr("transform", `translate(${this.width / 3}, 40)`);
+
+        this.legendScale = d3.scaleLinear()
+            .range([0, this.width / 2]);
     }
 
     plotMap() {
@@ -70,14 +107,12 @@ export class HeatMap extends AbstractPlot {
             let i = d.key[0], j = d.key[1];
             return i >= 0 && i < this.height / this.gridSize && j >= 0 && j < this.width / this.gridSize;
         });
-        // let maxi = heatmapData[0].value;
         let maxi = d3.max(filteredData, d => d.value);
 
         // console.log("heatmap: ", heatmapData);
         // console.log("maxi:", maxi);
 
-        let colorScale = d3.scaleQuantize<string>().range(colors);
-        colorScale.domain([0, maxi]);
+        this.colorScale.domain([0, maxi]);
 
         let opacityScale = d3.scaleLinear().range([0.5, 0.85]);
         opacityScale.domain([0, maxi]);
@@ -94,11 +129,19 @@ export class HeatMap extends AbstractPlot {
             .transition().duration(500)
             .attr("x", d => d.key[0] * this.gridSize)
             .attr("y", d => d.key[1] * this.gridSize)
-            .attr("fill", d => colorScale(d['value']))
+            .attr("fill", d => this.colorScale(d['value']))
             .attr("opacity", d => d.value ? opacityScale(d.value) : 0)
             .text(d => d['value']);
 
         grid.exit().remove();
+
+        // Update legend
+        this.legendScale.domain([0, maxi]);
+        this.legendAxis
+            .transition().duration(500)
+            .call(d3.axisTop(this.legendScale.nice())
+                .ticks(3, "s")
+                .tickSizeOuter(0))
     }
 
     createGridDimension(crimes: CrossFilter.CrossFilter<Crime>) {

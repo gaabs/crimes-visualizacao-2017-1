@@ -17,6 +17,8 @@ export class Choropleth extends AbstractPlot {
 
     private projection;
     private tooltip;
+    private legendAxis;
+    private legendScale;
 
     constructor(parent: d3.Selection<BaseType, {}, HTMLElement, any>,
                 x: number,
@@ -41,6 +43,40 @@ export class Choropleth extends AbstractPlot {
             .style("opacity", 0);
 
         this.colorScale = d3.scaleQuantize<string>().range(colors);
+
+        //Append a defs (for definition) element to your SVG
+        let defs = this.svg.append("defs");
+
+        //Append a linearGradient element to the defs and give it a unique id
+        let linearGradient = defs.append("linearGradient")
+            .attr("id", "linear-gradient");
+
+        linearGradient
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "100%")
+            .attr("y2", "0%");
+
+        //Draw the rectangle and fill with gradient
+        linearGradient.selectAll("stop")
+            .data(this.colorScale.range())
+            .enter().append("stop")
+            .attr("offset", (d, i) => i / (this.colorScale.range().length - 1))
+            .attr("stop-color", d => d);
+
+        this.svg.append("rect")
+            .attr("x", this.width / 3)
+            .attr("width", this.width / 2)
+            .attr("height", 20)
+            .style("fill", "url(#linear-gradient)");
+
+        // Create axis
+        this.legendAxis = this.svg.append("g")
+            .attr("class", "legendAxis")
+            .attr("transform", `translate(${this.width / 3}, 40)`);
+
+        this.legendScale = d3.scaleLinear()
+            .range([0, this.width / 2]);
 
         // Add zoom functionality
         const zoom = d3.zoom()
@@ -126,6 +162,14 @@ export class Choropleth extends AbstractPlot {
 
 
         choropleth.exit().remove();
+
+        // Update legend
+        this.legendScale.domain([0, maxi]);
+        this.legendAxis
+            .transition().duration(500)
+            .call(d3.axisTop(this.legendScale.nice())
+                .ticks(3, "s")
+                .tickSizeOuter(0))
     }
 
     getColor(neighbourhood: any) {

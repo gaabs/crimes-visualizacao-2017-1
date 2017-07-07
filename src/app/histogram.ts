@@ -115,7 +115,9 @@ export class Histogram extends AbstractPlot {
         // Create axis
         this.xAxisGroup
             .transition().duration(500)
-            .call(d3.axisBottom(this.xScale));
+            .call(d3.axisBottom(this.xScale.nice())
+                .ticks(5, "s")
+                .tickSizeOuter(0));
     }
 
     getColor(key: string) {
