@@ -33,16 +33,11 @@ export class Choropleth extends AbstractPlot {
         super(parent, x, y, totalWidth, totalHeight, margin, name);
 
         // Initialize attributes
-        // this.projection = d3.geoMercator()
-        //     .translate([this.width / 2, this.height / 2])
-        //     .scale(100000)
-        //     .center([-123.115328, 49.249808]);
-
-        // let margin = {top: 10, right: 20, bottom: 30, left: 40};
 
         this.tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
-            .style("opacity", 0);
+            .style("opacity", 0)
+            .style("z-index", 1001);
 
         // Add zoom functionality
         // const zoom = d3.zoom()
@@ -92,11 +87,14 @@ export class Choropleth extends AbstractPlot {
         //     .projection(this.projection);
 
         this.choropleth = this.svg.selectAll("path")
-            .data(this.geoData.features)
-            .enter()
-            .append("path")
+            .data(this.geoData.features);
+
+        this.choropleth.exit().remove();
+        this.choropleth = this.choropleth.enter().append("path")
             .style("stroke", "#fff")
             .style("stroke-width", "1")
+            .style("opacity", 0.7)
+            .merge(this.choropleth)
             .style("fill", d => {
                 let neighbourhood = d.properties.name;
                 return this.selected.hasOwnProperty(neighbourhood) ? "gray" : colorScale(d.properties.value);
@@ -104,28 +102,25 @@ export class Choropleth extends AbstractPlot {
 
         this.choropleth
             .on("click", (d) => {
-                console.log("Clicou");
                 let neighbourhood = d.properties.name;
                 if (this.selected.hasOwnProperty(neighbourhood)) {
                     delete this.selected[neighbourhood];
                 } else {
                     this.selected[neighbourhood] = true;
                 }
-                // console.log(this.selectedNeighbourhoods);
+                // console.log(this.selected);
                 // console.log(data);
                 this.dispatch.call("selectionChanged", {}, this.selected);
             })
             .on("mouseover", d => {
-                console.log("Hover");
                 this.tooltip.transition()
                     .duration(200)
-                    .style("opacity", .9)
+                    .style("opacity", .9);
                 this.tooltip.html(d.properties.name + "<br/>" + d.properties.value)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
             })
             .on("mouseout", d => {
-                console.log("Out");
                 this.tooltip.transition()
                     .duration(500)
                     .style("opacity", 0);
