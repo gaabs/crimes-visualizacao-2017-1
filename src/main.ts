@@ -84,8 +84,8 @@ function main(err, geoData, crimeData: Crime[]) {
     }
     console.log("crimeData", crimeData);
 
-    const mapSVG = d3.select("#map").select("svg").append("svg");
-    const mapG = mapSVG.append("g").attr("class", "leaflet-zoom-hide");
+    const mapSVG = d3.select("#map").select("svg").attr("pointer-events", "auto");
+    const mapG = mapSVG.select("g");
 
     // Creating svg elements
     let svg: d3.Selection<BaseType, {}, HTMLElement, any> = d3.select("body").append("svg")
@@ -98,6 +98,14 @@ function main(err, geoData, crimeData: Crime[]) {
     // linechart = new LineChart(svg, linechartX, linechartY, linechartWidth, linechartHeight, margin, "linechart");
     // heatmap = new HeatMap(svg, mapX, mapY, mapWidth, mapHeight, zeroMargin, "heatmap", gridSize, geoData);
     choropleth = new Choropleth(mapG, mapX, mapY, mapWidth, mapHeight, zeroMargin, "choropleth", gridSize, geoData, path);
+
+    // mapSVG.on("click", () => {
+    //     console.log("Clicou no SVG");
+    // })
+
+    // mapG.on("click", () => {
+    //     console.log("Clicou no G");
+    // })
 
     // Initializing crossfilter objects
     crimes = crossfilter(crimeData);
@@ -136,26 +144,10 @@ function main(err, geoData, crimeData: Crime[]) {
 
     // Applying initial filters
     // crimesByYearDimension.filter(d => d == 2017);
-    map.on("zoom", reset);
+    map.on("moveend", reset);
 
 
     function reset() {
-        const bounds = path.bounds(geoData);
-
-        console.log(bounds);
-
-        const topLeft = bounds[0],
-            bottomRight = bounds[1];
-
-        mapSVG.attr("width", bottomRight[0] - topLeft[0])
-            .attr("height", bottomRight[1] - topLeft[1])
-            .style("left", topLeft[0] + "px")
-            .style("top", topLeft[1] + "px");
-
-        mapG.attr("transform", "translate(" + -topLeft[0] + ","
-            + -topLeft[1] + ")");
-
-        // initialize the path data
         choropleth.reset();
     }
 

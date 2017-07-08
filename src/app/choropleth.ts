@@ -104,7 +104,7 @@ export class Choropleth extends AbstractPlot {
 
         this.choropleth
             .on("click", (d) => {
-                alert("clicked");
+                console.log("Clicou");
                 let neighbourhood = d.properties.name;
                 if (this.selected.hasOwnProperty(neighbourhood)) {
                     delete this.selected[neighbourhood];
@@ -116,6 +116,7 @@ export class Choropleth extends AbstractPlot {
                 this.dispatch.call("selectionChanged", {}, this.selected);
             })
             .on("mouseover", d => {
+                console.log("Hover");
                 this.tooltip.transition()
                     .duration(200)
                     .style("opacity", .9)
@@ -124,6 +125,7 @@ export class Choropleth extends AbstractPlot {
                     .style("top", (d3.event.pageY - 28) + "px");
             })
             .on("mouseout", d => {
+                console.log("Out");
                 this.tooltip.transition()
                     .duration(500)
                     .style("opacity", 0);
