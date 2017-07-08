@@ -7,6 +7,7 @@ import Grouping = CrossFilter.Grouping;
 export class Histogram extends AbstractPlot {
     public dispatch;
 
+    private tooltip;
     private xAxisGroup;
     private yAxisGroup;
     private barsGroup;
@@ -23,6 +24,11 @@ export class Histogram extends AbstractPlot {
 
         super(parent, x, y, totalWidth, totalHeight, margin, name);
 
+
+        // Create tooltip
+        this.tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
         // Creating groups
         this.barsGroup = this.canvas.append("g")
@@ -45,7 +51,6 @@ export class Histogram extends AbstractPlot {
             .range([this.height, 0]);
 
         this.colorScale = d3.scaleOrdinal(d3.schemeCategory20);
-
     }
 
     setColorRange(colorRange: string[]) {
@@ -81,13 +86,28 @@ export class Histogram extends AbstractPlot {
         // Add listeners
         rectanglesGroups
             .on("mouseover", (data, index, parentGroup) => {
+                // Update rectangle color
                 let color = d3.color(this.getColor(data.key)).darker();
                 d3.select(parentGroup[index]).select("rect")
                     .attr("fill", color.toString());
+
+                // Update and show tooltip
+                this.tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                this.tooltip.html(data.value)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
             })
             .on("mouseout", (d, index, parentGroup) => {
+                // Update rectangle color
                 d3.select(parentGroup[index]).select("rect")
                     .attr("fill", _ => this.getColor(d.key));
+
+                // Hide tooltip
+                this.tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
             })
             .on("click", (data: Grouping<string, number>) => {
                 this.clicked(data.key)

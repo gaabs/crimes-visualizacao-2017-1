@@ -18,6 +18,8 @@ export class LineChart extends AbstractPlot {
     private xScaleBase;
     private yScaleBase;
     private data: Grouping<Date, number>[];
+    private tooltip;
+    private dateHighlight;
 
     constructor(parent: d3.Selection<BaseType, {}, HTMLElement, any>,
                 x: number,
@@ -62,7 +64,7 @@ export class LineChart extends AbstractPlot {
             .x(d => this.xScale(d.key))
             .y0(this.height)
             .y1(d => this.yScale(d.value))
-            // .curve(d3.curveMonotoneX)
+        // .curve(d3.curveMonotoneX)
 
 
         // Add zoom functionality
@@ -80,7 +82,50 @@ export class LineChart extends AbstractPlot {
             .attr("fill", "none")
             .attr("cursor", "move")
             .attr("pointer-events", "all")
-            .call(zoom);
+            .call(zoom)
+            .on("mousemove", _ => {
+                // Show tooltip
+                this.tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+
+                // Update tooltip position and info
+                // TODO: check magic 7
+                let x = d3.event.x - this.margin.left - 7, y = d3.event.y;
+                let date = this.xScale.invert(x);
+                // let crimeCount = this.yScale(date);
+                // this.tooltip.html(crimeCount + "<br/>" + date)
+                this.tooltip.html(date)
+                    .style("left", x + "px")
+                    .style("top", (y - 40) + "px");
+
+                // Show date highlight rectangle
+                this.dateHighlight
+                    .style("opacity", 0.5)
+                    .attr("x", x);
+            })
+            .on("mouseout", _ => {
+                // Hide tooltip
+                this.tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+
+                // Hide date highlight rectangle
+                this.dateHighlight.style("opacity", 0);
+            });
+
+        // Create tooltip
+        this.tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        // Create date highlight rectangle
+        this.dateHighlight = this.canvas.append("rect")
+            .attr("class", "dateHighlight")
+            .attr("width", 2)
+            .attr("height", this.height)
+            .attr("fill", "black")
+            .style("opacity", 0);
     }
 
     // Plots line chart with crime data
