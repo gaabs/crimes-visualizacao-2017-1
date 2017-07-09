@@ -83,16 +83,12 @@ function main(err, geoData, crimeData: Crime[]) {
     // Initializing crossfilter objects
     crimes = crossfilter(crimeData);
 
-    // crimesOriginal = crossfilter(crimeData);
-
     crimesByTypeDimension = crimes.dimension(d => d.TYPE);
     crimesByDateDimension = crimes.dimension(d => d.DATE);
     crimesByYearDimension = crimes.dimension(d => d.YEAR);
     crimesByHourDimension = crimes.dimension(d => d.HOUR);
     crimesByNeighbourhoodDimension = crimes.dimension(d => d.NEIGHBOURHOOD);
     crimesByGridDimension = heatmap.createGridDimension(crimes);
-
-    // crimesOriginalByDate = crimesOriginal.dimension(d => d.DATE);
 
     crimesByTypeGroup = crimesByTypeDimension.group();
     crimesByDateGroup = crimesByDateDimension.group();
@@ -114,6 +110,10 @@ function main(err, geoData, crimeData: Crime[]) {
     let choroplethDispatch = d3.dispatch("selectionChanged");
     choroplethDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByNeighbourhoodDimension));
     choropleth.dispatch = choroplethDispatch;
+
+    let linechartDispatch = d3.dispatch("selectionChanged");
+    linechartDispatch.on("selectionChanged", selectedRange => updateFilterRange(selectedRange, crimesByDateDimension));
+    linechart.dispatch = linechartDispatch;
 
     // Applying initial filters
     // crimesByYearDimension.filter(d => d == 2017);
@@ -163,13 +163,23 @@ function main(err, geoData, crimeData: Crime[]) {
 }
 
 function updateFilter(selection: any, dimension: Dimension<Crime, any>) {
-    if (Object.keys(selection).length == 0) {
+    if (!selection || Object.keys(selection).length == 0) {
         // Clear dimension filters
         dimension.filterAll();
     } else {
         dimension.filterFunction(key => {
             return selection.hasOwnProperty(key);
         });
+    }
+    update();
+}
+
+function updateFilterRange(selectionRange: any[], dimension: Dimension<Crime, any>) {
+    if (!selectionRange || selectionRange.length != 2) {
+        // Clear dimension filters
+        dimension.filterAll();
+    } else {
+        dimension.filterRange(selectionRange);
     }
     update();
 }
