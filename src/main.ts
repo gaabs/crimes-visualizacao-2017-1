@@ -56,7 +56,7 @@ let choropleth: Choropleth;
 
 // Load data and plot
 d3.queue()
-    .defer(d3.json, "assets/data/vancouver_geo.json")
+    .defer(d3.json, "assets/data/vancouver-neighbourhoods.json")
     .defer(d3.csv, "assets/data/vancouver_crimes_filtered.csv", d => new Crime(d))
     .await(main);
 
