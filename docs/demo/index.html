@@ -3,22 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Crime Visualization - Vancouver</title>
-    <style>
-        div.tooltip {
-            position: absolute;
-            text-align: center;
-            width: 80px;
-            height: 38px;
-            padding: 2px;
-            font: 12px sans-serif;
-            background: lightsteelblue;
-            border: 0px;
-            border-radius: 8px;
-            pointer-events: none;
-        }
-    </style>
+
+    <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.css">
+
+    <link rel="stylesheet" href="assets/css/styles.css">
+
 </head>
 <body>
+
+<div id="loader" >
+    <div class="text-center">
+        <h1>Carregando</h1>
+        <i class="fa fa-spinner fa-spin" style="font-size:50px"></i>
+    </div>
+</div>
+
+<div id="plot-container">
+    <div id="map">
+        <div id="toggle-map">
+            <div>
+                <input type="radio" id="1" name="radioOptions" checked value="heatmap">
+                <label for="1">Heatmap</label>
+            </div>
+            <div>
+                <input type="radio" id="2" name="radioOptions" value="choropleth">
+                <label for="2">Choropleth</label>
+            </div>
+        </div>
+
+        <div id="tooltip-map" class="text-center">
+            <h6 id="tooltip-title"></h6>
+            <p id="tooltip-text"></p>
+        </div>
+    </div>
+    <div id="linechart">
+
+    </div>
+    <div id="filters">
+
+    </div>
+</div>
 
 <script type="text/javascript" src="main.js"></script></body>
 </html>
