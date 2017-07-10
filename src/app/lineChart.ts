@@ -105,7 +105,7 @@ export class LineChart extends AbstractPlot {
             .attr("pointer-events", "all")
             .call(zoom)
             .on("mousemove", _ => {
-                let x = d3.event.x - this.margin.left - 7;
+                let x = d3.event.x - this.margin.left;
                 this.showTooltip(x, 0, this.height / 2, this.xScale);
             })
             .on("mouseout", _ => {
@@ -126,7 +126,7 @@ export class LineChart extends AbstractPlot {
             ])
             // .on("brush", _ => this.showTooltip(this.height/2 + this.height/4, this.height/4, this.xScaleBase))
             .on("brush", _ => {
-                let x = d3.event.sourceEvent.x - this.margin.left - 7;
+                let x = d3.event.sourceEvent.x - this.margin.left;
                 this.showTooltip(x, this.height / 2 + this.height / 4, this.height / 4, this.xScaleBase)
             })
             .on("end", _ => this.brushed());
@@ -135,7 +135,7 @@ export class LineChart extends AbstractPlot {
             .attr("class", "brush")
             .call(brush)
             .on("mousemove", _ => {
-                let x = d3.event.x - this.margin.left - 7;
+                let x = d3.event.x - this.margin.left;
                 this.showTooltip(x, this.height / 2 + this.height / 4, this.height / 4, this.xScaleBase);
             })
             .on("mouseout", _ => this.hideTooltip());

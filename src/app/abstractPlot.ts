@@ -25,14 +25,15 @@ export abstract class AbstractPlot {
         this.width = totalWidth - margin.left - margin.right;
         this.height = totalHeight - margin.top - margin.bottom;
 
-        this.svg = parent.attr("id", name);
-            // .attr("width", totalWidth)
-            // .attr("height", totalHeight)
-            // .attr("x", x)
-            // .attr("y", y);
+        this.svg = parent.append("svg")
+            .attr("id", name)
+            .attr("width", totalWidth)
+            .attr("height", totalHeight)
+            .attr("x", x)
+            .attr("y", y);
 
-        // this.canvas = this.svg.append("g")
-        //     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        this.canvas = this.svg.append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     }
 

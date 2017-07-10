@@ -17,13 +17,16 @@ import Dimension = CrossFilter.Dimension;
 import Group = CrossFilter.Group;
 import * as L from 'leaflet';
 
+const linechartDiv = document.getElementById("linechart");
+
 // Measures
 const svgHeight = 800;
 const svgWidth = 1200;
 const mapWidth = 500, mapHeight = 500, mapX = 0, mapY = 0;
 const typeHistogramWidth = 300, typeHistogramHeight = 300, typeHistogramX = 400, typeHistogramY = 0;
 const hourHistogramWidth = 300, hourHistogramHeight = 300, hourHistogramX = 700, hourHistogramY = 0;
-const linechartWidth = 1000, linechartHeight = 300, linechartX = 0, linechartY = 500;
+const linechartWidth = linechartDiv.clientWidth, linechartHeight = linechartDiv.clientHeight, linechartX = 0,
+    linechartY = 0;
 const gridSize = 100;
 
 const margin = {top: 10, right: 20, bottom: 30, left: 40};
@@ -55,7 +58,7 @@ let linechart: LineChart;
 let heatmap: HeatMap;
 let choropleth: Choropleth;
 
-const map = L.map('map', { zoomControl:false, minZoom: 11, maxZoom: 21 }).setView([49.248239, -123.118418], 11);
+const map = L.map('map', {zoomControl: false, minZoom: 11, maxZoom: 21}).setView([49.248239, -123.118418], 11);
 
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -88,21 +91,26 @@ function main(err, geoData, crimeData: Crime[]) {
     const choroplethG = mapSVG.select("g").attr("class", "leaflet-zoom-hide");
 
     // Creating svg elements
-    let svg: d3.Selection<BaseType, {}, HTMLElement, any> = d3.select("body").append("svg")
-        .attr("height", "100%")
-        .attr("width", "100%");
+    // let svg: d3.Selection<BaseType, {}, HTMLElement, any> = d3.select("body").append("svg")
+    //     .attr("height", "100%")
+    //     .attr("width", "100%");
 
     const test = L.rectangle([[49.248239, -123.118418], [49.268239, -123.098418]]);
     test.options.color = "transparent";
     test.options.opacity = 0;
     test.addTo(map);
 
+    const linechartSVG = d3.select("#linechart")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%");
+
     // console.log(test);
 
     // Initializing plot objects
     // typeHistogram = new Histogram(svg, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight, margin, "type histogram");
     // hourHistogram = new Histogram(svg, hourHistogramX, hourHistogramY, hourHistogramWidth, hourHistogramHeight, margin, "hour histogram");
-    // linechart = new LineChart(svg, linechartX, linechartY, linechartWidth, linechartHeight, margin, "linechart");
+    linechart = new LineChart(linechartSVG, linechartX, linechartY, linechartWidth, linechartHeight, margin, "linechart");
     heatmap = new HeatMap(gridSize, map);
     choropleth = new Choropleth(choroplethG, geoData, path);
 
@@ -130,7 +138,7 @@ function main(err, geoData, crimeData: Crime[]) {
     // crimesOriginal = crossfilter(crimeData);
     //
     // crimesByTypeDimension = crimes.dimension(d => d.TYPE);
-    // crimesByDateDimension = crimes.dimension(d => d.DATE);
+    crimesByDateDimension = crimes.dimension(d => d.DATE);
     // crimesByYearDimension = crimes.dimension(d => d.YEAR);
     // crimesByHourDimension = crimes.dimension(d => d.HOUR);
     crimesByGridDimension = heatmap.createGridDimension(crimes);
@@ -139,7 +147,7 @@ function main(err, geoData, crimeData: Crime[]) {
     // crimesOriginalByDate = crimesOriginal.dimension(d => d.DATE);
 
     // crimesByTypeGroup = crimesByTypeDimension.group();
-    // crimesByDateGroup = crimesByDateDimension.group();
+    crimesByDateGroup = crimesByDateDimension.group();
     // crimesByYearGroup = crimesByYearDimension.group();
     // crimesByHourGroup = crimesByHourDimension.group();
     crimesByGridGroup = crimesByGridDimension.group();
@@ -223,7 +231,7 @@ function updateFilterRange(selectionRange: any[], dimension: Dimension<Crime, an
 function update() {
     // typeHistogram.update(crimesByTypeGroup.reduceCount().all());
     // hourHistogram.update(crimesByHourGroup.reduceCount().all());
-    // linechart.update(crimesByDateGroup.reduceCount().all());
+    linechart.update(crimesByDateGroup.reduceCount().all());
     heatmap.update(crimesByGridGroup.reduceCount().all());
     choropleth.update(crimesByNeighbourhoodGroup.reduceCount().all());
 }

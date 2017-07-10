@@ -71,25 +71,46 @@
             width: 55vw;
             display: inline-block;
         }
+
+        .plot-container {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            height: 100vh;
+        }
+
+        #linechart {
+            height: 50vh;
+            width: 55vw;
+            display: inline-block;
+            background-color: lightblue;
+            box-sizing: border-box;
+            /*padding: 20px;*/
+        }
     </style>
 </head>
 <body>
 
-<div id="map">
-    <div id="toggle-map">
-        <div>
-            <input type="radio" id="1" name="radioOptions" checked value="heatmap">
-            <label for="1">Heatmap</label>
+<div class="plot-container">
+    <div id="map">
+        <div id="toggle-map">
+            <div>
+                <input type="radio" id="1" name="radioOptions" checked value="heatmap">
+                <label for="1">Heatmap</label>
+            </div>
+            <div>
+                <input type="radio" id="2" name="radioOptions" value="choropleth">
+                <label for="2">Choropleth</label>
+            </div>
         </div>
-        <div>
-            <input type="radio" id="2" name="radioOptions" value="choropleth">
-            <label for="2">Choropleth</label>
+
+        <div id="tooltip-map" class="text-center">
+            <h6 id="tooltip-title"></h6>
+            <p id="tooltip-text"></p>
         </div>
     </div>
+    <div id="linechart">
 
-    <div id="tooltip-map" class="text-center">
-        <h6 id="tooltip-title"></h6>
-        <p id="tooltip-text"></p>
     </div>
 </div>
 
