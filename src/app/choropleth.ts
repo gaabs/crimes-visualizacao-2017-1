@@ -10,6 +10,7 @@ export class Choropleth {
     private tooltipText;
     private plot;
     private selected = {};
+    private colorScale;
 
     constructor(private canvas: d3.Selection<BaseType, {}, HTMLElement, any>,
                 private geoData,
@@ -18,6 +19,7 @@ export class Choropleth {
         this.tooltip = d3.select("#tooltip-map");
         this.tooltipTitle = this.tooltip.select("#tooltip-title");
         this.tooltipText = this.tooltip.select("#tooltip-text");
+        this.colorScale = d3.scaleQuantize<string>().range(colors);
     }
 
     reset() {
@@ -41,8 +43,7 @@ export class Choropleth {
             }
         });
 
-        let colorScale = d3.scaleQuantize<string>().range(colors);
-        colorScale.domain([0, maxi]);
+        this.colorScale.domain([0, maxi]);
 
         this.plot = this.canvas.selectAll("path")
             .data(this.geoData.features);
@@ -54,8 +55,8 @@ export class Choropleth {
             .style("opacity", 0.7)
             .merge(this.plot)
             .style("fill", d => {
-                let neighbourhood = d.properties.name;
-                return this.selected.hasOwnProperty(neighbourhood) ? "gray" : colorScale(d.properties.value);
+                let neighbourhood = {"name": d.properties.name, "value": d.properties.value};
+                return this.getColor(neighbourhood);
             });
 
         this.plot
@@ -81,6 +82,17 @@ export class Choropleth {
                     .style("opacity", 0);
             });
 
+    }
+
+    getColor(neighbourhood: any) {
+        // If none selected, default color for current element
+        // If any selected, current element has default color if selected, gray otherwise
+
+        if (Object.keys(this.selected).length == 0 || this.selected.hasOwnProperty(neighbourhood.name)) {
+            return this.colorScale(neighbourhood.value);
+        } else {
+            return "gray";
+        }
     }
 
 }
