@@ -184,6 +184,9 @@ function main(err, geoData, crimeData: Crime[]) {
             }
         }
     }
+
+    d3.select("#loader").style("display", "none");
+    d3.select("#plot-container").style("opacity", "1");
 }
 
 function updateFilter(selection: any, dimension: Dimension<Crime, any>) {
