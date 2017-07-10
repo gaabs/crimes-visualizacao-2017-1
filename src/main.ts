@@ -24,7 +24,7 @@ const mapWidth = 500, mapHeight = 500, mapX = 0, mapY = 0;
 const typeHistogramWidth = 300, typeHistogramHeight = 300, typeHistogramX = 400, typeHistogramY = 0;
 const hourHistogramWidth = 300, hourHistogramHeight = 300, hourHistogramX = 700, hourHistogramY = 0;
 const linechartWidth = 1000, linechartHeight = 300, linechartX = 0, linechartY = 500;
-const gridSize = 10;
+const gridSize = 100;
 
 const margin = {top: 10, right: 20, bottom: 30, left: 40};
 const zeroMargin = {top: 0, right: 0, bottom: 0, left: 0};
@@ -55,7 +55,7 @@ let linechart: LineChart;
 let heatmap: HeatMap;
 let choropleth: Choropleth;
 
-const map = L.map('map', { zoomControl:false, minZoom: 11, maxZoom: 11 }).setView([49.248239, -123.118418], 11);
+const map = L.map('map', { zoomControl:false, minZoom: 11, maxZoom: 21 }).setView([49.248239, -123.118418], 11);
 
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

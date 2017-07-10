@@ -78,30 +78,9 @@ export class HeatMap extends AbstractPlot {
             }
         }
         filteredData.forEach((d) => {
-            let found = false;
-            for (let i = 0; i < data.length && !found; i++) {
-                for (let j = 0; j < data[i].length && !found; j++) {
-                    if (
-                        d.key[0] >= data[i][j].bounds[0][0]
-                        && d.key[0] <= data[i][j].bounds[1][0]
-                        && d.key[1] >= data[i][j].bounds[0][1]
-                        && d.key[1] <= data[i][j].bounds[1][1]
-                    ) {
-                        data[i][j].hits += d.value;
-                        found = true;
-                    }
-                }
-            }
-
-            // let i = Math.round((d.key[0] - this.latLng[0][0]) / eachWidth);
-            // let j = Math.round((d.key[1] - this.latLng[0][1]) / eachHeight);
-            // if (i >= this.gridSize) {
-            //     i--;
-            // }
-            // if (j >= this.gridSize) {
-            //     j--;
-            // }
-            // data[i][j].hits += d.value;
+            let i = Math.floor((d.key[1] - this.latLng[0][1]) / eachHeight);
+            let j = Math.floor((d.key[0] - this.latLng[0][0]) / eachWidth);
+            data[i][j].hits += d.value;
         });
 
         // const test = L.rectangle([[49.248239, -123.118418], [49.268239, -123.098418]]);
