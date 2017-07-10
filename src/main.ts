@@ -10,7 +10,6 @@ import {Crime} from "./app/crime";
 import {Histogram} from "./app/histogram";
 import {LineChart} from "./app/lineChart";
 import {HeatMap} from "./app/heatmap";
-import {BaseType} from "d3-selection";
 import {Choropleth} from "./app/choropleth";
 import Grouping = CrossFilter.Grouping;
 import Dimension = CrossFilter.Dimension;
@@ -18,13 +17,13 @@ import Group = CrossFilter.Group;
 import * as L from 'leaflet';
 
 const linechartDiv = document.getElementById("linechart");
+const filtersDiv = document.getElementById("filters");
 
 // Measures
-const svgHeight = 800;
-const svgWidth = 1200;
-const mapWidth = 500, mapHeight = 500, mapX = 0, mapY = 0;
-const typeHistogramWidth = 300, typeHistogramHeight = 300, typeHistogramX = 400, typeHistogramY = 0;
-const hourHistogramWidth = 300, hourHistogramHeight = 300, hourHistogramX = 700, hourHistogramY = 0;
+const svgFiltersHeight = filtersDiv.clientHeight;
+const svgFiltersWidth = filtersDiv.clientWidth;
+const typeHistogramWidth = svgFiltersWidth/2, typeHistogramHeight = svgFiltersHeight/2, typeHistogramX = 0, typeHistogramY = 0;
+const hourHistogramWidth = svgFiltersWidth/2, hourHistogramHeight = svgFiltersHeight/2, hourHistogramX = svgFiltersWidth / 2, hourHistogramY = 0;
 const linechartWidth = linechartDiv.clientWidth, linechartHeight = linechartDiv.clientHeight, linechartX = 0,
     linechartY = 0;
 const gridSize = 100;
@@ -90,11 +89,6 @@ function main(err, geoData, crimeData: Crime[]) {
     const mapSVG = d3.select("#map").select("svg").attr("pointer-events", "auto");
     const choroplethG = mapSVG.select("g").attr("class", "leaflet-zoom-hide");
 
-    // Creating svg elements
-    // let svg: d3.Selection<BaseType, {}, HTMLElement, any> = d3.select("body").append("svg")
-    //     .attr("height", "100%")
-    //     .attr("width", "100%");
-
     const test = L.rectangle([[49.248239, -123.118418], [49.268239, -123.098418]]);
     test.options.color = "transparent";
     test.options.opacity = 0;
@@ -105,11 +99,15 @@ function main(err, geoData, crimeData: Crime[]) {
         .attr("width", "100%")
         .attr("height", "100%");
 
-    // console.log(test);
+    const filtersSVG = d3.select("#filters")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%");
 
     // Initializing plot objects
-    // typeHistogram = new Histogram(svg, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight, margin, "type histogram");
-    // hourHistogram = new Histogram(svg, hourHistogramX, hourHistogramY, hourHistogramWidth, hourHistogramHeight, margin, "hour histogram");
+    typeHistogram = new Histogram(filtersSVG, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight, margin, "type histogram");
+    hourHistogram = new Histogram(filtersSVG, hourHistogramX, hourHistogramY, hourHistogramWidth, hourHistogramHeight, margin, "hour histogram");
+    hourHistogram.setColorRange(["#9f6700"])
     linechart = new LineChart(linechartSVG, linechartX, linechartY, linechartWidth, linechartHeight, margin, "linechart");
     heatmap = new HeatMap(gridSize, map);
     choropleth = new Choropleth(choroplethG, geoData, path);
@@ -124,44 +122,30 @@ function main(err, geoData, crimeData: Crime[]) {
     console.log(d3.select("#map").selectAll("svg"));
     console.log(heatmapSVG);
 
-    // mapSVG.on("click", () => {
-    //     console.log("Clicou no SVG");
-    // })
-
-    // mapG.on("click", () => {
-    //     console.log("Clicou no G");
-    // })
-
-    // Initializing crossfilter objects
     crimes = crossfilter(crimeData);
 
-    // crimesOriginal = crossfilter(crimeData);
-    //
-    // crimesByTypeDimension = crimes.dimension(d => d.TYPE);
+    crimesByTypeDimension = crimes.dimension(d => d.TYPE);
     crimesByDateDimension = crimes.dimension(d => d.DATE);
-    // crimesByYearDimension = crimes.dimension(d => d.YEAR);
-    // crimesByHourDimension = crimes.dimension(d => d.HOUR);
+    crimesByHourDimension = crimes.dimension(d => d.HOUR);
     crimesByGridDimension = heatmap.createGridDimension(crimes);
     crimesByNeighbourhoodDimension = crimes.dimension(d => d.NEIGHBOURHOOD);
 
-    // crimesOriginalByDate = crimesOriginal.dimension(d => d.DATE);
 
-    // crimesByTypeGroup = crimesByTypeDimension.group();
+    crimesByTypeGroup = crimesByTypeDimension.group();
     crimesByDateGroup = crimesByDateDimension.group();
-    // crimesByYearGroup = crimesByYearDimension.group();
-    // crimesByHourGroup = crimesByHourDimension.group();
+    crimesByHourGroup = crimesByHourDimension.group();
     crimesByGridGroup = crimesByGridDimension.group();
     crimesByNeighbourhoodGroup = crimesByNeighbourhoodDimension.group();
 
 
     // Add dispatches
-    // let typeHistogramDispatch = d3.dispatch("selectionChanged");
-    // typeHistogramDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByTypeDimension));
-    // typeHistogram.dispatch = typeHistogramDispatch;
-    //
-    // let hourHistogramDispatch = d3.dispatch("selectionChanged");
-    // hourHistogramDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByHourDimension));
-    // hourHistogram.dispatch = hourHistogramDispatch;
+    let typeHistogramDispatch = d3.dispatch("selectionChanged");
+    typeHistogramDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByTypeDimension));
+    typeHistogram.dispatch = typeHistogramDispatch;
+
+    let hourHistogramDispatch = d3.dispatch("selectionChanged");
+    hourHistogramDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByHourDimension));
+    hourHistogram.dispatch = hourHistogramDispatch;
 
     let choroplethDispatch = d3.dispatch("selectionChanged");
     choroplethDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByNeighbourhoodDimension));
@@ -172,7 +156,6 @@ function main(err, geoData, crimeData: Crime[]) {
     linechart.dispatch = linechartDispatch;
 
     // Applying initial filters
-    // crimesByYearDimension.filter(d => d == 2017);
     map.on("viewreset", reset);
     map.on("moveend", reset);
 
@@ -194,13 +177,10 @@ function main(err, geoData, crimeData: Crime[]) {
         const radios: any = document.getElementsByName("radioOptions");
         for (let i = 0; i < radios.length; i++) {
             const svg = mapPlots[radios[i].value];
-            // const svg = document.getElementById(radios[i].value);
             if (radios[i].checked) {
                 svg.attr("display", "block");
-                // svg.style.display = 'block';
             } else {
                 svg.attr("display", "none");
-                // svg.style.display = 'none';
             }
         }
     }
@@ -229,8 +209,8 @@ function updateFilterRange(selectionRange: any[], dimension: Dimension<Crime, an
 }
 
 function update() {
-    // typeHistogram.update(crimesByTypeGroup.reduceCount().all());
-    // hourHistogram.update(crimesByHourGroup.reduceCount().all());
+    typeHistogram.update(crimesByTypeGroup.reduceCount().all());
+    hourHistogram.update(crimesByHourGroup.reduceCount().all());
     linechart.update(crimesByDateGroup.reduceCount().all());
     heatmap.update(crimesByGridGroup.reduceCount().all());
     choropleth.update(crimesByNeighbourhoodGroup.reduceCount().all());
