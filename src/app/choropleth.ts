@@ -1,29 +1,19 @@
 import * as d3 from "d3";
 import {BaseType} from "d3-selection";
-import {AbstractPlot} from "./abstractPlot";
 
 const colors = ["#ffffd9", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"];
 
-export class Choropleth extends AbstractPlot {
+export class Choropleth {
     public dispatch;
     private tooltip;
     private tooltipTitle;
     private tooltipText;
     private plot;
+    private selected = {};
 
-    constructor(parent: d3.Selection<BaseType, {}, HTMLElement, any>,
-                x: number,
-                y: number,
-                totalWidth: number,
-                totalHeight: number,
-                margin: {},
-                name: string,
+    constructor(private canvas: d3.Selection<BaseType, {}, HTMLElement, any>,
                 private geoData,
                 private path) {
-
-        super(parent, x, y, totalWidth, totalHeight, margin, name);
-
-        // Initialize attributes
 
         this.tooltip = d3.select("#tooltip-map");
         this.tooltipTitle = this.tooltip.select("#tooltip-title");
@@ -51,12 +41,10 @@ export class Choropleth extends AbstractPlot {
             }
         });
 
-        console.log("Choropleth: ", neighbourhoodData);
-
         let colorScale = d3.scaleQuantize<string>().range(colors);
         colorScale.domain([0, maxi]);
 
-        this.plot = this.svg.selectAll("path")
+        this.plot = this.canvas.selectAll("path")
             .data(this.geoData.features);
 
         this.plot.exit().remove();

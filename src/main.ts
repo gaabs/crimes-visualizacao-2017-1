@@ -85,21 +85,36 @@ function main(err, geoData, crimeData: Crime[]) {
     console.log("crimeData", crimeData);
 
     const mapSVG = d3.select("#map").select("svg").attr("pointer-events", "auto");
-    const mapG = mapSVG.select("g").attr("class", "leaflet-zoom-hide");
-    const choroplethG = mapG.append("g");
-    const heatmapG = mapG.append("g");
+    const choroplethG = mapSVG.select("g").attr("class", "leaflet-zoom-hide");
 
     // Creating svg elements
     let svg: d3.Selection<BaseType, {}, HTMLElement, any> = d3.select("body").append("svg")
         .attr("height", "100%")
         .attr("width", "100%");
 
+    const test = L.rectangle([[49.248239, -123.118418], [49.268239, -123.098418]]);
+    test.options.color = "transparent";
+    test.options.opacity = 0;
+    test.addTo(map);
+
+    // console.log(test);
+
     // Initializing plot objects
     // typeHistogram = new Histogram(svg, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight, margin, "type histogram");
     // hourHistogram = new Histogram(svg, hourHistogramX, hourHistogramY, hourHistogramWidth, hourHistogramHeight, margin, "hour histogram");
     // linechart = new LineChart(svg, linechartX, linechartY, linechartWidth, linechartHeight, margin, "linechart");
-    heatmap = new HeatMap(heatmapG, mapX, mapY, mapWidth, mapHeight, zeroMargin, "heatmap", gridSize, geoData, path, map);
-    choropleth = new Choropleth(choroplethG, mapX, mapY, mapWidth, mapHeight, zeroMargin, "choropleth", geoData, path);
+    heatmap = new HeatMap(gridSize, map);
+    choropleth = new Choropleth(choroplethG, geoData, path);
+
+    const heatmapSVG = d3.select("#map").select("svg:nth-child(2)");
+
+    const mapPlots = {
+        'heatmap': heatmapSVG,
+        'choropleth': choroplethG
+    }
+
+    console.log(d3.select("#map").selectAll("svg"));
+    console.log(heatmapSVG);
 
     // mapSVG.on("click", () => {
     //     console.log("Clicou no SVG");
@@ -140,9 +155,9 @@ function main(err, geoData, crimeData: Crime[]) {
     // hourHistogramDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByHourDimension));
     // hourHistogram.dispatch = hourHistogramDispatch;
 
-    // let choroplethDispatch = d3.dispatch("selectionChanged");
-    // choroplethDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByNeighbourhoodDimension));
-    // choropleth.dispatch = choroplethDispatch;
+    let choroplethDispatch = d3.dispatch("selectionChanged");
+    choroplethDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByNeighbourhoodDimension));
+    choropleth.dispatch = choroplethDispatch;
 
     // Applying initial filters
     // crimesByYearDimension.filter(d => d == 2017);
@@ -150,7 +165,6 @@ function main(err, geoData, crimeData: Crime[]) {
     map.on("moveend", reset);
 
     function reset() {
-        heatmap.reset();
         choropleth.reset();
     }
 
@@ -162,6 +176,22 @@ function main(err, geoData, crimeData: Crime[]) {
     const toggleDiv = d3.select("#toggle-map").style("opacity", 1);
     toggleDiv.selectAll("input").on("click", toggleMap);
     toggleMap();
+
+    function toggleMap() {
+        console.log("Switcher");
+        const radios: any = document.getElementsByName("radioOptions");
+        for (let i = 0; i < radios.length; i++) {
+            const svg = mapPlots[radios[i].value];
+            // const svg = document.getElementById(radios[i].value);
+            if (radios[i].checked) {
+                svg.attr("display", "block");
+                // svg.style.display = 'block';
+            } else {
+                svg.attr("display", "none");
+                // svg.style.display = 'none';
+            }
+        }
+    }
 }
 
 function updateFilter(selection: any, dimension: Dimension<Crime, any>) {
@@ -177,17 +207,4 @@ function update() {
     // linechart.update(crimesByDateGroup.reduceCount().all());
     heatmap.update(crimesByGridGroup.reduceCount().all());
     choropleth.update(crimesByNeighbourhoodGroup.reduceCount().all());
-}
-
-function toggleMap() {
-    console.log("Switcher");
-    const radios: any = document.getElementsByName("radioOptions");
-    for (let i = 0; i < radios.length; i++) {
-        const svg = document.getElementById(radios[i].value);
-        if (radios[i].checked) {
-            svg.style.display = 'block';
-        } else {
-            svg.style.display = 'none';
-        }
-    }
 }
