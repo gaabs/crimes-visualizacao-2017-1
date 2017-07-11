@@ -88,7 +88,7 @@ function projectPoint(x, y) {
 // Load data and plot
 d3.queue()
     .defer(d3.json, "assets/data/vancouver-neighbourhoods.json")
-    .defer(d3.csv, "assets/data/vancouver_crimes_filtered2.csv", d => new Crime(d))
+    .defer(d3.csv, "assets/data/vancouver_crimes_filtered.csv", d => new Crime(d))
     .await(main);
 
 function main(err, geoData, crimeData: Crime[]) {
@@ -169,6 +169,14 @@ function main(err, geoData, crimeData: Crime[]) {
     let hourHistogramDispatch = d3.dispatch("selectionChanged");
     hourHistogramDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByHourDimension));
     hourHistogram.dispatch = hourHistogramDispatch;
+
+    let weekdayHistogramDispatch = d3.dispatch("selectionChanged");
+    weekdayHistogramDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByWeekdayDimension));
+    weekdayHistogram.dispatch = weekdayHistogramDispatch;
+
+    let monthHistogramDispatch = d3.dispatch("selectionChanged");
+    monthHistogramDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByMonthDimension));
+    monthHistogram.dispatch = monthHistogramDispatch;
 
     let choroplethDispatch = d3.dispatch("selectionChanged");
     choroplethDispatch.on("selectionChanged", selectedBars => updateFilter(selectedBars, crimesByNeighbourhoodDimension));
