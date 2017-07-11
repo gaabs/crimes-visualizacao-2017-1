@@ -55,12 +55,12 @@ export class Choropleth {
         this.legendAxis = legendSvg.append("g")
             .attr("class", "legendAxis")
             // .attr("transform", `translate(${this.width / 3}, 40)`);
-            .attr("transform", `translate(0, 40)`)
+            .attr("transform", `translate(10, 40)`)
             .style("z-index", "1002");
 
         this.legendScale = d3.scaleLinear()
             // .range([0, this.width / 2]);
-            .range([0, 200]);
+            .range([0, 180]);
     }
 
     reset() {
