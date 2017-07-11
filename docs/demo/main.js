@@ -32446,15 +32446,46 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var d3 = __webpack_require__(4);
 var colors = ["#ffffd9", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"];
 var Choropleth = (function () {
-    function Choropleth(canvas, geoData, path) {
+    function Choropleth(canvas, geoData, path, legendSvg) {
+        var _this = this;
         this.canvas = canvas;
         this.geoData = geoData;
         this.path = path;
+        this.legendSvg = legendSvg;
         this.selected = {};
         this.tooltip = d3.select("#tooltip-map");
         this.tooltipTitle = this.tooltip.select("#tooltip-title");
         this.tooltipText = this.tooltip.select("#tooltip-text");
         this.colorScale = d3.scaleQuantize().range(colors);
+        //Append a defs (for definition) element to your SVG
+        var defs = legendSvg.append("defs");
+        //Append a linearGradient element to the defs and give it a unique id
+        var linearGradient = defs.append("linearGradient")
+            .attr("id", "linear-gradient-choropleth");
+        linearGradient
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "100%")
+            .attr("y2", "0%");
+        //Draw the rectangle and fill with gradient
+        linearGradient.selectAll("stop")
+            .data(this.colorScale.range())
+            .enter().append("stop")
+            .attr("offset", function (d, i) { return i / (_this.colorScale.range().length - 1); })
+            .attr("stop-color", function (d) { return d; });
+        legendSvg.append("rect")
+            .attr("x", 0)
+            .attr("width", 200)
+            .attr("height", 20)
+            .style("fill", "url(#linear-gradient-choropleth)")
+            .style("z-index", "1002");
+        // Create axis
+        this.legendAxis = legendSvg.append("g")
+            .attr("class", "legendAxis")
+            .attr("transform", "translate(10, 40)")
+            .style("z-index", "1002");
+        this.legendScale = d3.scaleLinear()
+            .range([0, 180]);
     }
     Choropleth.prototype.reset = function () {
         this.plot.attr("d", this.path);
@@ -32511,6 +32542,13 @@ var Choropleth = (function () {
                 .duration(500)
                 .style("opacity", 0);
         });
+        // Update legend
+        this.legendScale.domain([0, maxi]);
+        this.legendAxis
+            .transition().duration(500)
+            .call(d3.axisTop(this.legendScale.nice())
+            .ticks(3, "s")
+            .tickSizeOuter(0));
     };
     Choropleth.prototype.getColor = function (neighbourhood) {
         // If none selected, default color for current element
@@ -32563,9 +32601,11 @@ var d3 = __webpack_require__(4);
 var L = __webpack_require__(20);
 var colors = ["#ffffd9", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#253494", "#081d58"];
 var HeatMap = (function () {
-    function HeatMap(gridSize, map) {
+    function HeatMap(gridSize, map, legendSvg) {
+        var _this = this;
         this.gridSize = gridSize;
         this.map = map;
+        this.legendSvg = legendSvg;
         this.latLng = [[49.19696140064054, -123.23123931884766], [49.31907993638747, -122.9871368408203]];
         this.widthTotal = Math.abs(this.latLng[0][0] - this.latLng[1][0]);
         this.heightTotal = Math.abs(this.latLng[0][1] - this.latLng[1][1]);
@@ -32596,6 +32636,36 @@ var HeatMap = (function () {
                 this.rectangles[i][j].addTo(this.map);
             }
         }
+        this.colorScale = d3.scaleQuantize().range(colors);
+        //Append a defs (for definition) element to your SVG
+        var defs = legendSvg.append("defs");
+        //Append a linearGradient element to the defs and give it a unique id
+        var linearGradient = defs.append("linearGradient")
+            .attr("id", "linear-gradient-heatmap");
+        linearGradient
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "100%")
+            .attr("y2", "0%");
+        //Draw the rectangle and fill with gradient
+        linearGradient.selectAll("stop")
+            .data(this.colorScale.range())
+            .enter().append("stop")
+            .attr("offset", function (d, i) { return i / (_this.colorScale.range().length - 1); })
+            .attr("stop-color", function (d) { return d; });
+        legendSvg.append("rect")
+            .attr("x", 0)
+            .attr("width", 200)
+            .attr("height", 20)
+            .style("fill", "url(#linear-gradient-heatmap)")
+            .style("z-index", "1002");
+        // Create axis
+        this.legendAxis = legendSvg.append("g")
+            .attr("class", "legendAxis")
+            .attr("transform", "translate(10, 40)")
+            .style("z-index", "1002");
+        this.legendScale = d3.scaleLinear()
+            .range([0, 180]);
     }
     HeatMap.prototype.update = function (heatmapData) {
         var _this = this;
@@ -32609,8 +32679,7 @@ var HeatMap = (function () {
             }
         }
         var maxi = d3.max(filteredData, function (d) { return d.value; });
-        var colorScale = d3.scaleQuantize().range(colors);
-        colorScale.domain([0, maxi]);
+        this.colorScale.domain([0, maxi]);
         filteredData.forEach(function (d) {
             var i = Math.floor((d.key[1] - _this.latLng[0][1]) / _this.eachHeight);
             var j = Math.floor((d.key[0] - _this.latLng[0][0]) / _this.eachWidth);
@@ -32618,10 +32687,17 @@ var HeatMap = (function () {
         });
         for (var i = 0; i < this.data.length; i++) {
             for (var j = 0; j < this.data[i].length; j++) {
-                this.rectangles[i][j].setStyle({ color: colorScale(this.data[i][j].hits) });
+                this.rectangles[i][j].setStyle({ color: this.colorScale(this.data[i][j].hits) });
                 this.rectangles[i][j].setStyle({ fillOpacity: this.data[i][j].hits === 0 ? 0 : 0.5 });
             }
         }
+        // Update legend
+        this.legendScale.domain([0, maxi]);
+        this.legendAxis
+            .transition().duration(500)
+            .call(d3.axisTop(this.legendScale.nice())
+            .ticks(3, "s")
+            .tickSizeOuter(0));
     };
     HeatMap.prototype.createGridDimension = function (crimes) {
         var crimesByGridDimension = crimes.dimension(function (d) {
@@ -32686,7 +32762,7 @@ var Histogram = (function (_super) {
         var _this = this;
         console.log("histogram", data);
         // Filter out unlabeled data
-        data = data.filter(function (d) { return d.key.length > 0; });
+        data = data.filter(function (d) { return (typeof d) != 'string' || d.key.length > 0; });
         // X scale represents the values
         this.xScale.domain([0, d3.max(data, function (d) { return d.value; }) + 100]);
         // Y scale represents the labels
@@ -32770,6 +32846,16 @@ var Histogram = (function (_super) {
             this.selected[value] = true;
         }
         this.dispatch.call("selectionChanged", {}, this.selected);
+    };
+    Histogram.prototype.addAxesTitles = function (xTitle, yTitle) {
+        this.canvas.append("text")
+            .attr("text-anchor", "middle") // this makes it easy to centre the text as the transform is applied to the anchor
+            .attr("transform", "translate(" + -this.margin.left / 4 + ", " + this.height / 2 + ") rotate(-90)") // text is drawn off the screen top left, move down and out and rotate
+            .text(yTitle);
+        this.canvas.append("text")
+            .attr("text-anchor", "middle") // this makes it easy to centre the text as the transform is applied to the anchor
+            .attr("transform", "translate(" + this.width / 2 + ", " + (this.height + this.margin.bottom) + ")") // centre below axis
+            .text(xTitle);
     };
     return Histogram;
 }(abstractPlot_1.AbstractPlot));
@@ -33027,6 +33113,8 @@ var svgFiltersHeight = filtersDiv.clientHeight;
 var svgFiltersWidth = filtersDiv.clientWidth;
 var typeHistogramWidth = svgFiltersWidth / 2, typeHistogramHeight = svgFiltersHeight / 2, typeHistogramX = 0, typeHistogramY = 0;
 var hourHistogramWidth = svgFiltersWidth / 2, hourHistogramHeight = svgFiltersHeight / 2, hourHistogramX = svgFiltersWidth / 2, hourHistogramY = 0;
+var weekdayHistogramWidth = svgFiltersWidth / 2, weekdayHistogramHeight = svgFiltersHeight / 2, weekdayHistogramX = 0, weekdayHistogramY = svgFiltersHeight / 2;
+var monthHistogramWidth = svgFiltersWidth / 2, monthHistogramHeight = svgFiltersHeight / 2, monthHistogramX = svgFiltersWidth / 2, monthHistogramY = svgFiltersHeight / 2;
 var linechartWidth = linechartDiv.clientWidth, linechartHeight = linechartDiv.clientHeight, linechartX = 0, linechartY = 0;
 var gridSize = 100;
 var margin = { top: 10, right: 20, bottom: 30, left: 40 };
@@ -33038,6 +33126,8 @@ var crimesByTypeDimension;
 var crimesByDateDimension;
 var crimesByYearDimension;
 var crimesByHourDimension;
+var crimesByWeekdayDimension;
+var crimesByMonthDimension;
 var crimesByGridDimension;
 var crimesByNeighbourhoodDimension;
 // Crossfilter Groups
@@ -33045,11 +33135,15 @@ var crimesByTypeGroup;
 var crimesByDateGroup;
 var crimesByYearGroup;
 var crimesByHourGroup;
+var crimesByWeekdayGroup;
+var crimesByMonthGroup;
 var crimesByGridGroup;
 var crimesByNeighbourhoodGroup;
 // AbstractPlot objects
 var typeHistogram;
 var hourHistogram;
+var weekdayHistogram;
+var monthHistogram;
 var linechart;
 var heatmap;
 var choropleth;
@@ -33089,29 +33183,53 @@ function main(err, geoData, crimeData) {
         .append("svg")
         .attr("width", "100%")
         .attr("height", "100%");
+    var heatmapLegendSVG = d3.select("#linearscale")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%");
+    var choroplethLegendSVG = d3.select("#linearscale")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%");
     // Initializing plot objects
     typeHistogram = new histogram_1.Histogram(filtersSVG, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight, margin, "type histogram");
+    typeHistogram.addAxesTitles("Occurrences", "Crime Type");
     hourHistogram = new histogram_1.Histogram(filtersSVG, hourHistogramX, hourHistogramY, hourHistogramWidth, hourHistogramHeight, margin, "hour histogram");
+    hourHistogram.addAxesTitles("Occurrences", "Hour");
     hourHistogram.setColorRange(["#9f6700"]);
+    weekdayHistogram = new histogram_1.Histogram(filtersSVG, weekdayHistogramX, weekdayHistogramY, weekdayHistogramWidth, weekdayHistogramHeight, margin, "weekday histogram");
+    weekdayHistogram.addAxesTitles("Occurrences", "Weekday");
+    weekdayHistogram.setColorRange(["#9f6700"]);
+    monthHistogram = new histogram_1.Histogram(filtersSVG, monthHistogramX, monthHistogramY, monthHistogramWidth, monthHistogramHeight, margin, "month histogram");
+    monthHistogram.addAxesTitles("Occurrences", "Month");
+    monthHistogram.setColorRange(["#9f6700"]);
     linechart = new lineChart_1.LineChart(linechartSVG, linechartX, linechartY, linechartWidth, linechartHeight, margin, "linechart");
-    heatmap = new heatmap_1.HeatMap(gridSize, map);
-    choropleth = new choropleth_1.Choropleth(choroplethG, geoData, path);
-    var heatmapSVG = d3.select("#map").select("svg:nth-child(2)");
+    heatmap = new heatmap_1.HeatMap(gridSize, map, heatmapLegendSVG);
+    choropleth = new choropleth_1.Choropleth(choroplethG, geoData, path, choroplethLegendSVG);
+    var heatmapSVG = d3.select(d3.select(".heatmap-rect").node().parentElement.parentElement);
     var mapPlots = {
         'heatmap': heatmapSVG,
         'choropleth': choroplethG
     };
-    console.log(d3.select("#map").selectAll("svg"));
-    console.log(heatmapSVG);
+    var mapLegends = {
+        'heatmap': heatmapLegendSVG,
+        'choropleth': choroplethLegendSVG
+    };
+    var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    // Initialize crossfilter objects
     crimes = crossfilter(crimeData);
     crimesByTypeDimension = crimes.dimension(function (d) { return d.TYPE; });
     crimesByDateDimension = crimes.dimension(function (d) { return d.DATE; });
     crimesByHourDimension = crimes.dimension(function (d) { return d.HOUR; });
+    crimesByWeekdayDimension = crimes.dimension(function (d) { return d.DATE.getDay(); });
+    crimesByMonthDimension = crimes.dimension(function (d) { return d.MONTH; });
     crimesByGridDimension = heatmap.createGridDimension(crimes);
     crimesByNeighbourhoodDimension = crimes.dimension(function (d) { return d.NEIGHBOURHOOD; });
     crimesByTypeGroup = crimesByTypeDimension.group();
     crimesByDateGroup = crimesByDateDimension.group();
     crimesByHourGroup = crimesByHourDimension.group();
+    crimesByWeekdayGroup = crimesByWeekdayDimension.group();
+    crimesByMonthGroup = crimesByMonthDimension.group();
     crimesByGridGroup = crimesByGridDimension.group();
     crimesByNeighbourhoodGroup = crimesByNeighbourhoodDimension.group();
     // Add dispatches
@@ -33121,6 +33239,12 @@ function main(err, geoData, crimeData) {
     var hourHistogramDispatch = d3.dispatch("selectionChanged");
     hourHistogramDispatch.on("selectionChanged", function (selectedBars) { return updateFilter(selectedBars, crimesByHourDimension); });
     hourHistogram.dispatch = hourHistogramDispatch;
+    var weekdayHistogramDispatch = d3.dispatch("selectionChanged");
+    weekdayHistogramDispatch.on("selectionChanged", function (selectedBars) { return updateFilter(selectedBars, crimesByWeekdayDimension); });
+    weekdayHistogram.dispatch = weekdayHistogramDispatch;
+    var monthHistogramDispatch = d3.dispatch("selectionChanged");
+    monthHistogramDispatch.on("selectionChanged", function (selectedBars) { return updateFilter(selectedBars, crimesByMonthDimension); });
+    monthHistogram.dispatch = monthHistogramDispatch;
     var choroplethDispatch = d3.dispatch("selectionChanged");
     choroplethDispatch.on("selectionChanged", function (selectedBars) { return updateFilter(selectedBars, crimesByNeighbourhoodDimension); });
     choropleth.dispatch = choroplethDispatch;
@@ -33144,11 +33268,14 @@ function main(err, geoData, crimeData) {
         var radios = document.getElementsByName("radioOptions");
         for (var i = 0; i < radios.length; i++) {
             var svg = mapPlots[radios[i].value];
+            var legendSvg = mapLegends[radios[i].value];
             if (radios[i].checked) {
                 svg.attr("display", "block");
+                legendSvg.attr("display", "block");
             }
             else {
                 svg.attr("display", "none");
+                legendSvg.attr("display", "none");
             }
         }
     }
@@ -33180,6 +33307,8 @@ function updateFilterRange(selectionRange, dimension) {
 function update() {
     typeHistogram.update(crimesByTypeGroup.reduceCount().all());
     hourHistogram.update(crimesByHourGroup.reduceCount().all());
+    monthHistogram.update(crimesByMonthGroup.reduceCount().all());
+    weekdayHistogram.update(crimesByWeekdayGroup.reduceCount().all());
     linechart.update(crimesByDateGroup.reduceCount().all());
     heatmap.update(crimesByGridGroup.reduceCount().all());
     choropleth.update(crimesByNeighbourhoodGroup.reduceCount().all());
