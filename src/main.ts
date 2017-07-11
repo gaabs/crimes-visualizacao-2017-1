@@ -11,10 +11,10 @@ import {Histogram} from "./app/histogram";
 import {LineChart} from "./app/lineChart";
 import {HeatMap} from "./app/heatmap";
 import {Choropleth} from "./app/choropleth";
+import * as L from "leaflet";
 import Grouping = CrossFilter.Grouping;
 import Dimension = CrossFilter.Dimension;
 import Group = CrossFilter.Group;
-import * as L from 'leaflet';
 
 const linechartDiv = document.getElementById("linechart");
 const filtersDiv = document.getElementById("filters");
@@ -22,8 +22,14 @@ const filtersDiv = document.getElementById("filters");
 // Measures
 const svgFiltersHeight = filtersDiv.clientHeight;
 const svgFiltersWidth = filtersDiv.clientWidth;
-const typeHistogramWidth = svgFiltersWidth/2, typeHistogramHeight = svgFiltersHeight/2, typeHistogramX = 0, typeHistogramY = 0;
-const hourHistogramWidth = svgFiltersWidth/2, hourHistogramHeight = svgFiltersHeight/2, hourHistogramX = svgFiltersWidth / 2, hourHistogramY = 0;
+const typeHistogramWidth = svgFiltersWidth / 2, typeHistogramHeight = svgFiltersHeight / 2, typeHistogramX = 0,
+    typeHistogramY = 0;
+const hourHistogramWidth = svgFiltersWidth / 2, hourHistogramHeight = svgFiltersHeight / 2,
+    hourHistogramX = svgFiltersWidth / 2, hourHistogramY = 0;
+const weekdayHistogramWidth = svgFiltersWidth / 2, weekdayHistogramHeight = svgFiltersHeight / 2, weekdayHistogramX = 0,
+    weekdayHistogramY = svgFiltersHeight / 2;
+const monthHistogramWidth = svgFiltersWidth / 2, monthHistogramHeight = svgFiltersHeight / 2,
+    monthHistogramX = svgFiltersWidth / 2, monthHistogramY = svgFiltersHeight / 2;
 const linechartWidth = linechartDiv.clientWidth, linechartHeight = linechartDiv.clientHeight, linechartX = 0,
     linechartY = 0;
 const gridSize = 100;
@@ -39,6 +45,8 @@ let crimesByTypeDimension: Dimension<Crime, string>;
 let crimesByDateDimension: Dimension<Crime, Date>;
 let crimesByYearDimension: Dimension<Crime, number>;
 let crimesByHourDimension: Dimension<Crime, number>;
+let crimesByWeekdayDimension: Dimension<Crime, number>;
+let crimesByMonthDimension: Dimension<Crime, number>;
 let crimesByGridDimension: CrossFilter.Dimension<Crime, number[]>;
 let crimesByNeighbourhoodDimension: CrossFilter.Dimension<Crime, string>;
 
@@ -47,12 +55,16 @@ let crimesByTypeGroup: Group<Crime, string, string>;
 let crimesByDateGroup: Group<Crime, Date, Date>;
 let crimesByYearGroup: Group<Crime, number, number>;
 let crimesByHourGroup: Group<Crime, number, number>;
+let crimesByWeekdayGroup: Group<Crime, number, number>;
+let crimesByMonthGroup: Group<Crime, number, number>;
 let crimesByGridGroup: Group<Crime, number[], number[]>;
 let crimesByNeighbourhoodGroup: Group<Crime, string, string>;
 
 // AbstractPlot objects
 let typeHistogram: Histogram;
 let hourHistogram: Histogram;
+let weekdayHistogram: Histogram;
+let monthHistogram: Histogram;
 let linechart: LineChart;
 let heatmap: HeatMap;
 let choropleth: Choropleth;
@@ -76,7 +88,7 @@ function projectPoint(x, y) {
 // Load data and plot
 d3.queue()
     .defer(d3.json, "assets/data/vancouver-neighbourhoods.json")
-    .defer(d3.csv, "assets/data/vancouver_crimes_filtered.csv", d => new Crime(d))
+    .defer(d3.csv, "assets/data/vancouver_crimes_filtered2.csv", d => new Crime(d))
     .await(main);
 
 function main(err, geoData, crimeData: Crime[]) {
@@ -106,8 +118,16 @@ function main(err, geoData, crimeData: Crime[]) {
 
     // Initializing plot objects
     typeHistogram = new Histogram(filtersSVG, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight, margin, "type histogram");
+    typeHistogram.addAxesTitles("Occurrences", "Crime Type");
     hourHistogram = new Histogram(filtersSVG, hourHistogramX, hourHistogramY, hourHistogramWidth, hourHistogramHeight, margin, "hour histogram");
-    hourHistogram.setColorRange(["#9f6700"])
+    hourHistogram.addAxesTitles("Occurrences", "Hour");
+    hourHistogram.setColorRange(["#9f6700"]);
+    weekdayHistogram = new Histogram(filtersSVG, weekdayHistogramX, weekdayHistogramY, weekdayHistogramWidth, weekdayHistogramHeight, margin, "weekday histogram");
+    weekdayHistogram.addAxesTitles("Occurrences", "Weekday");
+    weekdayHistogram.setColorRange(["#9f6700"]);
+    monthHistogram = new Histogram(filtersSVG, monthHistogramX, monthHistogramY, monthHistogramWidth, monthHistogramHeight, margin, "month histogram");
+    monthHistogram.addAxesTitles("Occurrences", "Month");
+    monthHistogram.setColorRange(["#9f6700"]);
     linechart = new LineChart(linechartSVG, linechartX, linechartY, linechartWidth, linechartHeight, margin, "linechart");
     heatmap = new HeatMap(gridSize, map);
     choropleth = new Choropleth(choroplethG, geoData, path);
@@ -117,23 +137,26 @@ function main(err, geoData, crimeData: Crime[]) {
     const mapPlots = {
         'heatmap': heatmapSVG,
         'choropleth': choroplethG
-    }
+    };
 
-    console.log(d3.select("#map").selectAll("svg"));
-    console.log(heatmapSVG);
+    let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+    // Initialize crossfilter objects
     crimes = crossfilter(crimeData);
 
     crimesByTypeDimension = crimes.dimension(d => d.TYPE);
     crimesByDateDimension = crimes.dimension(d => d.DATE);
     crimesByHourDimension = crimes.dimension(d => d.HOUR);
+    crimesByWeekdayDimension = crimes.dimension(d => d.DATE.getDay());
+    crimesByMonthDimension = crimes.dimension(d => d.MONTH);
     crimesByGridDimension = heatmap.createGridDimension(crimes);
     crimesByNeighbourhoodDimension = crimes.dimension(d => d.NEIGHBOURHOOD);
-
 
     crimesByTypeGroup = crimesByTypeDimension.group();
     crimesByDateGroup = crimesByDateDimension.group();
     crimesByHourGroup = crimesByHourDimension.group();
+    crimesByWeekdayGroup = crimesByWeekdayDimension.group();
+    crimesByMonthGroup = crimesByMonthDimension.group();
     crimesByGridGroup = crimesByGridDimension.group();
     crimesByNeighbourhoodGroup = crimesByNeighbourhoodDimension.group();
 
@@ -214,6 +237,8 @@ function updateFilterRange(selectionRange: any[], dimension: Dimension<Crime, an
 function update() {
     typeHistogram.update(crimesByTypeGroup.reduceCount().all());
     hourHistogram.update(crimesByHourGroup.reduceCount().all());
+    monthHistogram.update(crimesByMonthGroup.reduceCount().all());
+    weekdayHistogram.update(crimesByWeekdayGroup.reduceCount().all());
     linechart.update(crimesByDateGroup.reduceCount().all());
     heatmap.update(crimesByGridGroup.reduceCount().all());
     choropleth.update(crimesByNeighbourhoodGroup.reduceCount().all());

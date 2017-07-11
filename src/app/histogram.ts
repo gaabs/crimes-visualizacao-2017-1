@@ -61,7 +61,7 @@ export class Histogram extends AbstractPlot {
         console.log("histogram", data);
 
         // Filter out unlabeled data
-        data = data.filter(d => d.key.length > 0);
+        data = data.filter(d => (typeof d) != 'string' || d.key.length > 0);
 
         // X scale represents the values
         this.xScale.domain([0, d3.max(data, d => d.value) + 100]);
@@ -158,5 +158,17 @@ export class Histogram extends AbstractPlot {
             this.selected[value] = true;
         }
         this.dispatch.call("selectionChanged", {}, this.selected);
+    }
+
+    addAxesTitles(xTitle: string, yTitle: string) {
+        this.canvas.append("text")
+            .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+            .attr("transform", `translate(${-this.margin.left / 4}, ${this.height / 2}) rotate(-90)`)  // text is drawn off the screen top left, move down and out and rotate
+            .text(yTitle);
+
+        this.canvas.append("text")
+            .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+            .attr("transform", `translate(${this.width / 2}, ${this.height + this.margin.bottom})`)  // centre below axis
+            .text(xTitle);
     }
 }
