@@ -116,6 +116,16 @@ function main(err, geoData, crimeData: Crime[]) {
         .attr("width", "100%")
         .attr("height", "100%");
 
+    const heatmapLegendSVG = d3.select("#linearscale")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+
+    const choroplethLegendSVG = d3.select("#linearscale")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+
     // Initializing plot objects
     typeHistogram = new Histogram(filtersSVG, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight, margin, "type histogram");
     typeHistogram.addAxesTitles("Occurrences", "Crime Type");
@@ -129,8 +139,8 @@ function main(err, geoData, crimeData: Crime[]) {
     monthHistogram.addAxesTitles("Occurrences", "Month");
     monthHistogram.setColorRange(["#9f6700"]);
     linechart = new LineChart(linechartSVG, linechartX, linechartY, linechartWidth, linechartHeight, margin, "linechart");
-    heatmap = new HeatMap(gridSize, map);
-    choropleth = new Choropleth(choroplethG, geoData, path);
+    heatmap = new HeatMap(gridSize, map, heatmapLegendSVG);
+    choropleth = new Choropleth(choroplethG, geoData, path, choroplethLegendSVG);
 
     const heatmapSVG = d3.select("#map").select("svg:nth-child(2)");
 
@@ -138,6 +148,12 @@ function main(err, geoData, crimeData: Crime[]) {
         'heatmap': heatmapSVG,
         'choropleth': choroplethG
     };
+
+    const mapLegends = {
+        'heatmap': heatmapLegendSVG,
+        'choropleth': choroplethLegendSVG
+    };
+
 
     let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -200,10 +216,13 @@ function main(err, geoData, crimeData: Crime[]) {
         const radios: any = document.getElementsByName("radioOptions");
         for (let i = 0; i < radios.length; i++) {
             const svg = mapPlots[radios[i].value];
+            // const legendSvg = mapLegends[radios[i].value];
             if (radios[i].checked) {
                 svg.attr("display", "block");
+                // legendSvg.attr("display", "block");
             } else {
                 svg.attr("display", "none");
+                // legendSvg.attr("display", "none");
             }
         }
     }

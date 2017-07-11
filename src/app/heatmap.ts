@@ -12,8 +12,11 @@ export class HeatMap {
     private eachWidth;
     private eachHeight;
     private rectangles;
+    private colorScale;
+    private legendAxis;
+    private legendScale;
 
-    constructor(private gridSize: number, private map) {
+    constructor(private gridSize: number, private map, private legendSvg) {
 
         this.latLng = [[49.19696140064054, -123.23123931884766], [49.31907993638747, -122.9871368408203]];
 
@@ -50,6 +53,46 @@ export class HeatMap {
                 this.rectangles[i][j].addTo(this.map);
             }
         }
+
+        this.colorScale = d3.scaleQuantize<string>().range(colors);
+
+        //Append a defs (for definition) element to your SVG
+        let defs = legendSvg.append("defs");
+
+        //Append a linearGradient element to the defs and give it a unique id
+        let linearGradient = defs.append("linearGradient")
+            .attr("id", "linear-gradient-heatmap");
+
+        linearGradient
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "100%")
+            .attr("y2", "0%");
+
+        //Draw the rectangle and fill with gradient
+        linearGradient.selectAll("stop")
+            .data(this.colorScale.range())
+            .enter().append("stop")
+            .attr("offset", (d, i) => i / (this.colorScale.range().length - 1))
+            .attr("stop-color", d => d);
+
+        legendSvg.append("rect")
+            .attr("x", 0)
+            .attr("width", 200)
+            .attr("height", 20)
+            .style("fill", "url(#linear-gradient-heatmap)")
+            .style("z-index", "1002");
+
+        // Create axis
+        this.legendAxis = legendSvg.append("g")
+            .attr("class", "legendAxis")
+            // .attr("transform", `translate(${this.width / 3}, 40)`);
+            .attr("transform", `translate(0, 40)`)
+            .style("z-index", "1002");
+
+        this.legendScale = d3.scaleLinear()
+        // .range([0, this.width / 2]);
+            .range([0, 200]);
     }
 
     update(heatmapData: CrossFilter.Grouping<number[], number>[]) {
@@ -66,8 +109,7 @@ export class HeatMap {
 
         let maxi = d3.max(filteredData, d => d.value);
 
-        let colorScale = d3.scaleQuantize<string>().range(colors);
-        colorScale.domain([0, maxi]);
+        this.colorScale.domain([0, maxi]);
 
         filteredData.forEach((d) => {
             let i = Math.floor((d.key[1] - this.latLng[0][1]) / this.eachHeight);
@@ -77,10 +119,18 @@ export class HeatMap {
 
         for (let i = 0; i < this.data.length; i++) {
             for (let j = 0; j < this.data[i].length; j++) {
-                this.rectangles[i][j].setStyle({color: colorScale(this.data[i][j].hits)});
+                this.rectangles[i][j].setStyle({color: this.colorScale(this.data[i][j].hits)});
                 this.rectangles[i][j].setStyle({fillOpacity: this.data[i][j].hits === 0 ? 0 : 0.5});
             }
         }
+
+        // Update legend
+        this.legendScale.domain([0, maxi]);
+        this.legendAxis
+            .transition().duration(500)
+            .call(d3.axisTop(this.legendScale.nice())
+                .ticks(3, "s")
+                .tickSizeOuter(0));
     }
 
     createGridDimension(crimes: CrossFilter.CrossFilter<Crime>) {

@@ -11,15 +11,56 @@ export class Choropleth {
     private plot;
     private selected = {};
     private colorScale;
+    private legendAxis;
+    private legendScale;
 
-    constructor(private canvas: d3.Selection<BaseType, {}, HTMLElement, any>,
+    constructor(private canvas,
                 private geoData,
-                private path) {
+                private path,
+                private legendSvg) {
 
         this.tooltip = d3.select("#tooltip-map");
         this.tooltipTitle = this.tooltip.select("#tooltip-title");
         this.tooltipText = this.tooltip.select("#tooltip-text");
         this.colorScale = d3.scaleQuantize<string>().range(colors);
+
+        //Append a defs (for definition) element to your SVG
+        let defs = legendSvg.append("defs");
+
+        //Append a linearGradient element to the defs and give it a unique id
+        let linearGradient = defs.append("linearGradient")
+            .attr("id", "linear-gradient-choropleth");
+
+        linearGradient
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "100%")
+            .attr("y2", "0%");
+
+        //Draw the rectangle and fill with gradient
+        linearGradient.selectAll("stop")
+            .data(this.colorScale.range())
+            .enter().append("stop")
+            .attr("offset", (d, i) => i / (this.colorScale.range().length - 1))
+            .attr("stop-color", d => d);
+
+        legendSvg.append("rect")
+            .attr("x", 0)
+            .attr("width", 200)
+            .attr("height", 20)
+            .style("fill", "url(#linear-gradient-choropleth)")
+            .style("z-index", "1002");
+
+        // Create axis
+        this.legendAxis = legendSvg.append("g")
+            .attr("class", "legendAxis")
+            // .attr("transform", `translate(${this.width / 3}, 40)`);
+            .attr("transform", `translate(0, 40)`)
+            .style("z-index", "1002");
+
+        this.legendScale = d3.scaleLinear()
+            // .range([0, this.width / 2]);
+            .range([0, 200]);
     }
 
     reset() {
@@ -82,6 +123,13 @@ export class Choropleth {
                     .style("opacity", 0);
             });
 
+        // Update legend
+        this.legendScale.domain([0, maxi]);
+        this.legendAxis
+            .transition().duration(500)
+            .call(d3.axisTop(this.legendScale.nice())
+                .ticks(3, "s")
+                .tickSizeOuter(0));
     }
 
     getColor(neighbourhood: any) {

@@ -93,3 +93,16 @@ div.tooltip {
     display: inline-block;
     box-sizing: border-box;
 }
+
+#linearscale {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    z-index: 1001;
+    width: auto;
+    height: 80px;
+    padding: 5px;
+    color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
