@@ -13,6 +13,7 @@ export class Histogram extends AbstractPlot {
     private barsGroup;
     private xScale;
     private yScale;
+    private labelMapping;
 
     constructor(parent: d3.Selection<BaseType, {}, HTMLElement, any>,
                 x: number,
@@ -55,6 +56,10 @@ export class Histogram extends AbstractPlot {
 
     setColorRange(colorRange: string[]) {
         this.colorScale.range(colorRange);
+    }
+
+    setLabelMapping(labelMapping: {}) {
+        this.labelMapping = labelMapping;
     }
 
     update(data: Grouping<any, number>[]) {
@@ -130,7 +135,13 @@ export class Histogram extends AbstractPlot {
             .attr("y", d => this.yScale(d.key) + rectangleHeight / 2)
             .attr("dominant-baseline", "central")
             .style("font", "10px sans-serif")
-            .text(d => d.key);
+            .text(d => {
+                if (this.labelMapping && this.labelMapping.hasOwnProperty(d.key)) {
+                    return this.labelMapping[d.key];
+                } else {
+                    return d.key;
+                }
+            });
 
 
         // Create axis

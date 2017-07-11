@@ -32758,6 +32758,9 @@ var Histogram = (function (_super) {
     Histogram.prototype.setColorRange = function (colorRange) {
         this.colorScale.range(colorRange);
     };
+    Histogram.prototype.setLabelMapping = function (labelMapping) {
+        this.labelMapping = labelMapping;
+    };
     Histogram.prototype.update = function (data) {
         var _this = this;
         console.log("histogram", data);
@@ -32820,7 +32823,14 @@ var Histogram = (function (_super) {
             .attr("y", function (d) { return _this.yScale(d.key) + rectangleHeight / 2; })
             .attr("dominant-baseline", "central")
             .style("font", "10px sans-serif")
-            .text(function (d) { return d.key; });
+            .text(function (d) {
+            if (_this.labelMapping && _this.labelMapping.hasOwnProperty(d.key)) {
+                return _this.labelMapping[d.key];
+            }
+            else {
+                return d.key;
+            }
+        });
         // Create axis
         this.xAxisGroup
             .transition().duration(500)
@@ -33191,6 +33201,20 @@ function main(err, geoData, crimeData) {
         .append("svg")
         .attr("width", "100%")
         .attr("height", "100%");
+    var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var weekdayMapping = {};
+    weekdays.forEach(function (weekday, i) { return weekdayMapping[i] = weekday; });
+    var monthMapping = {};
+    months.forEach(function (month, i) {
+        var value = i + 1;
+        if (value < 10) {
+            monthMapping['0' + value] = month;
+        }
+        else {
+            monthMapping[value] = month;
+        }
+    });
     // Initializing plot objects
     typeHistogram = new histogram_1.Histogram(filtersSVG, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight, margin, "type histogram");
     typeHistogram.addAxesTitles("Occurrences", "Crime Type");
@@ -33200,9 +33224,11 @@ function main(err, geoData, crimeData) {
     weekdayHistogram = new histogram_1.Histogram(filtersSVG, weekdayHistogramX, weekdayHistogramY, weekdayHistogramWidth, weekdayHistogramHeight, margin, "weekday histogram");
     weekdayHistogram.addAxesTitles("Occurrences", "Weekday");
     weekdayHistogram.setColorRange(["#9f6700"]);
+    weekdayHistogram.setLabelMapping(weekdayMapping);
     monthHistogram = new histogram_1.Histogram(filtersSVG, monthHistogramX, monthHistogramY, monthHistogramWidth, monthHistogramHeight, margin, "month histogram");
     monthHistogram.addAxesTitles("Occurrences", "Month");
     monthHistogram.setColorRange(["#9f6700"]);
+    monthHistogram.setLabelMapping(monthMapping);
     linechart = new lineChart_1.LineChart(linechartSVG, linechartX, linechartY, linechartWidth, linechartHeight, margin, "linechart");
     heatmap = new heatmap_1.HeatMap(gridSize, map, heatmapLegendSVG);
     choropleth = new choropleth_1.Choropleth(choroplethG, geoData, path, choroplethLegendSVG);
@@ -33215,7 +33241,6 @@ function main(err, geoData, crimeData) {
         'heatmap': heatmapLegendSVG,
         'choropleth': choroplethLegendSVG
     };
-    var weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     // Initialize crossfilter objects
     crimes = crossfilter(crimeData);
     crimesByTypeDimension = crimes.dimension(function (d) { return d.TYPE; });
@@ -39520,32 +39545,50 @@ var names = ["Van_der_Grinten_I", "VanDerGrinten", "vandg"];
 module.exports = {
 	"_args": [
 		[
-			"proj4@2.4.3",
-			"C:\\Users\\Pedro Sereno\\WebstormProjects\\crimes-visualizacao-2017-1"
+			{
+				"raw": "proj4@^2.4.3",
+				"scope": null,
+				"escapedName": "proj4",
+				"name": "proj4",
+				"rawSpec": "^2.4.3",
+				"spec": ">=2.4.3 <3.0.0",
+				"type": "range"
+			},
+			"D:\\Documents\\javascript\\crimes-visualizacao-2017-1"
 		]
 	],
-	"_from": "proj4@2.4.3",
+	"_from": "proj4@>=2.4.3 <3.0.0",
 	"_id": "proj4@2.4.3",
-	"_inBundle": false,
-	"_integrity": "sha1-87t+Yxv/wEfDaho8wUUzoDu+mWk=",
+	"_inCache": true,
 	"_location": "/proj4",
+	"_nodeVersion": "6.9.2",
+	"_npmOperationalInternal": {
+		"host": "packages-18-east.internal.npmjs.com",
+		"tmp": "tmp/proj4-2.4.3.tgz_1488570790416_0.3068596587982029"
+	},
+	"_npmUser": {
+		"name": "cwmma",
+		"email": "calvin.metcalf@gmail.com"
+	},
+	"_npmVersion": "4.0.5",
 	"_phantomChildren": {},
 	"_requested": {
-		"type": "version",
-		"registry": true,
-		"raw": "proj4@2.4.3",
-		"name": "proj4",
+		"raw": "proj4@^2.4.3",
+		"scope": null,
 		"escapedName": "proj4",
-		"rawSpec": "2.4.3",
-		"saveSpec": null,
-		"fetchSpec": "2.4.3"
+		"name": "proj4",
+		"rawSpec": "^2.4.3",
+		"spec": ">=2.4.3 <3.0.0",
+		"type": "range"
 	},
 	"_requiredBy": [
 		"/"
 	],
 	"_resolved": "https://registry.npmjs.org/proj4/-/proj4-2.4.3.tgz",
-	"_spec": "2.4.3",
-	"_where": "C:\\Users\\Pedro Sereno\\WebstormProjects\\crimes-visualizacao-2017-1",
+	"_shasum": "f3bb7e631bffc047c36a1a3cc14533a03bbe9969",
+	"_shrinkwrap": null,
+	"_spec": "proj4@^2.4.3",
+	"_where": "D:\\Documents\\javascript\\crimes-visualizacao-2017-1",
 	"author": "",
 	"bugs": {
 		"url": "https://github.com/proj4js/proj4js/issues"
@@ -39603,11 +39646,28 @@ module.exports = {
 		"test": "test",
 		"doc": "docs"
 	},
+	"dist": {
+		"shasum": "f3bb7e631bffc047c36a1a3cc14533a03bbe9969",
+		"tarball": "https://registry.npmjs.org/proj4/-/proj4-2.4.3.tgz"
+	},
+	"gitHead": "e975a5462ad7abb23e33ea75281eb749e77e1510",
 	"homepage": "https://github.com/proj4js/proj4js#readme",
 	"license": "MIT",
 	"main": "dist/proj4-src.js",
+	"maintainers": [
+		{
+			"name": "cwmma",
+			"email": "calvin.metcalf@gmail.com"
+		},
+		{
+			"name": "ahocevar",
+			"email": "andreas.hocevar@gmail.com"
+		}
+	],
 	"module": "lib/index.js",
 	"name": "proj4",
+	"optionalDependencies": {},
+	"readme": "ERROR: No README data found!",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/proj4js/proj4js.git"

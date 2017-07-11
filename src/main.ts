@@ -126,6 +126,21 @@ function main(err, geoData, crimeData: Crime[]) {
         .attr("width", "100%")
         .attr("height", "100%");
 
+    let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    let weekdayMapping = {};
+    weekdays.forEach((weekday, i) => weekdayMapping[i] = weekday);
+    let monthMapping = {};
+    months.forEach((month, i) => {
+        let value = i + 1;
+        if (value < 10) {
+            monthMapping['0' + value] = month
+        } else {
+            monthMapping[value] = month
+        }
+    });
+
     // Initializing plot objects
     typeHistogram = new Histogram(filtersSVG, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight, margin, "type histogram");
     typeHistogram.addAxesTitles("Occurrences", "Crime Type");
@@ -135,9 +150,11 @@ function main(err, geoData, crimeData: Crime[]) {
     weekdayHistogram = new Histogram(filtersSVG, weekdayHistogramX, weekdayHistogramY, weekdayHistogramWidth, weekdayHistogramHeight, margin, "weekday histogram");
     weekdayHistogram.addAxesTitles("Occurrences", "Weekday");
     weekdayHistogram.setColorRange(["#9f6700"]);
+    weekdayHistogram.setLabelMapping(weekdayMapping);
     monthHistogram = new Histogram(filtersSVG, monthHistogramX, monthHistogramY, monthHistogramWidth, monthHistogramHeight, margin, "month histogram");
     monthHistogram.addAxesTitles("Occurrences", "Month");
     monthHistogram.setColorRange(["#9f6700"]);
+    monthHistogram.setLabelMapping(monthMapping);
     linechart = new LineChart(linechartSVG, linechartX, linechartY, linechartWidth, linechartHeight, margin, "linechart");
     heatmap = new HeatMap(gridSize, map, heatmapLegendSVG);
     choropleth = new Choropleth(choroplethG, geoData, path, choroplethLegendSVG);
@@ -153,9 +170,6 @@ function main(err, geoData, crimeData: Crime[]) {
         'heatmap': heatmapLegendSVG,
         'choropleth': choroplethLegendSVG
     };
-
-
-    let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     // Initialize crossfilter objects
     crimes = crossfilter(crimeData);
