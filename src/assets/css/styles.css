@@ -97,9 +97,9 @@ div.tooltip {
 #linearscale {
     position: absolute;
     right: 10px;
-    top: 50%;
+    bottom: 10px;
     z-index: 1001;
-    width: auto;
+    width: 200px;
     height: 80px;
     padding: 5px;
     color: white;

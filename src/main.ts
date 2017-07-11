@@ -88,7 +88,7 @@ function projectPoint(x, y) {
 // Load data and plot
 d3.queue()
     .defer(d3.json, "assets/data/vancouver-neighbourhoods.json")
-    .defer(d3.csv, "assets/data/vancouver_crimes_filtered2.csv", d => new Crime(d))
+    .defer(d3.csv, "assets/data/vancouver_crimes_filtered.csv", d => new Crime(d))
     .await(main);
 
 function main(err, geoData, crimeData: Crime[]) {
@@ -119,12 +119,12 @@ function main(err, geoData, crimeData: Crime[]) {
     const heatmapLegendSVG = d3.select("#linearscale")
         .append("svg")
         .attr("width", "100%")
-        .attr("height", "100%")
+        .attr("height", "100%");
 
     const choroplethLegendSVG = d3.select("#linearscale")
         .append("svg")
         .attr("width", "100%")
-        .attr("height", "100%")
+        .attr("height", "100%");
 
     // Initializing plot objects
     typeHistogram = new Histogram(filtersSVG, typeHistogramX, typeHistogramY, typeHistogramWidth, typeHistogramHeight, margin, "type histogram");
@@ -142,7 +142,7 @@ function main(err, geoData, crimeData: Crime[]) {
     heatmap = new HeatMap(gridSize, map, heatmapLegendSVG);
     choropleth = new Choropleth(choroplethG, geoData, path, choroplethLegendSVG);
 
-    const heatmapSVG = d3.select("#map").select("svg:nth-child(2)");
+    const heatmapSVG = d3.select((<any>d3.select(".heatmap-rect").node()).parentElement.parentElement);
 
     const mapPlots = {
         'heatmap': heatmapSVG,
@@ -216,13 +216,13 @@ function main(err, geoData, crimeData: Crime[]) {
         const radios: any = document.getElementsByName("radioOptions");
         for (let i = 0; i < radios.length; i++) {
             const svg = mapPlots[radios[i].value];
-            // const legendSvg = mapLegends[radios[i].value];
+            const legendSvg = mapLegends[radios[i].value];
             if (radios[i].checked) {
                 svg.attr("display", "block");
-                // legendSvg.attr("display", "block");
+                legendSvg.attr("display", "block");
             } else {
                 svg.attr("display", "none");
-                // legendSvg.attr("display", "none");
+                legendSvg.attr("display", "none");
             }
         }
     }
